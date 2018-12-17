@@ -1,0 +1,13 @@
+<% include ./partials/header %>
+<head>
+    <link rel="stylesheet" href="/stylesheets/class.css">
+</head>
+  <div class="container">
+    <h1> Class List <i href="/classes/new">fa fa-plus</i></h1>
+    <ul>
+    <% classes.forEach(function(class){ %>
+        <li><span><i class="far fa-trash-alt"></i></span>class.className</li>
+    <% }) %>
+    </ul>
+  </div>
+<% include ./partials/footer %>
