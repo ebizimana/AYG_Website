@@ -1,1 +1,27 @@
-<h1>He there ypu got this far You should probably save now</h1>
+<% include ../partials/header %>
+
+<form action="/classes/<%= class_id %>/assignment/<%= assignFound._id %>?_method=PUT" method="post">
+  <div class="ui raised very padded text container">
+    <h1 class="ui huge header" id="header">Edit Assignment</h1>
+    <div class="ui segment">
+      <div class="ui  big form">
+        <div class="field">
+          <label>Assignment Name</label>
+          <input value="<%= assignFound.name %>" type="text" name=assignUpdate[name]">
+        </div>
+        <div class="field">
+          <label>Grade</label>
+          <input value="<%= assignFound.grade %>" name="assignUpdate[grade]" type="Number">
+        </div>
+        <div class="field">
+          <label>Total</label>
+          <input value="<%= assignFound.total %>" name="assignUpdate[total]" type="Number">
+        </div>
+        <button type="submit" class="ui inverted blue button">Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<% include ../partials/footer %>

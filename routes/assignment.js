@@ -36,11 +36,11 @@ router.post("/",function(req,res){
 
 //Edit
 router.get("/:assig_id/edit", function(req, res) {
-  Assignment.findById(req.params.id, function(err, assignFound) {
+  Assignment.findById(req.params.assig_id, function(err, assignFound) {
     if (err) {
-      res.redirect("/assignments")
+      res.redirect("back")
     } else {
-      res.render("assignment/edit", {assignment: assignFound})
+      res.render("assignment/edit", {class_id:req.params.id, assignFound: assignFound})
     }
   })
 })
@@ -59,18 +59,18 @@ router.get("/assignments/:id", function(req, res) {
 })
 
 // Update
-router.put("/assignments/:id", function(req, res) {
-  Assignemnt.findByIdAndUpdate(req.params.id, req.body.assignment, function(err, updateAssign) {
+router.put("/:assig_id", function(req, res) {
+  Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function(err, updateAssign) {
     if (err) {
       res.redirect("/assignments")
     } else {
-      res.redirect("/assignments/" + req.params.id)
+      res.redirect("/classes/" + req.params.id)
     }
   })
 })
 
 // Delete
-router.delete("/assignments/:id", function(req, res) {
+router.delete("/:id", function(req, res) {
   Assignemnt.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
       res.redirect("/assignments")
