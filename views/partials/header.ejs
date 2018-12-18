@@ -18,44 +18,32 @@
 
 <body>
   <!-- NavBar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="/">AYG </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/classes">Classes <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-        <ul class="navbar-nav navbar-right">
-          <% if(!currentUser){ %>
-          <li class="nav-item">
-            <a class="nav-link" href="/register">
-              <i class="fas fa-user-plus"></i> Signup
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">
-              <i class="fas fa-user"></i> Login
-            </a>
-          </li>
-          <% } else{ %>
-          <li class="nav-item">
-            <a class="nav-link" href="/">SignedIn As
-              <%= currentUser.username %></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-          </li>
-          <% } %>
-        </ul>
-      </div>
+  <div class="ui secondary pointing menu">
+    <a class="item huge header" href="/">
+      AYG
+    </a>
+    <a class="item active" href="/classes">
+      Classes
+    </a>
+    <div class="right menu">
+      <% if(!currentUser){ %>
+        <a class="ui item" href="/register">
+          <i class="fas fa-user-plus"> Signup</i>
+        </a>
+        <a class="ui item" href="/login">
+          <i class="fas fa-user"> Login</i>
+        </a>
+      <% } else{ %>
+        <a class="ui item" href="/">
+          SignedIn As
+            <%= currentUser.username %>
+        </a>
+        <a class="ui item" href="/logout">
+          <i class="fas fa-user"> Logout</i>
+        </a>
+        <% } %>
     </div>
-  </nav>
+  </div>
 
   <!-- Flash messages in all pages -->
   <div class="container">
