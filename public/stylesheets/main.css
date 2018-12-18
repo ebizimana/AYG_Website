@@ -1,14 +1,17 @@
 
+/* Making sure that the the class list is bigger enough */
 #container {
   width: 500px;
   margin: 10px auto;
 }
+
+/* Making sure the headers on the form are in the center from the top  */
 #header {
   margin-top: 90px;
   text-align:center;
 }
 
-.form-control{
+/* .form-control{
   width: 500px;
   text-align: center;
 }
@@ -16,13 +19,13 @@
 .show-page {
   text-align: center;
   margin-top: 50px;
-}
+} */
 
-.ui.button{
+/* Taking care of the popups for all the plus buttons */
+.ui.icon.button{
   float: right;
   background-color: inherit;
 }
-
 i.plus{
   font-size: 2rem;
   color:#4183c4;
@@ -30,7 +33,6 @@ i.plus{
 #change-color{
   color:white;
 }
-
 .ui.button:hover {
   background-color: inherit;
 }
