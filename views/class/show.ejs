@@ -4,7 +4,9 @@
   <h1> Class Name:
     <%= classFound.className %>
     <a href="/classes/<%= classFound._id %>/assignment/new">
-      <i id="plus" class="plus icon"></i>
+      <div class="ui icon button" data-tooltip="Add an Assignment to the class">
+        <i class="plus icon"></i>
+      </div>
     </a>
   </h1>
 

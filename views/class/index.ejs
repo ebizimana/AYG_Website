@@ -2,7 +2,13 @@
 
 <link rel="stylesheet" href="/stylesheets/class.css">
 <div id="container">
-  <h1> Class List<a href="/classes/new"><i class="fas fa-plus"></i></a></h1>
+  <h1> Class List
+    <a href="/classes/new">
+      <div class="ui icon button" data-tooltip="Add Class">
+        <i class="plus icon" id="change-color"></i>
+      </div>
+    </a>
+  </h1>
   <ul>
     <% classes.forEach(function(oneClass){ %>
       <li class="className">

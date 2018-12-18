@@ -18,6 +18,19 @@
   margin-top: 50px;
 }
 
-.plus {
+.ui.button{
   float: right;
+  background-color: inherit;
+}
+
+i.plus{
+  font-size: 2rem;
+  color:#4183c4;
+}
+#change-color{
+  color:white;
+}
+
+.ui.button:hover {
+  background-color: inherit;
 }
