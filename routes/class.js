@@ -13,6 +13,11 @@ router.get("/",function(req,res){
     }
   })
 })
+
+// create a new class
+router.get("/new",function(req,res){
+  res.render("class/new")
+})
 // show an individual class
 router.get("/:id",function(req,res){
   Class.findbyId(req.params.id,function(err,classFound){
@@ -24,13 +29,10 @@ router.get("/:id",function(req,res){
     }
   })
 })
-// create a new class
-router.get("/new",function(req,res){
-  res.render("class/new")
-})
+
 //save the class in the database
-router.post("/:id",function(req,res){
-  Class.findbyIdAndUpdate(req.params.id, req.body.class, function(err,classUpdate){
+router.post("/",function(req,res){
+  Class.create(req.body.class, function(err,classUpdate){
     if(err){
       console.log(err);
       req.flash("error",err.message)

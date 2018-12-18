@@ -1,13 +1,16 @@
-<% include ./partials/header %>
-<head>
-    <link rel="stylesheet" href="/stylesheets/class.css">
-</head>
-  <div class="container">
-    <h1> Class List <i href="/classes/new">fa fa-plus</i></h1>
-    <ul>
-    <% classes.forEach(function(class){ %>
-        <li><span><i class="far fa-trash-alt"></i></span>class.className</li>
+<% include ../partials/header %>
+
+<link rel="stylesheet" href="/stylesheets/class.css">
+<div id="container">
+  <h1> Class List<a href="/classes/new"><i class="fas fa-plus"></i></a></h1>
+  <ul>
+    <% classes.forEach(function(oneClass){ %>
+      <li class="className">
+        <span><i class="fas fa-trash-alt"></i></span>
+        <a href="#"> <%= oneClass.className %></a>
+      </li>
     <% }) %>
-    </ul>
-  </div>
-<% include ./partials/footer %>
+  </ul>
+</div>
+
+<% include ../partials/footer %>

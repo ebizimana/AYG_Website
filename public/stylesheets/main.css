@@ -1,0 +1,13 @@
+
+#container {
+  width: 500px;
+  margin: 10px auto;
+}
+#header {
+  margin-top: 90px;
+  text-align:center;
+}
+.form-control{
+  width: 500px;
+  text-align: center;
+}
