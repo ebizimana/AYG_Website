@@ -7,7 +7,17 @@
   margin-top: 90px;
   text-align:center;
 }
+
 .form-control{
   width: 500px;
   text-align: center;
+}
+
+.show-page {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.plus {
+  float: right;
 }

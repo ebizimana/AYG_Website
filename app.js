@@ -10,8 +10,6 @@ var express                 = require("express"),
     passportLocalMongoose   = require("passport-local-mongoose"),
     app                     = express();
 
-
-
 //MODEL SETUP
 var Assignment  = require("./models/assignment"),
     Class       = require("./models/class"),
@@ -31,7 +29,7 @@ app.use(methodOverride("_method"))
 app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({extended:true}))
 mongoose.connect(url,{useNewUrlParser:true})
-SeedDB();
+//SeedDB();
 
 //PASSPORT SETUP
 app.use(expressSession({
@@ -54,7 +52,7 @@ app.use(function(req, res, next){
 })
 app.use(indexRouter)
 app.use("/classes", classRouter),
-// app.use("/classes/:id/assignments", assignmentRouter)
+app.use("/classes/:id/assignment", assignmentRouter)
 
 app.listen(3000,function(req,res){
   console.log("Server Running....");

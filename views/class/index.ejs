@@ -7,7 +7,7 @@
     <% classes.forEach(function(oneClass){ %>
       <li class="className">
         <span><i class="fas fa-trash-alt"></i></span>
-        <a href="#"> <%= oneClass.className %></a>
+        <a href="/classes/<%= oneClass._id %>"> <%= oneClass.className %></a>
       </li>
     <% }) %>
   </ul>

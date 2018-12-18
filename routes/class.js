@@ -4,12 +4,12 @@ var express = require("express")
 
 //classes page
 router.get("/",function(req,res){
-  Class.find({},function(err,classFound){
+  Class.find({},function(err,classesFound){
     if(err){
       console.log(err);
       req.flash("error",err.message)
     }else {
-      res.render("class/index",{classes:classFound})
+      res.render("class/index",{classes:classesFound})
     }
   })
 })
@@ -18,14 +18,15 @@ router.get("/",function(req,res){
 router.get("/new",function(req,res){
   res.render("class/new")
 })
+
 // show an individual class
 router.get("/:id",function(req,res){
-  Class.findbyId(req.params.id,function(err,classFound){
+  Class.findById(req.params.id).populate("assignments").exec(function(err,classFound){
     if(err){
       console.log(err);
       req.flash("error",err.message)
     }else{
-      res.render("class/show",{class:classFound})
+      res.render("class/show",{classFound:classFound})
     }
   })
 })
@@ -44,7 +45,7 @@ router.post("/",function(req,res){
 })
 //delete a class
 router.delete("/:id",function(req,res){
-  Class.findbyIdAndDelete(req.params.id,function(err){
+  Class.findByIdAndDelete(req.params.id,function(err){
     if(err){
       console.log(err);
       req.flash("error",err.message)
@@ -54,5 +55,7 @@ router.delete("/:id",function(req,res){
     }
   })
 })
+//edit router
+// update router
 
 module.exports = router

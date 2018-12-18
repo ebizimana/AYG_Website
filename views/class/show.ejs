@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+
+<div class="ui main show-page container">
+  <h1> Class Name:
+    <%= classFound.className %>
+    <a href="/classes/<%= classFound._id %>/assignment/new">
+      <i id="plus" class="plus icon"></i>
+    </a>
+  </h1>
+
+  <table class="ui celled table">
+    <thead>
+      <th style="width:30px;"></th>
+      <th>Name</th>
+      <th>Grade</th>
+      <th>Total</th>
+    </thead>
+      <% classFound.assignments.forEach(function(oneClass){ %>
+        <tr>
+          <td><a href="/classes/<%= classFound._id%>/assignment/<%= oneClass._id%>/edit"><i class="edit icon"></i></a></td>
+          <td><%= oneClass.name %></td>
+          <td><%= oneClass.grade %></td>
+          <td><%= oneClass.total %></td>
+        </tr>
+      <% }) %>
+
+  </table>
+
+  <% include ../partials/footer %>
