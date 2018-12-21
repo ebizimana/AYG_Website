@@ -27,3 +27,13 @@ i.plus{
 .ui.button:hover {
   background-color: inherit;
 }
+
+/* for the result index page  */
+.ui.form {
+  font-size: 1.4rem;
+}
+#grade{
+  margin-top: 10px;
+  display: block;
+  width: 40px;
+}

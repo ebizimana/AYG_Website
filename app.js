@@ -21,6 +21,7 @@ var Assignment  = require("./models/assignment"),
 var assignmentRouter  = require("./routes/assignment"),
     classRouter       = require("./routes/class"),
     indexRouter       = require("./routes/index");
+    resultRouter      = require("./routes/result")
 
 //APP SETUP
 app.use(flash())
@@ -52,7 +53,8 @@ app.use(function(req, res, next){
 })
 app.use(indexRouter)
 app.use("/classes", classRouter),
-app.use("/classes/:id/assignment", assignmentRouter)
+app.use("/classes/:id/assignment", assignmentRouter),
+app.use(resultRouter);
 
 app.listen(3000,function(req,res){
   console.log("Server Running....");
