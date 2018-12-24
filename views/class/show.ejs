@@ -1,5 +1,23 @@
 <% include ../partials/header %>
 
+<div class="ui raised very padded text container segment">
+  <h2 class="ui header">Grade Picker</h2>
+  <hr>
+  <div class="ui form">
+    <div class="field">
+      <label>Pick A Grade: </label>
+      <select class="ui selection dropdown" name="grade" id="grade-selector">
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option>
+        <option value="d">D</option>
+        <option value="f">F</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-lg btn-primary">Run</button>
+  </div>
+</div>
+
 <div class="ui main show-page container">
   <h1 id="header"> Class Name:
     <%= classFound.className %>
@@ -17,15 +35,22 @@
       <th>Grade</th>
       <th>Total</th>
     </thead>
-      <% classFound.assignments.forEach(function(oneClass){ %>
-        <tr>
-          <td><a href="/classes/<%= classFound._id%>/assignment/<%= oneClass._id%>/edit"><i class="edit icon"></i></a></td>
-          <td><%= oneClass.name %></td>
-          <td><%= oneClass.grade %></td>
-          <td><%= oneClass.total %></td>
-        </tr>
-      <% }) %>
-
+    <% classFound.assignments.forEach(function(oneClass){ %>
+    <tr>
+      <td><a href="/classes/<%= classFound._id%>/assignment/<%= oneClass._id%>/edit"><i class="edit icon"></i></a></td>
+      <td>
+        <%= oneClass.name %>
+      </td>
+      <td>
+        <%= oneClass.grade %>
+      </td>
+      <td>
+        <%= oneClass.total %>
+      </td>
+    </tr>
+    <% }) %>
   </table>
+</div>
 
-  <% include ../partials/footer %>
+<script type="text/javascript" src="/js/result_index.js"></script>
+<% include ../partials/footer %>
