@@ -1,5 +1,16 @@
 <% include ../partials/header %>
 
+<% numberOfAssign = 0 %>
+<% gradeArr       = [] %>
+<% totalArr       = [] %>
+<% idArr          = [] %>
+<% classFound.assignments.forEach(function(oneClass){ %>
+    <% numberOfAssign += 1 %>
+    <% gradeArr.push(oneClass.grade) %>
+    <% totalArr.push(oneClass.total) %>
+    <% idArr.push(oneClass._id) %>
+<% }) %>
+
 <div class="ui raised very padded text container segment">
   <h2 class="ui header">Grade Picker</h2>
   <hr>
@@ -14,7 +25,12 @@
         <option value="f">F</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-lg btn-primary">Run</button>
+
+    <button
+      class="ui inverted blue button"
+      onclick="runClass('<%=numberOfAssign%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>')">
+      Submit
+    </button>
   </div>
 </div>
 
@@ -34,6 +50,7 @@
       <th>Name</th>
       <th>Grade</th>
       <th>Total</th>
+      <th> Estimate </th>
     </thead>
     <% classFound.assignments.forEach(function(oneClass){ %>
     <tr>
@@ -47,10 +64,11 @@
       <td>
         <%= oneClass.total %>
       </td>
+      <td id="<%= oneClass._id %>"> </td>
     </tr>
     <% }) %>
   </table>
 </div>
 
-<script type="text/javascript" src="/js/result_index.js"></script>
+<script type="text/javascript" src="/js/result.js"></script>
 <% include ../partials/footer %>
