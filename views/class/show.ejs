@@ -26,11 +26,12 @@
       </select>
     </div>
 
-    <button
+    <button type="submit"
       class="ui inverted blue button"
       onclick="runClass('<%=numberOfAssign%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>')">
       Submit
     </button>
+
   </div>
 </div>
 
@@ -64,10 +65,22 @@
       <td>
         <%= oneClass.total %>
       </td>
-      <td id="<%= oneClass._id %>"> </td>
+      <td id="<%= oneClass._id %>"></td>
     </tr>
     <% }) %>
   </table>
+</div>
+
+<div class="ui raised very padded text container segment">
+  <h2 class="ui header">Stats</h2>
+  <hr>
+  <h1 class="ui header">You have:
+    <span id="maxGrade"></span> /
+    <span id="maxTotal"></span>
+  </h1>
+  <h3>Points left before you lose your grade :
+    <span id="pointsLeft"></span>
+  </h3>
 </div>
 
 <script type="text/javascript" src="/js/result.js"></script>
