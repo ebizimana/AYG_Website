@@ -1,21 +1,21 @@
 <% include ../partials/header %>
 
-<form action="/classes" method="post">
+<form action="/classes/<%= editClass._id %>?_method=PUT" method="post">
   <div class="ui raised very padded text container">
-    <h1 class="ui huge header" id="header">Create a New Class</h1>
+    <h1 class="ui huge header" id="header">Edit <%= editClass.className %></h1>
     <div class="ui segment">
       <div class="ui  big form">
         <div class="field">
           <label>Class Name</label>
-          <input placeholder="Class Name" type="text" name="class[className]">
+          <input value="<%= editClass.className %>" type="text" name="updateClass[className]">
         </div>
         <div class="field">
           <label>Course Name</label>
-          <input placeholder="Course Name" name="class[courseName]" type="text">
+          <input value="<%= editClass.courseName %>" name="updateClass[courseName]" type="text">
         </div>
         <div class="field">
           <label>Professor Name</label>
-          <input placeholder="Professor Name" name="class[professor]" type="text">
+          <input value="<%= editClass.professor %>" name="updateClass[professor]" type="text">
         </div>
         <button class="ui inverted blue button">Submit</button>
       </div>

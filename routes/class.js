@@ -56,6 +56,25 @@ router.delete("/:id",function(req,res){
   })
 })
 //edit router
+router.get("/:id/edit",function(req,res){
+  Class.findById(req.params.id,function(err,editClass){
+    if(err){
+      console.log(err);
+    } else{
+      res.render("class/edit",{editClass:editClass})
+    }
+  })
+})
 // update router
+router.put("/:id",function(req,res){
+  Class.findByIdAndUpdate(req.params.id, req.body.updateClass, function(err,update){
+    if(err){
+      console.log(err);
+    } else {
+      req.flash("success","You updated a class")
+      res.redirect("/classes/" + req.params.id)
+    }
+  })
+})
 
 module.exports = router
