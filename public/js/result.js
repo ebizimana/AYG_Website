@@ -23,7 +23,10 @@ function runClass(num, grade, total, idName) {
   setAssignNumber(num);
   pointsLeftNumber = pointsLeft(gradeLetter, grade, total);
   if (pointsLeftNumber < 0 ){
-    console.log("I am sorry. You lost too many points to achieve a(n)");
+    $('#message')
+      .addClass('alert alert-danger')
+      .html('I am sorry. You lost too many points to achieve a(n) '+ gradeLetter)
+
   } else {
     for (var i = 0; i < assignNumber; i++) {
       result = $('#' + idArr[i]);
