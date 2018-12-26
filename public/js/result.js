@@ -23,9 +23,15 @@ function runClass(num, grade, total, idName) {
   setAssignNumber(num);
   pointsLeftNumber = pointsLeft(gradeLetter, grade, total);
   if (pointsLeftNumber < 0 ){
-    $('#message')
+    $(document).ready (function(){
+      $("#message").hide()
       .addClass('alert alert-danger')
       .html('I am sorry. You lost too many points to achieve a(n) '+ gradeLetter)
+      .fadeTo(2000, 500)
+      .slideUp(700,function(){
+        $('#message').slideUp(700)
+      })
+    });
 
   } else {
     for (var i = 0; i < assignNumber; i++) {
