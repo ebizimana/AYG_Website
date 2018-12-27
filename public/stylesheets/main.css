@@ -13,7 +13,7 @@
 
 
 /* Taking care of the popups for all the plus buttons */
-.ui.icon.button{
+/* .ui.icon.button{
   float: right;
   background-color: inherit;
 }
@@ -36,4 +36,13 @@ i.plus{
   margin-top: 10px;
   display: block;
   width: 40px;
+}
+
+/* Testing the modal styles  */
+#putRight{
+  float: right;
+}
+.tr-color-selected{
+  background-color: hsla(196, 77%, 55%, 0.3) !important;
+  transition: all .2s ease-in;
 }

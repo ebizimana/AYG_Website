@@ -1,27 +1,40 @@
-<% include ../partials/header %>
 
-<form action="/classes/<%= classFound._id %>/assignment" method="post">
-  <div class="ui raised very padded text container">
-    <h1 class="ui huge header" id="header">Create a New Assignment for <%= classFound.className %></h1>
-    <div class="ui segment">
-      <div class="ui  big form">
-        <div class="field">
-          <label>Assignment Name</label>
-          <input placeholder="Assignment Name" type="text" name="assignment[name]">
-        </div>
-        <div class="field">
-          <label>Grade</label>
-          <input placeholder="Grade" name="assignment[grade]" type="Number">
-        </div>
-        <div class="field">
-          <label>Total</label>
-          <input placeholder="Total" name="assignment[total]" type="Number">
-        </div>
-        <button type="submit" class="ui inverted blue button">Submit
-        </button>
+  <form  id="addAssignmentForm" action="/classes/<%= classFound._id %>/assignment" method="post">
+    <div class="modal-header text-center">
+      <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new Assignment</h4>
+      <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body mx-3">
+      <div class="md-form mb-5">
+        <input name="assignment[name]" type="text" id="inputName" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="inputName">Assignment Name</label>
+      </div>
+
+      <div class="md-form mb-5">
+        <input  name="assignment[grade]" type="text" id="inputPosition" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="inputPosition">Grade</label>
+      </div>
+
+      <div class="md-form mb-5">
+        <input  name="assignment[total]" type="text" id="inputOfficeInput" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="inputOfficeInput">Total</label>
       </div>
     </div>
-  </div>
-</form>
 
-<% include ../partials/footer %>
+    <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+      <button onclick="form_submit()"
+              type="submit"
+              class="btn btn-outline-primary btn-block buttonAdd"
+              data-dismiss="modal">Add Assignment
+        <i class="fas fa-paper-plane-o ml-1"></i>
+      </button>
+    </div>
+  </form>
+
+<script type="text/javascript">
+  function form_submit(){
+    $('#addAssignmentForm').submit()
+  }
+</script>

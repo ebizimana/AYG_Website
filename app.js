@@ -13,7 +13,6 @@ var express                 = require("express"),
 //MODEL SETUP
 var Assignment  = require("./models/assignment"),
     User        = require("./models/user"),
-    SeedDB      = require("./seed")
     url         = "mongodb://localhost/ayg";
 
 // ROUTER SETUP
@@ -28,7 +27,6 @@ app.use(methodOverride("_method"))
 app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({extended:true}))
 mongoose.connect(url,{useNewUrlParser:true})
-//SeedDB();
 
 //PASSPORT SETUP
 app.use(expressSession({

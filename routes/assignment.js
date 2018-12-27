@@ -16,7 +16,7 @@ router.get("/new", function(req, res) {
 
 // Create
 router.post("/",function(req,res){
-  Class.findById(req.params.id,function(err,classFound){
+  Class.findById(req.params.id, function(err,classFound){
     if(err){
       console.log(err);
       res.redirect("/classes")

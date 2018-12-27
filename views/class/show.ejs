@@ -1,81 +1,133 @@
 <% include ../partials/header %>
 
-<% numberOfAssign = 0 %>
-<% gradeArr       = [] %>
-<% totalArr       = [] %>
-<% idArr          = [] %>
-<% classFound.assignments.forEach(function(oneClass){ %>
-    <% numberOfAssign += 1 %>
-    <% gradeArr.push(oneClass.grade) %>
-    <% totalArr.push(oneClass.total) %>
-    <% idArr.push(oneClass._id) %>
-<% }) %>
-
-<div id="message"></div>
-<div class="ui raised very padded text container segment">
-  <h2 class="ui header">Grade Picker</h2>
-  <hr>
-  <div class="ui form">
-    <div class="field">
-      <label>Pick A Grade: </label>
-      <select class="ui selection dropdown" name="grade" id="grade-selector">
-        <option value="a">A</option>
-        <option value="b">B</option>
-        <option value="c">C</option>
-        <option value="d">D</option>
-        <option value="f">F</option>
-      </select>
-    </div>
-    <button type="submit"
-      class="ui inverted blue button"
-      onclick="runClass('<%=numberOfAssign%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>')">
-      Submit
-    </button>
-  </div>
-</div>
-
+<!-- Manupulating Assignment  -->
 <div class="ui main show-page container">
-  <h1 id="header"> Class Name:
-    <a href="/classes/<%= classFound._id%>/edit">
-      <%= classFound.className %>
-    </a>
-    <a href="/classes/<%= classFound._id %>/assignment/new">
-      <div class="ui icon button" data-tooltip="Add an Assignment to the class">
-        <i class="plus icon"></i>
+  <div class="wrapper-modal-editor">
+    <div class="row d-flex justify-content-center modalWrapper">
+      <!-- Add new assignment to the table  -->
+      <div class="text-center">
+        <a href="/classes/<%= classFound._id %>/assignment/new"
+           class="btn btn-info btn-rounded btn-sm" id="addAssignment">Add
+          <i class="fas fa-plus-square ml-1"></i>
+        </a>
       </div>
-    </a>
-  </h1>
+      <div class="modal fade addNewInputs" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+          </div>
+        </div>
+      </div>
 
-  <table class="ui celled table">
+      <!-- Edit the selected assignment  -->
+      <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit form</h4>
+              <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body mx-3">
+              <div class="md-form mb-5">
+                <input type="text" id="formNameEdit" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="formNameEdit">Name</label>
+              </div>
+
+              <div class="md-form mb-5">
+                <input type="text" id="formPositionEdit" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="formPositionEdit">Position</label>
+              </div>
+
+              <div class="md-form mb-5">
+                <input type="text" id="formOfficeEdit" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="formOfficeEdit">Office</label>
+              </div>
+
+              <div class="md-form mb-5">
+                <input type="text" id="formAgeEdit" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="formAgeEdit">Age</label>
+              </div>
+
+              <div class="md-form mb-5">
+                <input type="text" id="formDateEdit" class="form-control datepicker">
+                <label data-error="wrong" data-success="right" for="formDateEdit">Date</label>
+              </div>
+
+              <div class="md-form mb-5">
+                <input type="text" id="formSalaryEdit" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="formSalaryEdit">Salary</label>
+              </div>
+
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+              <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Edit
+                form
+                <i class="fas fa-paper-plane-o ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center buttonEditWrapper">
+        <button class="btn btn-info btn-rounded btn-sm buttonEdit" data-toggle="modal" data-target="#modalEdit" disabled>Edit<i class="fas fa-pencil-square-o ml-1"></i></button>
+      </div>
+
+      <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Delete</h4>
+              <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body mx-3">
+              <p class="text-center h4">Are you sure to delete selected row?</p>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+              <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
+              <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-danger btn-sm btn-rounded buttonDelete" data-toggle="modal" disabled data-target="#modalDelete" disabled>Delete<i class="fas fa-times ml-1"></i></button>
+      </div>
+    </div>
+    </div>
+
+
+  <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
-      <th style="width:30px;"></th>
-      <th>Name</th>
-      <th>Grade</th>
-      <th>Total</th>
-      <th> Estimate </th>
+      <th class="th-sm">Name</th>
+      <th class="th-sm">Grade</th>
+      <th class="th-sm">Total</th>
+      <th class="th-sm"> Estimate </th>
     </thead>
-    <% classFound.assignments.forEach(function(oneClass){ %>
-    <tr>
-      <td><a href="/classes/<%= classFound._id%>/assignment/<%= oneClass._id%>/edit"><i class="edit icon"></i></a></td>
-      <td><%= oneClass.name %></td>
-      <td><%= oneClass.grade %></td>
-      <td><%= oneClass.total %></td>
-      <td id="<%= oneClass._id %>"></td>
-    </tr>
-    <% }) %>
+    <tbody>
+      <% classFound.assignments.forEach(function(oneClass){ %>
+      <tr>
+        <td>
+          <%= oneClass.name %>
+        </td>
+        <td>
+          <%= oneClass.grade %>
+        </td>
+        <td>
+          <%= oneClass.total %>
+        </td>
+        <td id="<%= oneClass._id %>"></td>
+      </tr>
+      <% }) %>
+    </tbody>
   </table>
 </div>
-
-<div class="ui raised very padded text container segment">
-  <h2 class="ui header">Stats</h2>
-  <hr>
-  <h1 class="ui header">You have:
-    <span id="maxGrade"></span> /
-    <span id="maxTotal"></span>
-  </h1>
-  <h3>Points left before you lose your grade :
-    <span id="pointsLeft"></span>
-  </h3>
 </div>
 
 <script type="text/javascript" src="/js/result.js"></script>

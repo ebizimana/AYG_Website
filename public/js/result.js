@@ -1,3 +1,9 @@
+// testing the table from MDB
+$('#addAssignment').on('click', function(e){
+  e.preventDefault();
+  $('#modalAdd').modal('show').find('.modal-content').load($(this).attr('href'));
+});
+
 
 // variables
 var gradeSum = 0,          // Toatl sum of graded assignment
