@@ -1,15 +1,22 @@
-// Add form  Modal
-$('#addAssignment').on('click', function(e) {
-  e.preventDefault();
-  $('#modalAdd').modal('show').find('.modal-content').load($(this).attr('href'));
-});
+// variables
+var gradeSum = 0,            // Toatl sum of graded assignment
+    totalPoints = 0,         //  Maximum points of all available assignment
+    distr = 0,
+    assignNumber = 0,
+    pointsLeftNumber = 0,
+    deleteAction;
 
 // Editing form Modal
 function editRow(assignId, classId) {
   //grab the oneClass._id
-  url = "/classes/" + classId + "/assignment/" + assignId + "/edit"
-  //enable the edit button
-  $("#editAssignment").prop('disabled', false).attr('href', url)
+  editUrl = "/classes/" + classId + "/assignment/" + assignId + "/edit"
+  deleteUrl = "/classes/" + classId + "/assignment/" + assignId
+  deleteAction = "/classes/" + classId + "/assignment/" + assignId+ "?_method=DELETE"
+  setDeleteAction(deleteAction)
+
+  //enable the edit and delete buttons
+  $("#editAssignment").prop('disabled', false).attr('href', editUrl)
+  $('#deleteAssignment').prop('disabled',false).attr('href',deleteUrl)
   //highlight the row
   $("#dtBasicExample").on("click", 'td', function() {
     $("tr").each(function() {
@@ -18,27 +25,38 @@ function editRow(assignId, classId) {
     $(this).closest("tr").css({'background-color': '#87CEEB'})
   });
 }
+
 // dishighlight once clicked on space
 $('body').click( function (e) {
   if ( e.target == this ){
       $('tr').css({'background-color':''})
       $("#editAssignment").prop('disabled', true)
+      $('#deleteAssignment').prop('disabled',true)
   }
 });
+
+// to show the modal for the add form
+$('#addAssignment').on('click', function(e) {
+  e.preventDefault();
+  $('#modalAdd').modal('show').find('.modal-content').load($(this).attr('href'));
+});
+
 // to show the modal for Edit form
 $('#editAssignment').on('click', function(e) {
   e.preventDefault();
   $('#modalEdit').modal('show').find('.modal-content').load($(this).attr('href'));
 });
 
+// to show the modal for delete form
+$('#deleteAssignment').on('click', function(e){
+  e.preventDefault();
+  $('#modalDelete').modal('show').find('.modal-content').load($(this).attr('href'))
+})
 
-// variables
-var gradeSum = 0, // Toatl sum of graded assignment
-  totalPoints = 0, //  Maximum points of all available assignment
-  distr = 0,
-  assignNumber = 0,
-  pointsLeftNumber = 0;
-
+//Delete Assignment
+function deleteForm(){
+  $('#delete-form').attr('action', deleteAction)
+}
 
 // To make the grade dropdown work
 $('#grade-selector').dropdown();
@@ -108,21 +126,11 @@ function pointsLeft(letter, inGrade, inTotal) {
   }
 
   switch (letter) {
-    case 'A':
-      sumLeft = 100 - sumLeft;
-      break;
-    case 'B':
-      sumLeft = 200 - sumLeft;
-      break;
-    case 'C':
-      sumLeft = 300 - sumLeft;
-      break;
-    case 'D':
-      sumLeft = 400 - sumLeft;
-      break;
-    case 'F':
-      sumLeft = 500 - sumLeft;
-      break;
+    case 'A': sumLeft = 100 - sumLeft; break;
+    case 'B': sumLeft = 200 - sumLeft; break;
+    case 'C': sumLeft = 300 - sumLeft; break;
+    case 'D': sumLeft = 400 - sumLeft; break;
+    case 'F': sumLeft = 500 - sumLeft; break;
     default:
       break;
   }
@@ -140,4 +148,8 @@ function print() {
 
 function setAssignNumber(num) {
   assignNumber = num;
+}
+
+function setDeleteAction(num) {
+  deleteAction = num;
 }

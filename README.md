@@ -159,27 +159,6 @@ The website for The AYG app
 
 
 
-// New form for Assignments
-<form action="/classes/<%= classFound._id %>/assignment" method="post">
-  <div class="ui raised very padded text container">
-    <h1 class="ui huge header" id="header">Create a New Assignment for <%= classFound.className %></h1>
-    <div class="ui segment">
-      <div class="ui  big form">
-        <div class="field">
-          <label>Assignment Name</label>
-          <input placeholder="Assignment Name" type="text" name="assignment[name]">
-        </div>
-        <div class="field">
-          <label>Grade</label>
-          <input placeholder="Grade" name="assignment[grade]" type="Number">
-        </div>
-        <div class="field">
-          <label>Total</label>
-          <input placeholder="Total" name="assignment[total]" type="Number">
-        </div>
-        <button type="submit" class="ui inverted blue button">Submit
-        </button>
-      </div>
-    </div>
-  </div>
-</form>
+// Double checking if the user wants to delete an assignment
+
+<!--  -->

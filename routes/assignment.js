@@ -45,24 +45,11 @@ router.get("/:assig_id/edit", function(req, res) {
   })
 })
 
-//Show
-router.get("/assignments/:id", function(req, res) {
-  Assignemnt.findById(req.params.id, function(err, assignFound) {
-    if (err) {
-      res.redirect("/assignmnents")
-    } else {
-      res.render("show", {
-        assignmnent: assignFound
-      })
-    }
-  })
-})
-
 // Update
 router.put("/:assig_id", function(req, res) {
   Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function(err, updateAssign) {
     if (err) {
-      res.redirect("/assignments")
+      res.redirect("/classes/" + req.params.id)
     } else {
       res.redirect("/classes/" + req.params.id)
     }
@@ -70,14 +57,17 @@ router.put("/:assig_id", function(req, res) {
 })
 
 // Delete
-router.delete("/:id", function(req, res) {
-  Assignemnt.findByIdAndRemove(req.params.id, function(err) {
+router.delete("/:assig_id", function(req, res) {
+  Assignment.findByIdAndRemove(req.params.assig_id, function(err) {
     if (err) {
-      res.redirect("/assignments")
+      res.redirect("/classes/" + req.params.id)
     } else {
-      res.redirect("/assignments")
+      res.redirect("/classes/" + req.params.id)
     }
   })
+})
+router.get("/:assig_id", function(req,res){
+  res.render("assignment/delete")
 })
 
 module.exports = router
