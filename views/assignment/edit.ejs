@@ -1,27 +1,40 @@
-<% include ../partials/header %>
 
-<form action="/classes/<%= class_id %>/assignment/<%= assignFound._id %>?_method=PUT" method="post">
-  <div class="ui raised very padded text container">
-    <h1 class="ui huge header" id="header">Edit Assignment</h1>
-    <div class="ui segment">
-      <div class="ui  big form">
-        <div class="field">
-          <label>Assignment Name</label>
-          <input value="<%= assignFound.name %>" type="text" name=assignUpdate[name]">
-        </div>
-        <div class="field">
-          <label>Grade</label>
-          <input value="<%= assignFound.grade %>" name="assignUpdate[grade]" type="Number">
-        </div>
-        <div class="field">
-          <label>Total</label>
-          <input value="<%= assignFound.total %>" name="assignUpdate[total]" type="Number">
-        </div>
-        <button type="submit" class="ui inverted blue button">Submit
-        </button>
-      </div>
+<form id="editAssignmentForm" action="/classes/<%= class_id %>/assignment/<%= assignFound._id %>?_method=PUT" method="post">
+  <div class="modal-header text-center">
+    <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Edit Assignment</h4>
+    <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mx-3">
+    <div class="md-form mb-5">
+      <input name="assignUpdate[name]" type="text" id='inputName'value="<%= assignFound.name %>" class="form-control validate">
+      <label data-error="wrong" data-success="right" class='active' for="inputName">Assignment Name</label>
     </div>
+
+    <div class="md-form mb-5">
+      <input  name="assignUpdate[grade]" type="text" value="<%= assignFound.grade %>" class="form-control validate">
+      <label data-error="wrong" data-success="right" class='active' for="inputPosition">Grade</label>
+    </div>
+
+    <div class="md-form mb-5">
+      <input  name="assignUpdate[total]" type="text" value="<%= assignFound.total %>" class="form-control validate">
+      <label data-error="wrong" data-success="right" class='active' for="inputOfficeInput">Total</label>
+    </div>
+  </div>
+
+  <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+    <button onclick="form_submit()"
+            type="submit"
+            class="btn btn-outline-primary btn-block buttonAdd"
+            data-dismiss="modal">Edit Assignment
+      <i class="fas fa-paper-plane-o ml-1"></i>
+    </button>
   </div>
 </form>
 
-<% include ../partials/footer %>
+<script type="text/javascript">
+function form_submit(){
+  $('#editAssignmentForm').submit()
+}
+</script>

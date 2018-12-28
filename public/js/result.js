@@ -1,16 +1,41 @@
-// testing the table from MDB
-$('#addAssignment').on('click', function(e){
+// Add form  Modal
+$('#addAssignment').on('click', function(e) {
   e.preventDefault();
   $('#modalAdd').modal('show').find('.modal-content').load($(this).attr('href'));
 });
 
+// Editing form Modal
+function editRow(assignId, classId, ctrl) {
+  //grab the oneClass._id
+  url = "/classes/" + classId + "/assignment/" + assignId + "/edit"
+  //enable the edit button
+  $("#editAssignment").prop('disabled', false).attr('href', url)
+  //highlight the td when clicked
+  // $('#dtBasicExample').on('click', 'td', function () {
+  //   $(this).closest('tr').css({'background-color': 'red'});
+  // });
+
+  $("#dtBasicExample").on("click", 'td', function () {
+    $(".table.table-striped.table-bordered tr").each(function () {
+        $(this).css({'background-color':''})
+        $(this).removeClass();
+    });
+
+    $(this).closest("tr").css({'background-color':'#87CEEB'})
+});
+}
+// to show the modal
+$('#editAssignment').on('click', function(e) {
+  e.preventDefault();
+  $('#modalEdit').modal('show').find('.modal-content').load($(this).attr('href'));
+});
 
 // variables
-var gradeSum = 0,          // Toatl sum of graded assignment
-    totalPoints = 0,      //  Maximum points of all available assignment
-    distr = 0,
-    assignNumber = 0,
-    pointsLeftNumber = 0 ;
+var gradeSum = 0, // Toatl sum of graded assignment
+  totalPoints = 0, //  Maximum points of all available assignment
+  distr = 0,
+  assignNumber = 0,
+  pointsLeftNumber = 0;
 
 
 // To make the grade dropdown work
@@ -18,25 +43,25 @@ $('#grade-selector').dropdown();
 
 // Check for a grade
 function runClass(num, grade, total, idName) {
-  var count               = 0, // number of graded assignment
-      distr               = 0,
-      outPutGrade         = 0,
-      gradeArr            = grade.split(','),
-      totalArr            = total.split(','),
-      idArr               = idName.split(','),
-      gradeLetter         = $('#grade-selector').find(":selected").text();
+  var count = 0, // number of graded assignment
+    distr = 0,
+    outPutGrade = 0,
+    gradeArr = grade.split(','),
+    totalArr = total.split(','),
+    idArr = idName.split(','),
+    gradeLetter = $('#grade-selector').find(":selected").text();
 
   setAssignNumber(num);
   pointsLeftNumber = pointsLeft(gradeLetter, grade, total);
-  if (pointsLeftNumber < 0 ){
-    $(document).ready (function(){
+  if (pointsLeftNumber < 0) {
+    $(document).ready(function() {
       $("#message").hide()
-      .addClass('alert alert-danger')
-      .html('I am sorry. You lost too many points to achieve a(n) '+ gradeLetter)
-      .fadeTo(2000, 500)
-      .slideUp(700,function(){
-        $('#message').slideUp(700)
-      })
+        .addClass('alert alert-danger')
+        .html('I am sorry. You lost too many points to achieve a(n) ' + gradeLetter)
+        .fadeTo(2000, 500)
+        .slideUp(700, function() {
+          $('#message').slideUp(700)
+        })
     });
 
   } else {
@@ -54,7 +79,7 @@ function runClass(num, grade, total, idName) {
         distr = pointsLeftNumber / nongraded
         outPutGrade = Number(totalArr[i]) - distr
 
-        if(outPutGrade < 0){
+        if (outPutGrade < 0) {
           outPutGrade = 0
           result.html(outPutGrade.toFixed(2))
           print();
@@ -68,10 +93,10 @@ function runClass(num, grade, total, idName) {
 }
 
 function pointsLeft(letter, inGrade, inTotal) {
-  var left        = 0,
-      sumLeft     = 0,
-      gradeArr    = inGrade.split(','),
-      totalArr    = inTotal.split(',');
+  var left = 0,
+    sumLeft = 0,
+    gradeArr = inGrade.split(','),
+    totalArr = inTotal.split(',');
 
   for (let i = 0; i < assignNumber; i++) {
     if (gradeArr[i] != -1) {
@@ -81,18 +106,28 @@ function pointsLeft(letter, inGrade, inTotal) {
   }
 
   switch (letter) {
-    case 'A': sumLeft = 100 - sumLeft; break;
-    case 'B': sumLeft = 200 - sumLeft; break;
-    case 'C': sumLeft = 300 - sumLeft; break;
-    case 'D': sumLeft = 400 - sumLeft; break;
-    case 'F': sumLeft = 500 - sumLeft; break;
+    case 'A':
+      sumLeft = 100 - sumLeft;
+      break;
+    case 'B':
+      sumLeft = 200 - sumLeft;
+      break;
+    case 'C':
+      sumLeft = 300 - sumLeft;
+      break;
+    case 'D':
+      sumLeft = 400 - sumLeft;
+      break;
+    case 'F':
+      sumLeft = 500 - sumLeft;
+      break;
     default:
       break;
   }
   return sumLeft;
 }
 
-function print(){
+function print() {
   gradeResult = $('#maxGrade')
   totalResult = $('#maxTotal')
   pointsLeftResult = $('#pointsLeft')
@@ -101,6 +136,6 @@ function print(){
   pointsLeftResult.html(pointsLeftNumber)
 }
 
-function setAssignNumber(num){
+function setAssignNumber(num) {
   assignNumber = num;
 }

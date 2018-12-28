@@ -37,12 +37,3 @@ i.plus{
   display: block;
   width: 40px;
 }
-
-/* Testing the modal styles  */
-#putRight{
-  float: right;
-}
-.tr-color-selected{
-  background-color: hsla(196, 77%, 55%, 0.3) !important;
-  transition: all .2s ease-in;
-}
