@@ -5,30 +5,32 @@ $('#addAssignment').on('click', function(e) {
 });
 
 // Editing form Modal
-function editRow(assignId, classId, ctrl) {
+function editRow(assignId, classId) {
   //grab the oneClass._id
   url = "/classes/" + classId + "/assignment/" + assignId + "/edit"
   //enable the edit button
   $("#editAssignment").prop('disabled', false).attr('href', url)
-  //highlight the td when clicked
-  // $('#dtBasicExample').on('click', 'td', function () {
-  //   $(this).closest('tr').css({'background-color': 'red'});
-  // });
-
-  $("#dtBasicExample").on("click", 'td', function () {
-    $(".table.table-striped.table-bordered tr").each(function () {
-        $(this).css({'background-color':''})
-        $(this).removeClass();
+  //highlight the row
+  $("#dtBasicExample").on("click", 'td', function() {
+    $("tr").each(function() {
+      $(this).css({'background-color': ''})
     });
-
-    $(this).closest("tr").css({'background-color':'#87CEEB'})
-});
+    $(this).closest("tr").css({'background-color': '#87CEEB'})
+  });
 }
-// to show the modal
+// dishighlight once clicked on space
+$('body').click( function (e) {
+  if ( e.target == this ){
+      $('tr').css({'background-color':''})
+      $("#editAssignment").prop('disabled', true)
+  }
+});
+// to show the modal for Edit form
 $('#editAssignment').on('click', function(e) {
   e.preventDefault();
   $('#modalEdit').modal('show').find('.modal-content').load($(this).attr('href'));
 });
+
 
 // variables
 var gradeSum = 0, // Toatl sum of graded assignment
