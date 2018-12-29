@@ -17,6 +17,7 @@ function editRow(assignId, classId) {
   //enable the edit and delete buttons
   $("#editAssignment").prop('disabled', false).attr('href', editUrl)
   $('#deleteAssignment').prop('disabled',false).attr('href',deleteUrl)
+
   //highlight the row
   $("#dtBasicExample").on("click", 'td', function() {
     $("tr").each(function() {
@@ -53,7 +54,13 @@ $('#deleteAssignment').on('click', function(e){
   $('#modalDelete').modal('show').find('.modal-content').load($(this).attr('href'))
 })
 
-//Delete Assignment
+// To show the modal for the class edit form
+$('#editClass').on('click',function(e){
+  e.preventDefault();
+  $('#editOneClass').modal('show').find('.modal-content').load($(this).attr('href'))
+})
+
+//Delete an assignment
 function deleteForm(){
   $('#delete-form').attr('action', deleteAction)
 }

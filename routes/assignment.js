@@ -58,7 +58,7 @@ router.put("/:assig_id", function(req, res) {
 
 // Delete
 router.delete("/:assig_id", function(req, res) {
-  Assignment.findByIdAndRemove(req.params.assig_id, function(err) {
+  Assignment.findByIdAndDelete(req.params.assig_id, function(err) {
     if (err) {
       res.redirect("/classes/" + req.params.id)
     } else {

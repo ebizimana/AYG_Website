@@ -43,6 +43,7 @@ router.post("/",function(req,res){
     }
   })
 })
+
 //delete a class
 router.delete("/:id",function(req,res){
   Class.findByIdAndDelete(req.params.id,function(err){
@@ -55,6 +56,7 @@ router.delete("/:id",function(req,res){
     }
   })
 })
+
 //edit router
 router.get("/:id/edit",function(req,res){
   Class.findById(req.params.id,function(err,editClass){
@@ -65,13 +67,15 @@ router.get("/:id/edit",function(req,res){
     }
   })
 })
+
 // update router
 router.put("/:id",function(req,res){
   Class.findByIdAndUpdate(req.params.id, req.body.updateClass, function(err,update){
     if(err){
       console.log(err);
     } else {
-      req.flash("success","You updated a class")
+      req.flash("success","You updated your class")
+      console.log("updateClass: " + req.body.updateClass.name);
       res.redirect("/classes/" + req.params.id)
     }
   })

@@ -1,8 +1,65 @@
 <% include ../partials/header %>
 
-<!-- Manupulating Assignment  -->
+<% numberOfAssign = 0 %>
+<% gradeArr       = [] %>
+<% totalArr       = [] %>
+<% idArr          = [] %>
+<% classFound.assignments.forEach(function(oneClass){ %>
+  <% numberOfAssign += 1 %>
+  <% gradeArr.push(oneClass.grade) %>
+  <% totalArr.push(oneClass.total) %>
+  <% idArr.push(oneClass._id) %>
+<% }) %>
+
+<!-- Display the calculation errors -->
+<div id="message"></div>
+
+<!-- Class Edit and Display  -->
+<div class="ui header text-center" style="margin-left:20px;">
+  <h1>
+    <a id="editClass" href="/classes/<%= classFound._id%>/edit">
+      <strong><%= classFound.className %></strong>
+    </a>
+
+    <div class="modal fade modalEditClass" id="editOneClass" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
+
+    <hr style="width:30%; margin-top:5px;">
+  </h1>
+</div>
+
+<!-- Grade picker  -->
+<div class="ui raised very padded text container segment">
+  <h2 class="ui header">Grade Picker</h2>
+  <hr>
+  <div class="ui form">
+    <div class="field">
+      <label>Pick A Grade: </label>
+      <select class="ui selection dropdown" name="grade" id="grade-selector">
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option>
+        <option value="d">D</option>
+        <option value="f">F</option>
+      </select>
+    </div>
+    <div class="text-center">
+      <button type="submit"
+              class="btn btn-info btn-rounded btn-md"
+              onclick="runClass('<%=numberOfAssign%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>')">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="ui main show-page container">
-  <div class="wrapper-modal-editor">
+  <!-- Assignment Configuration -->
+  <div id="header" class="wrapper-modal-editor">
     <div class="row d-flex justify-content-center modalWrapper">
 
       <!-- Add new assignment to the table  -->
@@ -23,7 +80,7 @@
       <div class="text-center buttonEditWrapper">
         <button class="btn btn-info btn-rounded btn-sm buttonEdit"
                 id="editAssignment" disabled>Edit
-                <i class="fas fa-pencil-square-o ml-1"></i>
+                <i class="fas fa-pencil-square ml-1"></i>
         </button>
       </div>
       <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
@@ -50,7 +107,7 @@
     </div>
   </div>
 
-
+  <!-- Assignments Table -->
   <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
       <th class="th-sm">Name</th>
@@ -75,7 +132,20 @@
       <% }) %>
     </tbody>
   </table>
-</div>
+
+  <!-- Assignments Stats  -->
+  <div class="ui raised very padded text container segment">
+    <h2 class="ui header">Stats</h2>
+    <hr>
+    <h1 class="ui header">You have:
+      <span id="maxGrade"></span> /
+      <span id="maxTotal"></span>
+    </h1>
+    <h3>Points left before you lose your grade :
+      <span id="pointsLeft"></span>
+    </h3>
+  </div>
+
 </div>
 
 <script type="text/javascript" src="/js/result.js"></script>

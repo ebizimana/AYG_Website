@@ -1,26 +1,34 @@
-<% include ../partials/header %>
-
-<form action="/classes/<%= editClass._id %>?_method=PUT" method="post">
-  <div class="ui raised very padded text container">
-    <h1 class="ui huge header" id="header">Edit <%= editClass.className %></h1>
-    <div class="ui segment">
-      <div class="ui  big form">
-        <div class="field">
-          <label>Class Name</label>
-          <input value="<%= editClass.className %>" type="text" name="updateClass[className]">
-        </div>
-        <div class="field">
-          <label>Course Name</label>
-          <input value="<%= editClass.courseName %>" name="updateClass[courseName]" type="text">
-        </div>
-        <div class="field">
-          <label>Professor Name</label>
-          <input value="<%= editClass.professor %>" name="updateClass[professor]" type="text">
-        </div>
-        <button class="ui inverted blue button">Submit</button>
-      </div>
+<form id="editClassForm" action="/classes/<%= editClass._id %>?_method=PUT" method="post">
+  <div class="modal-header text-center">
+    <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Edit
+      <%= editClass.className %>
+    </h4>
+    <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mx-3">
+    <div class="md-form mb-5">
+      <input name="updateClass[className]" type="text" id='inputName' value="<%= editClass.className %>" class="form-control validate">
+      <label data-error="wrong" data-success="right" class='active' for="inputName">Class Name</label>
+    </div>
+    <div class="md-form mb-5">
+      <input name="updateClass[courseName]" type="text" value="<%= editClass.courseName %>" class="form-control validate">
+      <label data-error="wrong" data-success="right" class='active' for="inputPosition">Course Name</label>
+    </div>
+    <div class="md-form mb-5">
+      <input name="updateClass[professor]" type="text" value="<%= editClass.professor %>" class="form-control validate">
+      <label data-error="wrong" data-success="right" class='active' for="inputPosition">Professor Name</label>
     </div>
   </div>
+  <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+    <button onclick="form_submit()" type="submit" class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">Edit Class
+      <i class="fas fa-paper-plane-o ml-1"></i>
+    </button>
+  </div>
 </form>
-
-<% include ../partials/footer %>
+<script type="text/javascript">
+  function form_submit() {
+    $('#editClassForm').submit()
+  }
+</script>
