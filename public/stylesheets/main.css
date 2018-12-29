@@ -11,29 +11,18 @@
   text-align:center;
 }
 
-
-/* Taking care of the popups for all the plus buttons */
-/* .ui.icon.button{
-  float: right;
-  background-color: inherit;
-}
-i.plus{
-  font-size: 2rem;
-  color:#4183c4;
-}
-#change-color{
-  color:white;
-}
-.ui.button:hover {
-  background-color: inherit;
-}
-
 /* for the result index page  */
 .ui.form {
   font-size: 1.4rem;
 }
+
 #grade{
   margin-top: 10px;
   display: block;
   width: 40px;
+}
+
+/* Popover testing  */
+#classInfoPopover:hover {
+  
 }

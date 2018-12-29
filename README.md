@@ -11,7 +11,8 @@ The website for The AYG app
   - [x] Work on Modal forms for the assignments management
   - [x] Work on deleting assignments
   - [x] Double check on the user before deleting a class
-- [ ] Work on the Stats div for the assignments 
+- [ ] Displaying class info by hovering on the class title 
+- [ ] Work on the Stats div for the assignments
 - [ ] Work on moving individual cells
 - [ ] Make sure the grade and total inputs are numbers
 - [ ] Work on making sure the total is always higher than the grade
