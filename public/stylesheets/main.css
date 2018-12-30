@@ -1,28 +1,57 @@
-
-/* Making sure that the the class list is bigger enough */
-#container {
-  width: 500px;
-  margin: 10px auto;
-}
-
 /* Making sure the headers on the form are in the center from the top  */
 #header {
-  margin-top: 90px;
+  margin-top: 70px;
   text-align:center;
 }
 
-/* for the result index page  */
-.ui.form {
-  font-size: 1.4rem;
+/* hide the assignment stats div  */
+#assignmentStats{
+  display: none;
+  width:100%;
+  padding: 5px;
+  margin-bottom: 30px;
 }
 
-#grade{
-  margin-top: 10px;
-  display: block;
-  width: 40px;
+/* Grade Picker  */
+.ui.selection.dropdown{
+  width: 50px;
+  text-align: center;
+}
+.ui.selection.dropdown .menu>.item  {
+  text-align: center;
 }
 
-/* Popover testing  */
-#classInfoPopover:hover {
-  
+/* Maximize and minimize grade Picker div  */
+#widnow{
+  width:100%;
+  padding: 5px;
+}
+
+#title_bar{
+  background: #FEFEFE;
+  height: 25px;
+  width: 30px;
+  float: right;
+}
+#button{
+  border: none;
+  text-align: center;
+  width: 25px;
+  height: 23px;
+  cursor:pointer;
+}
+#box{
+  height: auto;
+  margin-top: 30px;
+}
+#button2{
+  border: none;
+  text-align: center;
+  width: 25px;
+  height: 23px;
+  cursor:pointer;
+}
+#box2{
+  height: auto;
+  margin-top: 30px;
 }

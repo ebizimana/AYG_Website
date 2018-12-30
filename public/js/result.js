@@ -5,6 +5,7 @@ var gradeSum = 0,            // Toatl sum of graded assignment
     pointsLeftNumber = 0,
     deleteAction;
 
+
 // To make the grade dropdown work
 $('#grade-selector').dropdown();
 
@@ -41,21 +42,78 @@ $('#deleteAssignment').on('click', function(e){
   $('#modalDelete').modal('show').find('.modal-content').load($(this).attr('href'))
 })
 
+// To maximize and minimize the divs
+$("#button").click(function(){
+    if($(this).html() == "-"){
+        $(this).html("+");
+    }
+    else{
+        $(this).html("-");
+    }
+    $("#box").slideToggle();
+});
+
+$('#button2').click(function(){
+  if($(this).html()== "-"){
+    $(this).html("+");
+  }else {
+    $(this).html("-")
+  }
+  $("#box2").slideToggle();
+})
+
+// popovers Initialization
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
+
+//Delete an assignment
+function deleteForm(){
+  $('#delete-form').attr('action', deleteAction)
+}
+
+// Editing and deleting assignments
+function editRow(assignId, classId) {
+  //grab the oneClass._id
+  editUrl = "/classes/" + classId + "/assignment/" + assignId + "/edit"
+  deleteUrl = "/classes/" + classId + "/assignment/" + assignId
+  deleteAction = "/classes/" + classId + "/assignment/" + assignId+ "?_method=DELETE"
+  setDeleteAction(deleteAction)
+
+  //enable the edit and delete buttons
+  $("#editAssignment").prop('disabled', false).attr('href', editUrl)
+  $('#deleteAssignment').prop('disabled',false).attr('href',deleteUrl)
+
+  //highlight the row
+  $("#dtBasicExample").on("click", 'td', function() {
+    $("tr").each(function() {
+      $(this).css({'background-color': ''})
+    });
+    $(this).closest("tr").css({'background-color': '#87CEEB'})
+  });
+}
 
 // Fills up the Estimate column in assignmnet table
 function runClass(num, grade, total, idName) {
-  //TODO: Check and see if there is any assignments if
+  //TODO: Check and see if there is any assignments in the table if
   //      there is none output a message
 
-  var count = 0, // number of graded assignment
-    distr = 0,
-    outPutGrade = 0,
-    gradeArr = grade.split(','),
-    totalArr = total.split(','),
-    idArr = idName.split(','),
-    gradeLetter = $('#grade-selector').find(":selected").text();
-
+  // initialize the global variables
+  setTotalPoints(0);
+  setGradeSum(0);
+  setPointsLeftNumber(0);
   setAssignNumber(num);
+
+  // initialize local variables
+  var count = 0, // number of graded assignment
+      distr = 0,
+      outPutGrade = 0,
+      gradeArr = grade.split(','),
+      totalArr = total.split(','),
+      idArr = idName.split(','),
+      gradeLetter = $('#grade-selector').find(":selected").text();
+
+  // check to see if grade can be attained
   pointsLeftNumber = pointsLeft(gradeLetter, grade, total);
   if (pointsLeftNumber < 0) {
     $(document).ready(function() {
@@ -85,10 +143,10 @@ function runClass(num, grade, total, idName) {
 
         if (outPutGrade < 0) {
           outPutGrade = 0
-          result.html(outPutGrade.toFixed(2))
+          result.html(outPutGrade.toFixed(0))
           print();
         } else {
-          result.html(outPutGrade.toFixed(2))
+          result.html(outPutGrade.toFixed(0))
           print();
         }
       }
@@ -124,6 +182,7 @@ function pointsLeft(letter, inGrade, inTotal) {
 
 // prints all the assignment stats
 function print() {
+  $('#assignmentStats').css("display","block")
   gradeResult = $('#maxGrade')
   totalResult = $('#maxTotal')
   pointsLeftResult = $('#pointsLeft')
@@ -132,45 +191,28 @@ function print() {
   pointsLeftResult.html(pointsLeftNumber)
 }
 
-// Editing and deleting assignments
-function editRow(assignId, classId) {
-  //grab the oneClass._id
-  editUrl = "/classes/" + classId + "/assignment/" + assignId + "/edit"
-  deleteUrl = "/classes/" + classId + "/assignment/" + assignId
-  deleteAction = "/classes/" + classId + "/assignment/" + assignId+ "?_method=DELETE"
-  setDeleteAction(deleteAction)
-
-  //enable the edit and delete buttons
-  $("#editAssignment").prop('disabled', false).attr('href', editUrl)
-  $('#deleteAssignment').prop('disabled',false).attr('href',deleteUrl)
-
-  //highlight the row
-  $("#dtBasicExample").on("click", 'td', function() {
-    $("tr").each(function() {
-      $(this).css({'background-color': ''})
-    });
-    $(this).closest("tr").css({'background-color': '#87CEEB'})
-  });
-}
 
 // To set the assignment Numbers
 function setAssignNumber(num) {
   assignNumber = num;
 }
 
+// To set gradeSum
+function setGradeSum(num){
+  gradeSum = num
+}
+
+// To set Total Points
+function setTotalPoints(num){
+  totalPoints = num
+}
+
+// To set number of assignments
+function setPointsLeftNumber(num){
+  pointsLeftNumber = num
+}
+
 // To set the Delete Action link
 function setDeleteAction(num) {
   deleteAction = num;
 }
-
-//Delete an assignment
-function deleteForm(){
-  $('#delete-form').attr('action', deleteAction)
-}
-
-
-//Testing Popovers
-// popovers Initialization
-$(function () {
-    $('[data-toggle="popover"]').popover()
-})
