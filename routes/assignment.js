@@ -47,13 +47,18 @@ router.get("/:assig_id/edit", function(req, res) {
 
 // Update
 router.put("/:assig_id", function(req, res) {
-  Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function(err, updateAssign) {
-    if (err) {
-      res.redirect("/classes/" + req.params.id)
-    } else {
-      res.redirect("/classes/" + req.params.id)
-    }
-  })
+  if(req.body.assignUpdate.grade > req.body.assignUpdate.total){
+    req.flash("error","The total has to be greater than the grade")
+    res.redirect("/classes/" + req.params.id)
+  }else{
+    Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function(err, updateAssign) {
+      if (err) {
+        res.redirect("/classes/" + req.params.id)
+      } else {
+        res.redirect("/classes/" + req.params.id)
+      }
+    })
+  }
 })
 
 // Delete

@@ -13,6 +13,8 @@ function checkTotal(){
     })
      // write the reason why
      styles.style.visibility= 'visible'
+     //disable the submit button
+      $('#submit').prop('disabled',true)
    }
   else {
      console.log("enable the submit button ");
@@ -23,5 +25,6 @@ function checkTotal(){
      })
      styles.style.visibility= 'hidden'
      $('#submit').prop('disabled',false)
+     $('#submit').submit()
     }
 }

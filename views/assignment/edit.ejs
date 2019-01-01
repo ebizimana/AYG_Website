@@ -19,14 +19,13 @@
 
     <div class="md-form mb-5">
       <input   name="assignUpdate[total]" onblur="checkTotal()" id='editTotal' type="number" value="<%= assignFound.total %>" class="form-control validate">
-      <label   class='active' id="totalLabel" for="editTotal">Total</label>
+      <label   class='active'  for="editTotal">Total</label>
       <label id="error">The total has to be greater than the grade</label>
     </div>
   </div>
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-    <button onclick="form_submit('<%= assignFound.grade %>','<%= assignFound.total %>')"
-            type="submit" id="submit" disabled
+    <button type="submit" id="submit"
             class="btn btn-outline-primary btn-block buttonAdd"
             >Edit Assignment
       <i class="fas fa-paper-plane-o ml-1"></i>
@@ -37,7 +36,7 @@
 <script src="/js/assignmentForms.js"></script>
 <style  media="screen">
   #error{
-    margin-top: 55px;
+    margin-top: 2em;
     color: #CD5C5C;
     font-size: inherit;
     visibility: hidden;

@@ -14,8 +14,8 @@ The website for The AYG app
 - [x] Displaying class info by hovering on the class title
 - [x] Work on the Stats div for the assignments
 - [x] Make sure the grade and total inputs are numbers
+- [x] Work on making sure the total is always higher than the grade
 - [ ] Work on moving individual cells
-- [ ] Work on making sure the total is always higher than the grade
 - [ ] Work on the plus icon on the classes page
 - [ ] Fix the menu
 - [ ] Work on the signup router and template

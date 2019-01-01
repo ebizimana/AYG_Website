@@ -9,32 +9,36 @@
     <div class="modal-body mx-3">
       <div class="md-form mb-5">
         <input name="assignment[name]" type="text" id="inputName" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="inputName">Assignment Name</label>
+        <label for="inputName">Assignment Name</label>
       </div>
 
       <div class="md-form mb-5">
-        <input  name="assignment[grade]" type="number" id="inputPosition" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="inputPosition">Grade</label>
+        <input  name="assignment[grade]" required onblur="checkTotal()" type="number" id="editGrade" class="form-control validate">
+        <label  for="editGrade">Grade</label>
       </div>
 
       <div class="md-form mb-5">
-        <input  name="assignment[total]" type="number" id="inputOfficeInput" class="form-control validate">
-        <label data-error="wrong" data-success="right" for="inputOfficeInput">Total</label>
+        <input  name="assignment[total]" required onblur="checkTotal()" id='editTotal'type="number"  class="form-control validate">
+        <label  for="editTotal">Total</label>
+        <label id="error">The total has to be greater than the grade</label>
       </div>
     </div>
 
     <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-      <button onclick="form_submit()"
-              type="submit"
+      <button type="submit" id="submit"
               class="btn btn-outline-primary btn-block buttonAdd"
-              data-dismiss="modal">Add Assignment
+              >Add Assignment
         <i class="fas fa-paper-plane-o ml-1"></i>
       </button>
     </div>
   </form>
 
-<script type="text/javascript">
-  function form_submit(){
-    $('#addAssignmentForm').submit()
-  }
-</script>
+  <script src="/js/assignmentForms.js"></script>
+  <style  media="screen">
+    #error{
+      margin-top: 4em;
+      color: #CD5C5C;
+      font-size: inherit;
+      visibility: hidden;
+    }
+  </style>
