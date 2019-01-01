@@ -1,5 +1,5 @@
 
-<form id="editAssignmentForm" action="/classes/<%= class_id %>/assignment/<%= assignFound._id %>?_method=PUT" method="post">
+<form  class="needs-validation" id="editAssignmentForm" action="/classes/<%= class_id %>/assignment/<%= assignFound._id %>?_method=PUT" method="post">
   <div class="modal-header text-center">
     <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Edit Assignment</h4>
     <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
@@ -8,33 +8,38 @@
   </div>
   <div class="modal-body mx-3">
     <div class="md-form mb-5">
-      <input name="assignUpdate[name]" type="text" id='inputName'value="<%= assignFound.name %>" class="form-control validate">
-      <label data-error="wrong" data-success="right" class='active' for="inputName">Assignment Name</label>
+      <input name="assignUpdate[name]"  type="text" id='inputName'value="<%= assignFound.name %>" class="form-control validate">
+      <label class='active' for="inputName">Assignment Name</label>
     </div>
 
     <div class="md-form mb-5">
-      <input  name="assignUpdate[grade]" type="text" value="<%= assignFound.grade %>" class="form-control validate">
-      <label data-error="wrong" data-success="right" class='active' for="inputPosition">Grade</label>
+      <input  name="assignUpdate[grade]" required onblur="checkTotal()" type="number" id='editGrade' value="<%= assignFound.grade %>" class="form-control validate">
+      <label  class='active' for="editGrade">Grade</label>
     </div>
 
     <div class="md-form mb-5">
-      <input  name="assignUpdate[total]" type="text" value="<%= assignFound.total %>" class="form-control validate">
-      <label data-error="wrong" data-success="right" class='active' for="inputOfficeInput">Total</label>
+      <input   name="assignUpdate[total]" onblur="checkTotal()" id='editTotal' type="number" value="<%= assignFound.total %>" class="form-control validate">
+      <label   class='active' id="totalLabel" for="editTotal">Total</label>
+      <label id="error">The total has to be greater than the grade</label>
     </div>
   </div>
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-    <button onclick="form_submit()"
-            type="submit"
+    <button onclick="form_submit('<%= assignFound.grade %>','<%= assignFound.total %>')"
+            type="submit" id="submit" disabled
             class="btn btn-outline-primary btn-block buttonAdd"
-            data-dismiss="modal">Edit Assignment
+            >Edit Assignment
       <i class="fas fa-paper-plane-o ml-1"></i>
     </button>
   </div>
 </form>
 
-<script type="text/javascript">
-function form_submit(){
-  $('#editAssignmentForm').submit()
-}
-</script>
+<script src="/js/assignmentForms.js"></script>
+<style  media="screen">
+  #error{
+    margin-top: 55px;
+    color: #CD5C5C;
+    font-size: inherit;
+    visibility: hidden;
+  }
+</style>
