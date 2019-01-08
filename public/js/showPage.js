@@ -52,7 +52,6 @@ $("#button").click(function(){
     }
     $("#box").slideToggle();
 });
-
 $('#button2').click(function(){
   if($(this).html()== "-"){
     $(this).html("+");
@@ -73,11 +72,44 @@ function deleteForm(){
 }
 
 // Editing and deleting assignments
-function editRow(assignId, classId) {
-  //grab the oneClass._id
+function editRow(assignId,classId,num) {
+  // initialize variables
   editUrl = "/classes/" + classId + "/assignment/" + assignId + "/edit"
   deleteUrl = "/classes/" + classId + "/assignment/" + assignId
   deleteAction = "/classes/" + classId + "/assignment/" + assignId+ "?_method=DELETE"
+
+
+  // To drag and drop table cells
+  // table sortable
+  $("tbody").sortable({
+    update: function (event, ui) {
+      var assignUpdate=[{}]
+      var sendData ={}
+      // get data
+      for (var i = 0; i < num ; i++) {
+        name = $(this).context.children[i].children[0].innerText
+        grade = $(this).context.children[i].children[1].innerText
+        total = $(this).context.children[i].children[2].innerText
+        _id = $(this).context.children[i].children[3].id
+        assignUpdate.push({name: name, grade: grade, total: total, _id:_id})
+      }
+      // send data
+      for (var i = 0; i < assignUpdate.length; i++) {
+        if (i === 0) {
+          // Do nothing
+        }else{
+          sendData._id = assignUpdate[i]._id
+          sendData.name = assignUpdate[i].name
+          sendData.grade = Number(assignUpdate[i].grade)
+          sendData.total = Number(assignUpdate[i].total)
+          console.log(sendData);
+          $.post("/classes/" + classId + "/assignment/",sendData)
+        }
+      }
+    }
+  })
+
+
   setDeleteAction(deleteAction)
 
   //enable the edit and delete buttons
@@ -190,7 +222,6 @@ function print() {
   totalResult.html(totalPoints)
   pointsLeftResult.html(pointsLeftNumber)
 }
-
 
 // To set the assignment Numbers
 function setAssignNumber(num) {

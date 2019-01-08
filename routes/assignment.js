@@ -1,7 +1,9 @@
 var express = require("express"),
     router = express.Router({mergeParams:true}),
     Class = require("../models/class"),
-    Assignment = require("../models/assignment")
+    Assignment = require("../models/assignment"),
+    assignUpdate = {}
+    flag = false
 
 // New
 router.get("/new", function(req, res) {
@@ -20,7 +22,40 @@ router.post("/",function(req,res){
     if(err){
       console.log(err);
       res.redirect("/classes")
-    } else{
+
+      // An if statement for the sorting
+    } else if (req.body.assignment == null){
+      //delete all the assignments in the class
+      // Execute one time only
+      if(flag === false){
+        // remove all the assignments in the class
+        // run one time per reorder
+        while(classFound.assignments.length > 0) {
+          classFound.assignments.pop();
+          console.log(classFound.assignments);
+        }
+        classFound.save()
+        flag = true
+      }
+
+      // classFound.assignments.length=0
+      // classFound.save()
+      console.log(classFound.assignments);
+      // console.log("I just removed all the assignments in this class");
+
+      // create new assignments in the sortade order
+      // Assignment.create(req.body , function(err,assignCreated){
+      //   if(err){
+      //     console.log(err);
+      //   }else{
+      //     classFound.assignments.push(assignCreated)
+      //     classFound.save();
+      //     res.redirect("/classes/" + classFound._id)
+      //   }
+      // })
+
+        // An if statement for adding an individual assignment
+    }else {
       Assignment.create(req.body.assignment, function(err,assig){
         if (err){
           console.log(err);
@@ -47,18 +82,16 @@ router.get("/:assig_id/edit", function(req, res) {
 
 // Update
 router.put("/:assig_id", function(req, res) {
-  if(req.body.assignUpdate.grade > req.body.assignUpdate.total){
-    req.flash("error","The total has to be greater than the grade")
-    res.redirect("/classes/" + req.params.id)
-  }else{
-    Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function(err, updateAssign) {
-      if (err) {
-        res.redirect("/classes/" + req.params.id)
-      } else {
-        res.redirect("/classes/" + req.params.id)
-      }
-    })
-  }
+  // TODO: Make an if statement for checking if grade > total
+  // An if statement for editing one assignment
+  Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function(err, updateAssign) {
+    if (err) {
+      console.log("Update Error: " + err);
+      res.redirect("/classes/" + req.params.id)
+    } else {
+      res.redirect("/classes/" + req.params.id)
+    }
+  })
 })
 
 // Delete
@@ -67,10 +100,12 @@ router.delete("/:assig_id", function(req, res) {
     if (err) {
       res.redirect("/classes/" + req.params.id)
     } else {
+      // TODO: delete that assignment from the classFound list
       res.redirect("/classes/" + req.params.id)
     }
   })
 })
+// TODO: delete this router
 router.get("/:assig_id", function(req,res){
   res.render("assignment/delete")
 })

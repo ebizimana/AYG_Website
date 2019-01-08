@@ -127,16 +127,10 @@
     </thead>
     <tbody>
       <% classFound.assignments.forEach(function(oneClass){ %>
-      <tr onclick="editRow('<%=oneClass._id %>','<%=classFound._id %>')" >
-        <td>
-          <%= oneClass.name %>
-        </td>
-        <td>
-          <%= oneClass.grade %>
-        </td>
-        <td>
-          <%= oneClass.total %>
-        </td>
+      <tr id="rowid" onclick="editRow('<%=oneClass._id %>','<%=classFound._id %>',<%= numberOfAssign %>)" >
+        <td id="name"> <%= oneClass.name %></td>
+        <td id="grade"> <%= oneClass.grade %></td>
+        <td id="total"> <%= oneClass.total %></td>
         <td id="<%= oneClass._id %>"></td>
       </tr>
       <% }) %>
