@@ -19,6 +19,7 @@ ul {
   margin: 0;
   padding: 0;
 }
+
 .className{
   background: white;
   height: 60px;
@@ -30,20 +31,22 @@ ul {
   background: #f7f7f7;
 }
 
+/* classes/index.js the form outline */
 .delete-form{
   display: inline;
 }
 
-li:hover button{
+li:hover a.deleteClass{
   width:40px;
   height: 60px;
   opacity: 1.0;
 }
 
-button{
+a.deleteClass{
   background: #e74c3c;
   height: 60px;
   margin-right: 20px;
+  padding-top: 10px;
   border: 50px;
   text-align: center;
   color: white;

@@ -81,4 +81,9 @@ router.put("/:id",function(req,res){
   })
 })
 
+// TODO: delete this router
+router.get("/:id/delete", function(req,res){
+  res.render("class/delete")
+})
+
 module.exports = router

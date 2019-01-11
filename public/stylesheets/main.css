@@ -55,3 +55,8 @@
   height: auto;
   margin-top: 30px;
 }
+
+/* classes/index.js the popover plus icon */
+#plus-sign{
+  float: right;
+}

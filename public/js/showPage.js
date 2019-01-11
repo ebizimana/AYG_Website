@@ -244,6 +244,6 @@ function setPointsLeftNumber(num){
 }
 
 // To set the Delete Action link
-function setDeleteAction(num) {
-  deleteAction = num;
+function setDeleteAction(action) {
+  deleteAction = action;
 }

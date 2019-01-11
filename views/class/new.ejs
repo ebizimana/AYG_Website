@@ -1,26 +1,33 @@
-<% include ../partials/header %>
 
-<form action="/classes" method="post">
-  <div class="ui raised very padded text container">
-    <h1 class="ui huge header" id="header">Create a New Class</h1>
-    <div class="ui segment">
-      <div class="ui  big form">
-        <div class="field">
-          <label>Class Name</label>
-          <input placeholder="Class Name" type="text" name="class[className]">
-        </div>
-        <div class="field">
-          <label>Course Name</label>
-          <input placeholder="Course Name" name="class[courseName]" type="text">
-        </div>
-        <div class="field">
-          <label>Professor Name</label>
-          <input placeholder="Professor Name" name="class[professor]" type="text">
-        </div>
-        <button class="ui inverted blue button">Submit</button>
-      </div>
+<form id="addClassForm" action="/classes" method="post">
+  <div class="modal-header text-center">
+    <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new Assignment</h4>
+    <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mx-3">
+    <div class="md-form mb-5">
+      <input class="form-control validate" id="className" type="text" name="class[className]">
+      <label for="className">Class Name</label>
+    </div>
+
+    <div class="md-form mb-5">
+      <input class="form-control validate" id="courseName" name="class[courseName]" type="text">
+      <label for="courseName">Course Name</label>
+    </div>
+
+    <div class="md-form mb-5">
+      <input class="form-control validate"id="professor"  name="class[professor]" type="text">
+      <label for="professor">Professor Name</label>
     </div>
   </div>
-</form>
 
-<% include ../partials/footer %>
+  <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+    <button type="submit" id="submit"
+            class="btn btn-outline-primary btn-block buttonAdd"
+            >Add Assignment
+      <i class="fas fa-paper-plane-o ml-1"></i>
+    </button>
+  </div>
+</form>

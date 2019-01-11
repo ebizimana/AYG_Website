@@ -1,7 +1,7 @@
 # AYG_Website
 The website for The AYG app
 
-# To Do
+# Done
 - [x] Add the Grade dropdown
 - [x] Add the Run button
 - [x] Make sure the Run button give people the results
@@ -15,11 +15,21 @@ The website for The AYG app
 - [x] Work on the Stats div for the assignments
 - [x] Make sure the grade and total inputs are numbers
 - [x] Work on making sure the total is always higher than the grade
-- [ ] Work on moving individual cells and saving the order to db
-- [ ] Add a filter that searches through the assignment table
-- [ ] Work on the stats div to look good
-- [ ] Work on the plus icon on the classes page
-- [ ] Add a filter that searches through the class list
+
+# To Do
+- [ ] Assignment Table Manipulation
+  - [ ] Work on moving individual cells and saving the order to db
+  - [ ] Add a filter that searches through the assignment table
+  - [ ] Add sort by column
+- [ ] Result Div Design
+  - [ ] Add a wheel to show the total grade
+  - [ ] Add a wheel to show the overall percentage
+  - [ ] Add a wheel to show the Points left to lose grade
+  - [ ] Add a method to show the current grade
+- [ ] Class Table Manipulation
+  - [x] Work on the plus icon on the classes page
+  - [ ] Add a filter that searches through the class list
+  - [x] Add a modal for the delete button 
 - [ ] Fix the menu
 - [ ] Work on the signup router and template
 - [ ] Work on the login router and template
