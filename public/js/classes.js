@@ -14,7 +14,6 @@ $('#addClass').on('click',function(e){
 // To Delete a class
 // To show the modal for delete Assignment form
 $('.deleteClass').on('click', function(e){
-  console.log("I am here")
   e.preventDefault();
   $('#modalDelete').modal('show').find('.modal-content').load($(this).attr('href'))
 })

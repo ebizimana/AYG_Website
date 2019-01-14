@@ -4,7 +4,11 @@ var gradeSum = 0,            // Toatl sum of graded assignment
     assignNumber = 0,
     pointsLeftNumber = 0,
     deleteAction;
+    newOrder = [{}]
+    classId = ""
 
+
+// reload the page
 
 // To make the grade dropdown work
 $('#grade-selector').dropdown();
@@ -15,6 +19,8 @@ $('body').click( function (e) {
       $('tr').css({'background-color':''})
       $("#editAssignment").prop('disabled', true)
       $('#deleteAssignment').prop('disabled',true)
+      $("#saveOrder").attr('hidden', true)
+
   }
 });
 
@@ -77,41 +83,25 @@ function editRow(assignId,classId,num) {
   editUrl = "/classes/" + classId + "/assignment/" + assignId + "/edit"
   deleteUrl = "/classes/" + classId + "/assignment/" + assignId
   deleteAction = "/classes/" + classId + "/assignment/" + assignId+ "?_method=DELETE"
+  setAssignNumber(num);
+  setClassId(classId)
 
-
-  // To drag and drop table cells
-  // table sortable
+  // To get the new data
   $("tbody").sortable({
-    update: function (event, ui) {
-      var assignUpdate=[{}]
-      var sendData ={}
-      // get data
-      for (var i = 0; i < num ; i++) {
-        name = $(this).context.children[i].children[0].innerText
-        grade = $(this).context.children[i].children[1].innerText
-        total = $(this).context.children[i].children[2].innerText
-        _id = $(this).context.children[i].children[3].id
-        assignUpdate.push({name: name, grade: grade, total: total, _id:_id})
-      }
-      // send data
-      for (var i = 0; i < assignUpdate.length; i++) {
-        if (i === 0) {
-          // Do nothing
-        }else{
-          sendData._id = assignUpdate[i]._id
-          sendData.name = assignUpdate[i].name
-          sendData.grade = Number(assignUpdate[i].grade)
-          sendData.total = Number(assignUpdate[i].total)
-          console.log(sendData);
-          $.post("/classes/" + classId + "/assignment/",sendData)
-        }
+    update: function(event,ui){
+      $("#saveOrder").attr('hidden', false)
+      newOrder = [{}]
+      for (var i = 0; i < num; i++) {
+        name =  $(this).context.children[i].children[0].innerText
+        grade = Number($(this).context.children[i].children[1].innerText)
+        total =  Number($(this).context.children[i].children[2].innerText)
+        id = $(this).context.children[i].children[3].id
+        newOrder.push({name: name, grade: grade, total: total, id: id})
       }
     }
   })
 
-
   setDeleteAction(deleteAction)
-
   //enable the edit and delete buttons
   $("#editAssignment").prop('disabled', false).attr('href', editUrl)
   $('#deleteAssignment').prop('disabled',false).attr('href',deleteUrl)
@@ -123,7 +113,42 @@ function editRow(assignId,classId,num) {
     });
     $(this).closest("tr").css({'background-color': '#87CEEB'})
   });
+
 }
+
+// save new order
+$("#saveOrder").on('click',function(){
+  // send data to router.
+  var assignUpdate = {}
+  for (var i = 0; i < assignNumber + 1 ; i++) {
+    if(i === 0){
+      // Do nothing
+    } else {
+      name = newOrder[i].name
+      grade = newOrder[i].grade
+      total = newOrder[i].total
+      id = newOrder[i].id
+      assignUpdate = {name: name, grade: grade, total: total, id:id, num:assignNumber}
+      console.log("i: " + i);
+
+      // $.post({
+      //   url:"/classes/" + classId + "/assignment/",
+      //   data: assignUpdate,
+      //   success: function(json) {
+      //       if(!json.error){
+      //         console.log("I am here");
+      //         $('tr').css({'background-color':''})
+      //         $("#editAssignment").prop('disabled', true)
+      //         $('#deleteAssignment').prop('disabled',true)
+      //         $("#saveOrder").attr('hidden', true)
+      //         location.reload(true);
+      //       }
+      //     }
+      // })
+    }
+  }
+})
+
 
 // Fills up the Estimate column in assignmnet table
 function runClass(num, grade, total, idName) {
@@ -246,4 +271,8 @@ function setPointsLeftNumber(num){
 // To set the Delete Action link
 function setDeleteAction(action) {
   deleteAction = action;
+}
+
+function setClassId(string){
+  classId = string
 }

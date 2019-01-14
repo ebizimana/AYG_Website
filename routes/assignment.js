@@ -2,8 +2,8 @@ var express = require("express"),
     router = express.Router({mergeParams:true}),
     Class = require("../models/class"),
     Assignment = require("../models/assignment"),
-    assignUpdate = {}
-    flag = false
+    sendData = {}    // for reordering assignments
+    count = 0        // for reordering assignments
 
 // New
 router.get("/new", function(req, res) {
@@ -23,37 +23,63 @@ router.post("/",function(req,res){
       console.log(err);
       res.redirect("/classes")
 
-      // An if statement for the sorting
+      // An if statement for sorting assignments
     } else if (req.body.assignment == null){
-      //delete all the assignments in the class
-      // Execute one time only
-      if(flag === false){
-        // remove all the assignments in the class
-        // run one time per reorder
+
+      //delete all the assignments in the class one time only
+      if(count === 0){
         while(classFound.assignments.length > 0) {
           classFound.assignments.pop();
-          console.log(classFound.assignments);
         }
-        classFound.save()
-        flag = true
+        // console.log("I just removed all the assignments");
+
+        // Save the first data
+        Assignment.create(req.body, function(err,assignCreated){
+          if(err){
+            console.log(err);
+          } else {
+            // save the data
+            sendData._id = req.body.id
+            sendData.name = req.body.name
+            sendData.grade = Number(req.body.grade)
+            sendData.total = Number(req.body.total)
+            classFound.assignments.push(sendData)
+            // classFound.save()
+          }
+        })
+        // increase count
+        count+= 1;
+        // console.log("save the first assignment");
+        console.log("count: " + count);
+        return
       }
 
-      // classFound.assignments.length=0
-      // classFound.save()
-      console.log(classFound.assignments);
-      // console.log("I just removed all the assignments in this class");
-
-      // create new assignments in the sortade order
-      // Assignment.create(req.body , function(err,assignCreated){
-      //   if(err){
-      //     console.log(err);
-      //   }else{
-      //     classFound.assignments.push(assignCreated)
-      //     classFound.save();
-      //     res.redirect("/classes/" + classFound._id)
-      //   }
-      // })
-
+      if(count < req.body.num){
+        // create new assignments in the sortade order
+        Assignment.create(req.body , function(err,assignCreated){
+          if(err){
+            console.log(err);
+          }else{
+            // Save the new data
+            sendData._id = req.body.id
+            sendData.name = req.body.name
+            sendData.grade = Number(req.body.grade)
+            sendData.total = Number(req.body.total)
+            classFound.assignments.push(sendData)
+            // classFound.save()
+          }
+        })
+        // increase count
+        count+= 1;
+        // console.log("saved an assignment and incremented count");
+        console.log("count: " + count);
+        // check to see if its the last data
+        if (count == req.body.num) {
+          count = 0
+          console.log("reseted count and redirecting");
+        }
+        return
+      }
         // An if statement for adding an individual assignment
     }else {
       Assignment.create(req.body.assignment, function(err,assig){

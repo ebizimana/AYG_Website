@@ -51,7 +51,7 @@ router.delete("/:id",function(req,res){
       console.log(err);
       req.flash("error",err.message)
     }else {
-      req.flash("success","Class successfully deleted")
+      req.flash("success","Class was successfully deleted")
       res.redirect("/classes")
     }
   })
