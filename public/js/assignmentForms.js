@@ -2,6 +2,7 @@ function checkTotal(){
    var totalInput =  parseInt($('#editTotal').val());
    var gradeInput = parseInt($('#editGrade').val());
    var styles = document.getElementById('error');
+   
   if( gradeInput > totalInput)
    {
      console.log("grade is higer than the total ");

@@ -6,10 +6,10 @@
 <% totalArr       = [] %>
 <% idArr          = [] %>
 <% classFound.assignments.forEach(function(oneClass){ %>
-  <% numberOfAssign += 1 %>
-  <% gradeArr.push(oneClass.grade) %>
-  <% totalArr.push(oneClass.total) %>
-  <% idArr.push(oneClass._id) %>
+<% numberOfAssign += 1 %>
+<% gradeArr.push(oneClass.grade) %>
+<% totalArr.push(oneClass.total) %>
+<% idArr.push(oneClass._id) %>
 <% }) %>
 
 <!-- Display the calculation errors -->
@@ -18,13 +18,9 @@
 <!-- Class Edit and Display  -->
 <div class="ui header text-center" style="margin-left:20px;">
   <h1>
-    <a id="editClass" href="/classes/<%= classFound._id%>/edit"
-      data-toggle="popover" data-placement="top"
-      title="<%= classFound.className %>"
-      data-html="true"
-      data-content="Course Name: <%= classFound.courseName %> <br/>
-                    Professor: <%=classFound.professor %>"
-      data-trigger="hover">
+    <a id="editClass" href="/classes/<%= classFound._id%>/edit" data-toggle="popover" data-placement="top"
+      title="<%= classFound.className %>" data-html="true" data-content="Course Name: <%= classFound.courseName %> <br/>
+                    Professor: <%=classFound.professor %>" data-trigger="hover">
       <strong style="color: #87CEEB;"><%= classFound.className %></strong>
     </a>
     <div class="modal fade modalEditClass" id="editOneClass" tabindex="-1" role="dialog" aria-hidden="true">
@@ -47,7 +43,7 @@
 
   <div id="box" class="ui form">
     <div class="text-center">
-      <h3 style="display: inline-block; margin-right:10px;" class="ui header"><label >Pick A Grade: </label></h3>
+      <h3 style="display: inline-block; margin-right:10px;" class="ui header"><label>Pick A Grade: </label></h3>
       <select class="ui selection dropdown" name="grade" id="grade-selector">
         <option value="a">A</option>
         <option value="b">B</option>
@@ -58,9 +54,8 @@
     </div>
 
     <div class="text-center">
-      <button type="submit"
-              class="btn btn-info btn-rounded btn-md"
-              onclick="runClass('<%=numberOfAssign%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>')">
+      <button type="submit" class="btn btn-info btn-rounded btn-md"
+        onclick="runClass('<%=numberOfAssign%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>')">
         Submit
       </button>
     </div>
@@ -74,12 +69,13 @@
 
       <!-- Add new assignment to the table  -->
       <div class="text-center">
-        <a href="/classes/<%= classFound._id %>/assignment/new"
-           class="btn btn-info btn-rounded btn-sm" id="addAssignment">Add
+        <a href="/classes/<%= classFound._id %>/assignment/new" class="btn btn-info btn-rounded btn-sm"
+          id="addAssignment">Add
           <i class="fas fa-plus-square ml-1"></i>
         </a>
       </div>
-      <div class="modal fade addNewInputs" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
+      <div class="modal fade addNewInputs" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
           </div>
@@ -88,9 +84,8 @@
 
       <!-- Edit the selected assignment  -->
       <div class="text-center buttonEditWrapper">
-        <button class="btn btn-info btn-rounded btn-sm buttonEdit"
-                id="editAssignment" disabled>Edit
-                <i class="fas fa-pencil-square ml-1"></i>
+        <button class="btn btn-info btn-rounded btn-sm buttonEdit" id="editAssignment" disabled>Edit
+          <i class="fas fa-pencil-square ml-1"></i>
         </button>
       </div>
       <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
@@ -102,12 +97,12 @@
 
       <!-- Delete the selected  assignment  -->
       <div class="text-center">
-          <button id="deleteAssignment"
-                  class="btn btn-danger btn-sm btn-rounded buttonDelete delete-form"
-                  disabled> Delete <i class="fas fa-times ml-1"></i>
-          </button>
+        <button id="deleteAssignment" class="btn btn-danger btn-sm btn-rounded buttonDelete delete-form" disabled>
+          Delete <i class="fas fa-times ml-1"></i>
+        </button>
       </div>
-      <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
+      <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
           </div>
@@ -115,10 +110,13 @@
       </div>
 
       <!-- Save the new order -->
-      <button class="btn btn-info btn-rounded btn-sm buttonEdit"
-              id="saveOrder" hidden>Save
-              <i class="fas fa-pencil-square ml-1"></i>
-      </button>
+      <form action="/classes/<%= classFound._id %>/assignment/reorder" method="POST">
+        <input type="hidden" name="newOrderInput">
+        <button type="submit" class="btn btn-info btn-rounded btn-sm buttonEdit" id="saveOrder" hidden>Save
+          <i class="fas fa-pencil-square ml-1"></i>
+        </button>
+      </form>
+
     </div>
   </div>
 
@@ -132,7 +130,7 @@
     </thead>
     <tbody>
       <% classFound.assignments.forEach(function(oneClass){ %>
-      <tr id="rowid" onclick="editRow('<%=oneClass._id %>','<%=classFound._id %>',<%= numberOfAssign %>)" >
+      <tr id="rowid" onclick="editRow('<%=oneClass._id %>','<%=classFound._id %>','<%= numberOfAssign %>')">
         <td id="name"> <%= oneClass.name %></td>
         <td id="grade"> <%= oneClass.grade %></td>
         <td id="total"> <%= oneClass.total %></td>
@@ -143,7 +141,7 @@
   </table>
 
   <!-- Assignments Stats  -->
-  <div  id="assignmentStats" class="ui raised very padded text container segment">
+  <div id="assignmentStats" class="ui raised very padded text container segment">
     <div id="title_bar" class="ui header">
       <div id="button2">-</div>
     </div>

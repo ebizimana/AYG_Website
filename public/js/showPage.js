@@ -1,3 +1,5 @@
+// import { url } from "inspector";
+
 // variables
 var gradeSum = 0,            // Toatl sum of graded assignment
     totalPoints = 0,         //  Maximum points of all available assignment
@@ -95,8 +97,8 @@ function editRow(assignId,classId,num) {
         name =  $(this).context.children[i].children[0].innerText
         grade = Number($(this).context.children[i].children[1].innerText)
         total =  Number($(this).context.children[i].children[2].innerText)
-        id = $(this).context.children[i].children[3].id
-        newOrder.push({name: name, grade: grade, total: total, id: id})
+        // id = $(this).context.children[i].children[3].id
+        newOrder.push({name: name, grade: grade, total: total})
       }
     }
   })
@@ -118,35 +120,56 @@ function editRow(assignId,classId,num) {
 
 // save new order
 $("#saveOrder").on('click',function(){
-  // send data to router.
-  var assignUpdate = {}
-  for (var i = 0; i < assignNumber + 1 ; i++) {
-    if(i === 0){
-      // Do nothing
-    } else {
-      name = newOrder[i].name
-      grade = newOrder[i].grade
-      total = newOrder[i].total
-      id = newOrder[i].id
-      assignUpdate = {name: name, grade: grade, total: total, id:id, num:assignNumber}
-      console.log("i: " + i);
+  dateName = $('input[name="newOrderInput"]')
+  newOrder = newOrder.splice(1)
+  dateName.val(JSON.stringify(newOrder, null, "  "))
 
-      // $.post({
-      //   url:"/classes/" + classId + "/assignment/",
-      //   data: assignUpdate,
-      //   success: function(json) {
-      //       if(!json.error){
-      //         console.log("I am here");
-      //         $('tr').css({'background-color':''})
-      //         $("#editAssignment").prop('disabled', true)
-      //         $('#deleteAssignment').prop('disabled',true)
-      //         $("#saveOrder").attr('hidden', true)
-      //         location.reload(true);
-      //       }
-      //     }
-      // })
-    }
-  }
+
+
+
+  // url = "/classes/" + classId + "/assignment/reorder"
+  // user = {name:'Elie', grade:'now'}
+  // fetch(url, {method:'POST', body: JSON.stringify(user)})
+  // .then(function(response){
+  //   if(response.ok){
+  //     console.log('data was accepted')
+  //     return
+  //   }
+  //   throw new Error('Request failed.')
+  // })
+  // .catch(function(error){
+  //   console.log(error)
+  // })
+
+
+  // // send data to router.
+  // var assignUpdate = {}
+  // for (var i = 0; i < assignNumber + 1 ; i++) {
+  //   if(i === 0){
+  //     // Do nothing
+  //   } else {
+  //     name = newOrder[i].name
+  //     grade = newOrder[i].grade
+  //     total = newOrder[i].total
+  //     id = newOrder[i].id
+  //     assignUpdate = {name: name, grade: grade, total: total, id:id}
+  //   }
+  // }
+  // console.log(newOrder)
+  // $.post({
+  //   url:"/classes/" + classId + "/assignment/reorder",
+  //   data: newOrder,
+  //   success: function(json) {
+  //       if(!json.error){
+  //         $('tr').css({'background-color':''})
+  //         $("#editAssignment").prop('disabled', true)
+  //         $('#deleteAssignment').prop('disabled',true)
+  //         $("#saveOrder").attr('hidden', true)
+  //         location.reload(true);
+  //       }
+  //     }
+  // })
+
 })
 
 
