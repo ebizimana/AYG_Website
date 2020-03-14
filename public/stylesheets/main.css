@@ -1,3 +1,7 @@
+.bodyBackground{
+  background-color: #EEEEEE;
+}
+
 /* Making sure the headers on the form are in the center from the top  */
 #header {
   margin-top: 70px;
@@ -43,6 +47,7 @@
 #box{
   height: auto;
   margin-top: 30px;
+  background-color: #EEEEEE;
 }
 #button2{
   border: none;
@@ -54,6 +59,7 @@
 #box2{
   height: auto;
   margin-top: 30px;
+  background-color: #EEEEEE;
 }
 
 /* classes/index.js the popover plus icon */

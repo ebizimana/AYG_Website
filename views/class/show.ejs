@@ -20,7 +20,7 @@
   <h1>
     <a id="editClass" href="/classes/<%= classFound._id%>/edit" data-toggle="popover" data-placement="top"
       title="<%= classFound.className %>" data-html="true" data-content="Course Name: <%= classFound.courseName %> <br/>
-                    Professor: <%=classFound.professor %>" data-trigger="hover">
+      Professor: <%=classFound.professor %>" data-trigger="hover">
       <strong style="color: #87CEEB;"><%= classFound.className %></strong>
     </a>
     <div class="modal fade modalEditClass" id="editOneClass" tabindex="-1" role="dialog" aria-hidden="true">
@@ -35,7 +35,6 @@
 </div>
 
 <!-- Grade picker  -->
-
 <div id="widnow" class="widnow ui raised very padded text container segment">
   <div id="title_bar" class="ui header">
     <div id="button">-</div>
@@ -121,7 +120,7 @@
   </div>
 
   <!-- Assignments Table -->
-  <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <table id="dtBasicExample" class="table table-striped table-bordered text-center" cellspacing="0" width="100%">
     <thead>
       <th class="th-sm">Name</th>
       <th class="th-sm">Grade</th>
@@ -141,18 +140,26 @@
   </table>
 
   <!-- Assignments Stats  -->
-  <div id="assignmentStats" class="ui raised very padded text container segment">
+  <div id="assignmentStats" class="ui mt-5 raised very padded text container segment">
     <div id="title_bar" class="ui header">
       <div id="button2">-</div>
     </div>
     <div id="box2">
-      <h1 class="ui header">You have:
-        <span id="maxGrade"></span> /
-        <span id="maxTotal"></span>
-      </h1>
-      <h3>Points left before you lose your grade :
-        <span id="pointsLeft"></span>
-      </h3>
+      <!-- TODO: If you have a popover of your total percentage -->
+      <h1 class="ui header mb-1 text-center">You have</h1>
+      <div class="progress" style="height: 30px;">
+        <div class="progress-bar d-inline progress-bar-striped progress-bar-animated bg-info text-dark my-auto" role="progressbar" id="gradeProgressBar">
+          <span id="maxGrade" class="h4"></span>
+          <span class="h4"> / </span>
+          <span class="h4" id="maxTotal"></span>
+        </div>
+      </div>
+      <h1 class="ui header mb-1 text-center">Points left before you lose your grade</h1>
+        <div class="progress" style="height: 30px;">
+          <div class="progress-bar d-inline progress-bar-striped progress-bar-animated bg-info text-dark my-auto" role="progressbar" id="pointsLeftProgressBar">
+              <span class="h4" id="pointsLeft"></span>
+          </div>
+        </div>
     </div>
   </div>
 
