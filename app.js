@@ -13,14 +13,15 @@ var express                 = require("express"),
 //MODEL SETUP
 var Assignment  = require("./models/assignment"),
     User        = require("./models/user"),
+    Category    = require("./models/category"),
     url         = "mongodb://localhost/ayg";
-// TODO: Add the category model 
 
 // ROUTER SETUP
-var assignmentRouter  = require("./routes/assignment"),
-    classRouter       = require("./routes/class"),
-    indexRouter       = require("./routes/index");
-
+var classRouter       = require("./routes/class"),
+    indexRouter       = require("./routes/index"),
+    categoryRouter    = require("./routes/category"),
+    assignmentRouter  = require("./routes/assignment");
+    
 //APP SETUP
 app.use(flash())
 app.set("view engine","ejs")
@@ -50,8 +51,8 @@ app.use(function(req, res, next){
 })
 app.use(indexRouter)
 app.use("/classes", classRouter),
+app.use("/classes/:id/categories", categoryRouter),
 app.use("/classes/:id/assignment", assignmentRouter),
-// TODO: Add the category router file
 
 app.listen(3000,function(req,res){
   console.log("Server Running....");

@@ -12,11 +12,13 @@
       <label class='active' for="inputName">Assignment Name</label>
     </div>
 
+    <!-- TODO: Can't become a negative grade -->
     <div class="md-form mb-5">
       <input  name="assignUpdate[grade]" required onblur="checkTotal()" type="number" id='editGrade' value="<%= assignFound.grade %>" class="form-control validate">
       <label  class='active' for="editGrade">Grade</label>
     </div>
 
+    <!-- TODO: Can't become a negative number -->
     <div class="md-form mb-5">
       <input   name="assignUpdate[total]" onblur="checkTotal()" id='editTotal' type="number" value="<%= assignFound.total %>" class="form-control validate">
       <label   class='active'  for="editTotal">Total</label>

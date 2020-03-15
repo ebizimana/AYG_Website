@@ -30,6 +30,7 @@
   <ul class="list-group">
     <% classes.forEach(function(oneClass){ %>
       <li class="className">
+        <!-- TODO: Put the delete button on the far right  -->
         <!-- Delete a class button  -->
           <a href='/classes/<%= oneClass._id %>/delete'
              onclick="setDeleteAction('<%= oneClass._id %>')"
