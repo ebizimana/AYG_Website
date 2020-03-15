@@ -14,6 +14,7 @@ var express                 = require("express"),
 var Assignment  = require("./models/assignment"),
     User        = require("./models/user"),
     url         = "mongodb://localhost/ayg";
+// TODO: Add the category model 
 
 // ROUTER SETUP
 var assignmentRouter  = require("./routes/assignment"),
@@ -50,6 +51,7 @@ app.use(function(req, res, next){
 app.use(indexRouter)
 app.use("/classes", classRouter),
 app.use("/classes/:id/assignment", assignmentRouter),
+// TODO: Add the category router file
 
 app.listen(3000,function(req,res){
   console.log("Server Running....");

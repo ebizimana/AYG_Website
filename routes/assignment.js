@@ -1,13 +1,8 @@
 var express = require("express"),
-  router = express.Router({
-    mergeParams: true
-  }),
+  router = express.Router({mergeParams: true}),
   Class = require("../models/class"),
-  Assignment = require("../models/assignment"),
-
-  sendData = {} // for reordering assignments
-count = 0 // for reordering assignments
-
+  Assignment = require("../models/assignment")
+  
 // New Assignmet Form
 router.get("/new", function (req, res) {
   Class.findById(req.params.id, function (err, classFound) {
