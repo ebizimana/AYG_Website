@@ -1,3 +1,4 @@
+// TODO: Before you can add a class you must be signed in 
 var express = require("express")
     router  = express.Router();
     Class   = require("../models/class")

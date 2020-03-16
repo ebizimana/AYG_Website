@@ -1,3 +1,7 @@
+// TODO: Add a method to calculate the current grade
+// TODO: Add method to distrubute the points based on category
+// TODO: Add a method to calculate overall percentage
+
 // variables
 var gradeSum = 0, // Toatl sum of graded assignment
   totalPoints = 0, //  Maximum points of all available assignment
