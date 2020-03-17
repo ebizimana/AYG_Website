@@ -1,4 +1,6 @@
 <!-- TODO: Make sure the active class works -->
+<!-- TODO: If they sign in show their image profile -->
+<!-- TODO: logout user after being inactive for a while -->
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -11,19 +13,27 @@
   <!-- My own stylesheet -->
   <link rel="stylesheet" href="/stylesheets/main.css">
   <!-- Semantic -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <!-- JQuery -->
   <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js">
+  </script>
   <!-- Bootstrap JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+  </script>
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+
   <!-- Semantic JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
   <!-- Material Design Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.6.0/css/mdb.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.6.0/css/mdb.min.css" rel="stylesheet">
 </head>
 
 <body class="bodyBackground">
@@ -35,28 +45,56 @@
     <a class="item" href="/classes">
       Classes
     </a>
-    <div class="right menu">
-      <% if(!currentUser){ %>
-      <a class="ui item" href="/register">
-        <i class="fas fa-user-plus"> Signup</i>
+  </div>
+
+  <div>
+    <% if(!currentUser){ %>
+    <div class="mt-2 mb-0 mr-3">
+      <a href="/login" id="openProfilemodal"
+        class="btn-floating btn-lg btn-default rounded-circle profilePicture d-flex justify-content-center">
+        <i class="fas fa-user text-light fa-3x mt-3"></i>
       </a>
-      <a class="ui item" href="/login">
-        <i class="fas fa-user"> Login</i>
-      </a>
-      <% } else{ %>
-      <a class="ui item" href="/">
-        SignedIn As
-        <%= currentUser.username %>
-      </a>
-      <a class="ui item" href="/logout">
-        <i class="fas fa-user"> Logout</i>
-      </a>
-      <% } %>
     </div>
+
+    <div class="modal fade" id="modalProfile" tabindex="-1" role="dialog">
+      <div class="modal-dialog cascading-modal" role="document">
+        <div class="modal-content"></div>
+      </div>
+    </div>
+
+    <% } else{ %>
+
+    <div class="dropleft">
+      <a href="/" data-toggle="dropdown">
+        <img src="<%= currentUser.profilePicture %>"
+          onerror="this.src='https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg'" alt="avatar"
+          class="profilePicture rounded-circle img-responsive">
+      </a>
+
+      <div class="dropdown-menu">
+        <span class="dropdown-item text-muted">
+          Name: <%= currentUser.username %>
+        </span>
+        <a href="/editProfile" id="editProfile" class="dropdown-item">
+            <i class="fas fa-user-edit"></i>
+            Edit Profile
+        </a>
+        <div class="modal fade" id="editProfileModal">
+          <div class="modal-dialog">
+            <div class="modal-contene"></div>
+          </div>
+        </div>
+        <a class="dropdown-item" href="/logout">
+          <i class="fas fa-sign-out-alt"></i>  Logout
+        </a>
+      </div>
+    </div>
+
+    <% } %>
   </div>
 
   <!-- Flash messages in all pages -->
-  <div class="container">
+  <div class="container" id="messageTime">
     <% if(error && error.length > 0) { %>
     <div class="alert alert-danger" role="alert">
       <%= error %>
@@ -68,3 +106,18 @@
     </div>
     <% } %>
   </div>
+
+  <script>
+    // Open The Login | SingUp Modal
+    $("#openProfilemodal").on('click', function (e) {
+      e.preventDefault()
+      $("#modalProfile").modal('show').find('.modal-content').load($(this).attr('href'))
+    })
+    //Open the Edit Profile  
+    $("#editProfile").on('click',function(e){
+      e.preventDefault()
+      $('#editProfileModal').modal('show').find('.modal-content').load($(this).attr('href'))
+    })
+    // Show the flash message for 3 sec
+    $("#messageTime").delay(3000).slideUp(300)
+  </script>

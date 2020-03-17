@@ -4,7 +4,8 @@ var mongoose = require("mongoose"),
 
 var userSchema = new mongoose.Schema({
   username: String,
-  password: String
+  password: String,
+  profilePicture: String
 });
 
 userSchema.plugin(passportLocalMongoose)

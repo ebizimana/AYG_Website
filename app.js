@@ -30,6 +30,7 @@ app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({extended:true}))
 mongoose.connect(url,{useNewUrlParser:true})
 
+
 //PASSPORT SETUP
 app.use(expressSession({
   secret:"Elie Bizimana",
@@ -54,6 +55,7 @@ app.use("/classes", classRouter),
 app.use("/classes/:id/categories", categoryRouter),
 app.use("/classes/:id/assignment", assignmentRouter),
 
-app.listen(3000,function(req,res){
-  console.log("Server Running....");
-})
+app.listen(3000,() => console.log("Server Running on port 3000"))
+
+
+

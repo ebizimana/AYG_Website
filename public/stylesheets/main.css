@@ -1,3 +1,47 @@
+/* Login Page Styles */
+ul {
+  display: flex;
+  margin: -3rem 1rem 0 1rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.darken-3 {
+  background-color: #0277bd !important;
+}
+
+.md-tabs {
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem;
+  margin-right: 5rem;
+  margin-bottom: -20px;
+  margin-left: 1rem;
+  background-color: #2bbbad;
+  border: 0;
+  border-radius: .25rem;
+  -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #145980;
+  border-color: transparent;
+}
+
+.profilePicture{
+  margin-top: -3rem;
+  margin-left: 90rem;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-menu {
+  top:-35px !important;
+  left: -110px !important;
+}
+
+/* The Whole website styles */
 .bodyBackground{
   background-color: #EEEEEE;
 }
