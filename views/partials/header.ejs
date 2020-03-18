@@ -1,6 +1,6 @@
 <!-- TODO: Make sure the active class works -->
 <!-- TODO: If they sign in show their image profile -->
-<!-- TODO: logout user after being inactive for a while -->
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -75,22 +75,25 @@
         <span class="dropdown-item text-muted">
           Name: <%= currentUser.username %>
         </span>
+
         <a href="/editProfile" id="editProfile" class="dropdown-item">
-            <i class="fas fa-user-edit"></i>
-            Edit Profile
+          <i class="fas fa-user-edit"></i>
+          Edit Profile
         </a>
-        <div class="modal fade" id="editProfileModal">
-          <div class="modal-dialog">
-            <div class="modal-contene"></div>
-          </div>
-        </div>
+
         <a class="dropdown-item" href="/logout">
-          <i class="fas fa-sign-out-alt"></i>  Logout
+          <i class="fas fa-sign-out-alt"></i> Logout
         </a>
       </div>
     </div>
 
     <% } %>
+
+    <div class="modal fade" id="editProfileModal">
+      <div class="modal-dialog">
+        <div class="modal-content"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Flash messages in all pages -->
@@ -113,11 +116,13 @@
       e.preventDefault()
       $("#modalProfile").modal('show').find('.modal-content').load($(this).attr('href'))
     })
-    //Open the Edit Profile  
-    $("#editProfile").on('click',function(e){
+
+    // Open Edit Profile Modal
+    $("#editProfile").on('click', function (e) {
       e.preventDefault()
-      $('#editProfileModal').modal('show').find('.modal-content').load($(this).attr('href'))
+      $("#editProfileModal").modal('show').find('.modal-content').load($(this).attr('href'))
     })
+
     // Show the flash message for 3 sec
     $("#messageTime").delay(3000).slideUp(300)
   </script>

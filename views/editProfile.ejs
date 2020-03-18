@@ -1,0 +1,39 @@
+<form action="/updateProfile" method="POST">
+    <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+            <strong>Edit Profile</strong>
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body mx-4">
+        <div class="md-form mb-5">
+            <input type="text" id="forUsername" name="updateUser[username]" class="form-control validate"
+                value="<%= user.username %>">
+            <label data-error="wrong" data-success="right" class="active" for="forUsername">
+                Change Your Username
+            </label>
+        </div>
+
+        <div class="md-form pb-3">
+            <input type="text" name="updateUser[profilePicture]" class="form-control validate" id="forProfilePicture"
+                value="<%= user.profilePicture %>">
+            <label data-error="wrong" data-success="right" class="active" for="forProfilePicture">
+                Change Profile Picture
+            </label>
+
+            <p class="font-small blue-text d-flex justify-content-end">Change
+                <a href="#" class="blue-text ml-1">
+                    Password?
+                </a>
+            </p>
+        </div>
+
+        <div class="text-center mb-3">
+            <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Update User</button>
+        </div>
+
+    </div>
+</form>

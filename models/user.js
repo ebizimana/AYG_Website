@@ -5,7 +5,11 @@ var mongoose = require("mongoose"),
 var userSchema = new mongoose.Schema({
   username: String,
   password: String,
-  profilePicture: String
+  profilePicture: String,
+  classes:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Class"
+  }]
 });
 
 userSchema.plugin(passportLocalMongoose)
