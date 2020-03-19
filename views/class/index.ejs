@@ -11,7 +11,7 @@
 
         <!-- Add a new class -->
         <div class="text-center">
-          <a href="/classes/new" id="addClass">
+          <a href="/classes/<%= userFound._id %>/new" id="addClass">
             <i class="fas fa-plus" data-toggle="popover"
                   data-content="Add a Class"
                   data-placement="top" data-trigger="hover"
@@ -30,13 +30,15 @@
     </div>
 
   </h1>
+  
   <ul class="list-group">
-    <% classes.forEach(function(oneClass){ %>
+
+    <% userFound.classes.forEach(function(oneClass){ %>
       <li class="className">
         <!-- TODO: Put the delete button on the far right  -->
         <!-- Delete a class button  -->
-          <a href='/classes/<%= oneClass._id %>/delete'
-             onclick="setDeleteAction('<%= oneClass._id %>')"
+          <a href='/classes/<%= userFound._id %>/<%= oneClass._id %>/delete'
+             onclick="setDeleteAction('<%= userFound._id %>','<%= oneClass._id %>')"
              class="deleteClass">
              <i class="fas fa-trash-alt"></i>
           </a>
@@ -48,7 +50,7 @@
           </div>
 
           <!-- Show class Details -->
-        <a  href="/classes/<%= oneClass._id %>"> <%= oneClass.className %></a>
+        <a  href="/classes/<%= userFound._id %>/<%= oneClass._id %>"> <%= oneClass.className %></a>
       </li>
     <% }) %>
   </ul>

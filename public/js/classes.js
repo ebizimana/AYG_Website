@@ -18,8 +18,8 @@ $('.deleteClass').on('click', function(e){
   $('#modalDelete').modal('show').find('.modal-content').load($(this).attr('href'))
 })
 // To set the Delete Action link
-function setDeleteAction(action) {
-  deleteAction = "/classes/" + action + "?_method=DELETE";
+function setDeleteAction(user_id, class_id) {
+  deleteAction = "/classes/" + user_id + "/" + class_id + "?_method=DELETE";
 }
 //Delete an assignment
 function deleteForm(){

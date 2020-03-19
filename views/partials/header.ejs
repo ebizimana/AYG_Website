@@ -42,9 +42,17 @@
     <a class="item huge header" href="/">
       AYG
     </a>
-    <a class="item" href="/classes">
+    <% if(!currentUser) { %>
+      <a class="item" href="/classes/">
+        Classes
+      </a>
+   <% } else { %>
+    <a class="item" href="/classes/<%= currentUser._id %>">
       Classes
     </a>
+  <% } %> 
+
+
   </div>
 
   <div>
