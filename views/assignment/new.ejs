@@ -1,4 +1,4 @@
-<form id="addAssignmentForm" action="/classes/<%= classFound._id %>/assignment" method="post">
+<form id="addAssignmentForm" action="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/assignments" method="post">
   <div class="modal-header text-center">
     <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new Assignment</h4>
     <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">

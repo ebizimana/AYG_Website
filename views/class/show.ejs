@@ -68,13 +68,12 @@
 
       <!-- Add new assignment to the table  -->
       <div class="text-center" style="margin-left: 39%">
-        <a href="/classes/<%= classFound._id %>/assignment/new" class="btn btn-info btn-rounded btn-sm"
+        <a href="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/assignments/new" class="btn btn-info btn-rounded btn-sm"
           id="addAssignment">Add
           <i class="fas fa-plus-square ml-1"></i>
         </a>
       </div>
-      <div class="modal fade addNewInputs" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd"
-        aria-hidden="true">
+      <div class="modal fade addNewInputs" id="modalAdd">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
           </div>
@@ -87,7 +86,7 @@
           <i class="fas fa-pencil-square ml-1"></i>
         </button>
       </div>
-      <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal fade modalEditClass" id="modalEdit">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
           </div>
@@ -100,8 +99,7 @@
           Delete <i class="fas fa-times ml-1"></i>
         </button>
       </div>
-      <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete"
-        aria-hidden="true">
+      <div class="modal fade" id="modalDelete">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
           </div>
@@ -109,7 +107,7 @@
       </div>
 
       <!-- Save the new order -->
-      <form action="/classes/<%= classFound._id %>/assignment/reorder" method="POST">
+      <form action="/users/<%=currentUser._id %>/classes/<%= classFound._id %>/assignments/reorder" method="POST">
         <input type="hidden" name="newOrderInput">
         <button type="submit" class="btn btn-info btn-rounded btn-sm buttonEdit" id="saveOrder" hidden>Save
           <i class="fas fa-pencil-square ml-1"></i>
@@ -140,7 +138,7 @@
     </thead>
     <tbody>
       <% classFound.assignments.forEach(function(oneClass){ %>
-      <tr id="rowid" onclick="editRow('<%=oneClass._id %>','<%=classFound._id %>','<%= numberOfAssign %>')">
+      <tr id="rowid" onclick="editRow('<%=currentUser._id %>','<%=classFound._id %>','<%=oneClass._id %>','<%= numberOfAssign %>')">
         <td id="name"> <%= oneClass.name %></td>
         <td id="grade"> <%= oneClass.grade %></td>
         <td id="total"> <%= oneClass.total %></td>

@@ -80,11 +80,11 @@ function deleteForm() {
 }
 
 // Editing and deleting assignments
-function editRow(assignId, classId, num) {
+function editRow(userId, classId, assignId, num) {
   // initialize variables
-  editUrl = "/classes/" + classId + "/assignment/" + assignId + "/edit"
-  deleteUrl = "/classes/" + classId + "/assignment/" + assignId
-  deleteAction = "/classes/" + classId + "/assignment/" + assignId + "?_method=DELETE"
+  editUrl = "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId + "/edit"
+  deleteUrl = "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId
+  deleteAction = "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId + "?_method=DELETE"
   setAssignNumber(num);
   setClassId(classId)
 

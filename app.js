@@ -53,7 +53,7 @@ app.use(function(req, res, next){
 app.use(indexRouter)
 app.use("/users/:user_id/classes", classRouter),
 app.use("/classes/:id/categories", categoryRouter),
-app.use("/classes/:id/assignment", assignmentRouter),
+app.use("/users/:user_id/classes/:class_id/assignments", assignmentRouter),
 
 app.listen(3000,() => console.log("Server Running on port 3000"))
 
