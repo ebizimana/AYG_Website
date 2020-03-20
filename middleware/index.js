@@ -1,3 +1,4 @@
+// TODO: Make this middleware work for classes routes
 var middlewareObj  = {}
 
 middlewareObj.isLoggedIn = function(req, res, next) {

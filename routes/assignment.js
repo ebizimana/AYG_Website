@@ -1,10 +1,12 @@
 var express = require("express"),
   router = express.Router({mergeParams: true}),
   Class = require("../models/class"),
-  Assignment = require("../models/assignment")
+  Assignment = require("../models/assignment"),
+  User       = require("../models/user")
   
 // New Assignmet Form
 router.get("/new", function (req, res) {
+  User.findById(req.params.user_id)
   Class.findById(req.params.id, function (err, classFound) {
     if (err) {
 
@@ -18,6 +20,7 @@ router.get("/new", function (req, res) {
 
 // Create One
 router.post("/", function (req, res) {
+  User.findById(req.params.user_id)
   Class.findById(req.params.id, function (err, classFound) {
     if (err) {
       console.log(err);
@@ -38,7 +41,7 @@ router.post("/", function (req, res) {
 })
 
 
-//Edit
+// Edit form
 router.get("/:assig_id/edit", function (req, res) {
   Assignment.findById(req.params.assig_id, function (err, assignFound) {
     if (err) {
@@ -94,7 +97,12 @@ router.post("/reorder", function (req, res) {
   })
 })
 
-// Delete
+// Show the delete modal
+router.get("/:assig_id", function (req, res) {
+  res.render("assignment/delete")
+})
+
+// Delete Assignment in DB
 router.delete("/:assig_id", function (req, res) {
   Assignment.findByIdAndDelete(req.params.assig_id, function (err) {
     if (err) {
@@ -106,9 +114,6 @@ router.delete("/:assig_id", function (req, res) {
   })
 })
 
-// Show the delete modal
-router.get("/:assig_id", function (req, res) {
-  res.render("assignment/delete")
-})
+
 
 module.exports = router

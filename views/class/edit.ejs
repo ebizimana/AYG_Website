@@ -1,4 +1,4 @@
-<form id="editClassForm" action="/classes/<%= editClass._id %>?_method=PUT" method="post">
+<form id="editClassForm" action="/users/<%= currentUser._id %>/classes/<%= editClass._id %>?_method=PUT" method="post">
   <div class="modal-header text-center">
     <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Edit
       <%= editClass.className %>

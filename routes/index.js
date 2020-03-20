@@ -5,7 +5,12 @@ User = require("../models/user")
 
 // The home router
 router.get("/", function (req, res) {
-  res.render("home")
+  if(!req.user){
+    req.flash("error","You Need To Be Login")
+    res.render("home")
+  }else {
+    res.render("home")
+  }
 })
 
 // To get the profile modal
@@ -15,9 +20,7 @@ router.get("/login", function (req, res) {
 
 // Edit User Profile Form
 router.get("/editProfile", function (req, res) {
-  res.render("editProfile", {
-    user: req.user
-  })
+  res.render("editProfile", {user: req.user})
 })
 
 // Add a user to the db

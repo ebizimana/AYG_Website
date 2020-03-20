@@ -18,10 +18,10 @@
 <!-- Class Edit and Display  -->
 <div class="ui header text-center" style="margin-left:20px;">
   <h1>
-    <a id="editClass" href="/classes/<%= classFound._id%>/edit" data-toggle="popover" data-placement="top"
+    <a id="editClass" href="/users/<%= currentUser._id %>/classes/<%= classFound._id%>/edit" data-toggle="popover" data-placement="top"
       title="<%= classFound.className %>" data-html="true" data-content="Course Name: <%= classFound.courseName %> <br/>
       Professor: <%=classFound.professor %>" data-trigger="hover">
-      <strong style="color: #87CEEB;"><%= classFound.className %></strong>
+      <strong class="classNameInShow"><%= classFound.className %></strong>
     </a>
     <div class="modal fade modalEditClass" id="editOneClass" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -127,6 +127,7 @@
 
   <!-- Assignments Table -->
   <!-- TODO: Add a search bar to search by assignment name -->
+  <!-- TODO: Add a pagination on assignment table -->
   <table id="dtBasicExample" class="table table-striped table-bordered text-center" 
   cellspacing="0" 
   width="100%">

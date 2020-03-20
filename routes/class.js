@@ -5,32 +5,27 @@ var  express        = require("express")
      middleware     = require('../middleware')
      User           = require("../models/user")
 
-// Denie access if not loggin 
-router.get("/", (req, res) => {
-  req.flash("error", "You Need To Be Login")
-  res.redirect("/")
-})
-
 // Show all classes page
-router.get("/:id", function (req, res) {
-  User.findById(req.params.id).populate("classes").exec((err, userFound) => {
-    if (err) {
-      throw err
-    }
-    res.render("class/index", {
-      userFound: userFound
-    })
+router.get("/", function (req, res) {
+  User.findById(req.params.user_id).populate("classes").exec((err, userFound) => {
+    if (err) {throw err}
+    res.render("class/index", {userFound: userFound})
   })
 })
 
 // Show the form for to create a new class
-router.get("/:id/new", function (req, res) {
+router.get("/new", function (req, res) {
   res.render("class/new")
 })
 
-//Save the class in the database
-router.post("/:id", function (req, res) {
-  User.findById(req.params.id, (err, userFound) => {
+// Delete Form
+router.get("/:class_id/delete", function (req, res) {
+  res.render("class/delete")
+})
+
+//Save the class in the DB
+router.post("/", function (req, res) {
+  User.findById(req.params.user_id, (err, userFound) => {
     if (err) {
       return err
     }
@@ -42,7 +37,7 @@ router.post("/:id", function (req, res) {
         userFound.classes.push(classCreated)
         userFound.save()
         req.flash("success", "Class successfully created")
-        res.redirect("/classes/" + req.params.id)
+        res.redirect("/users/"+ req.params.user_id + "/classes")
       }
     })
 
@@ -50,11 +45,10 @@ router.post("/:id", function (req, res) {
 })
 
 // Show an individual class
-router.get("/:id/:assign_id", function (req, res) {
-  User.findById(req.params.id, (err, userFound) => {
+router.get("/:class_id", function (req, res) {
+  User.findById(req.params.user_id, (err, userFound) => {
     if (err) {throw err}
-    Class.findById(req.params.assign_id).populate("assignments").exec(function (err,
-      classFound) {
+    Class.findById(req.params.class_id).populate("assignments").exec(function (err,classFound) {
       if (err) {
         console.log(err);
         req.flash("error", err.message)
@@ -67,11 +61,9 @@ router.get("/:id/:assign_id", function (req, res) {
   })
 })
 
-
-
-//edit router
-router.get("/:id/edit", function (req, res) {
-  Class.findById(req.params.id, function (err, editClass) {
+// Show Edit Modal
+router.get("/:class_id/edit", function (req, res) {
+  Class.findById(req.params.class_id, function (err, editClass) {
     if (err) {
       console.log(err);
     } else {
@@ -82,26 +74,23 @@ router.get("/:id/edit", function (req, res) {
   })
 })
 
-// update router
-router.put("/:id", function (req, res) {
-  Class.findByIdAndUpdate(req.params.id, req.body.updateClass, function (err, update) {
+// Updated Class in the DB
+router.put("/:class_id", function (req, res) {
+  Class.findByIdAndUpdate(req.params.class_id, req.body.updateClass, function (err, update) {
     if (err) {
       console.log(err);
     } else {
       req.flash("success", "You updated your class")
       console.log("updateClass: " + req.body.updateClass.name);
-      res.redirect("/classes/" + req.params.id)
+      res.redirect("/users/"+ req.params.user_id + "/classes/" + req.params.class_id)
     }
   })
 })
 
-// Delete Form
-router.get("/:user_id/:class_id/delete", function (req, res) {
-  res.render("class/delete")
-})
+
 
 //Delete a class from the DB
-router.delete("/:user_id/:class_id", function (req, res) {
+router.delete("/:class_id", function (req, res) {
   User.findById(req.params.user_id, (err,userFound) => {
     if(err){throw err}
     Class.findByIdAndDelete(req.params.class_id, function (err) {
@@ -113,7 +102,7 @@ router.delete("/:user_id/:class_id", function (req, res) {
         userFound.classes.splice(deleteItem,1)
         userFound.save()
         req.flash("success", "Class was successfully deleted")
-        res.redirect("/classes/" + req.params.user_id)
+        res.redirect("/users/" + req.params.user_id + "/classes/")
       }
     })
   })

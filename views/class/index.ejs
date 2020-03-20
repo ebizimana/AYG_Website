@@ -6,20 +6,18 @@
 <link rel="stylesheet" href="/stylesheets/class.css">
 <div id="container">
   <h1> Class List
-    <div id="plus-sign" class="wrapper-modal-editor" >
+    <div id="plus-sign" class="wrapper-modal-editor">
       <div class="row d-flex justify-content-center modalWrapper">
 
         <!-- Add a new class -->
         <div class="text-center">
-          <a href="/classes/<%= userFound._id %>/new" id="addClass">
-            <i class="fas fa-plus" data-toggle="popover"
-                  data-content="Add a Class"
-                  data-placement="top" data-trigger="hover"
-                  style="color:white;">
+          <a href="/users/<%= userFound._id %>/classes/new" id="addClass">
+            <i class="fas fa-plus" data-toggle="popover" data-content="Add a Class" data-placement="top"
+              data-trigger="hover" style="color:white;">
             </i>
           </a>
         </div>
-        <div class="modal fade addNewInputs" id="modalAddClass" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
+        <div class="modal fade addNewInputs" id="modalAddClass">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
             </div>
@@ -30,31 +28,34 @@
     </div>
 
   </h1>
-  
+
   <ul class="list-group">
 
     <% userFound.classes.forEach(function(oneClass){ %>
-      <li class="className">
-        <!-- TODO: Put the delete button on the far right  -->
-        <!-- Delete a class button  -->
-          <a href='/classes/<%= userFound._id %>/<%= oneClass._id %>/delete'
-             onclick="setDeleteAction('<%= userFound._id %>','<%= oneClass._id %>')"
-             class="deleteClass">
-             <i class="fas fa-trash-alt"></i>
-          </a>
-          <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-              </div>
-            </div>
+    <li class="className">
+      <!-- TODO: Put the delete button on the far right  -->
+      <!-- Delete a class button  -->
+      <a href='/users/<%= userFound._id %>/classes/<%= oneClass._id %>/delete'
+        onclick="setDeleteAction('<%= userFound._id %>','<%= oneClass._id %>')" class="deleteClass">
+        <i class="fas fa-trash-alt"></i>
+      </a>
+      <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
           </div>
+        </div>
+      </div>
 
-          <!-- Show class Details -->
-        <a  href="/classes/<%= userFound._id %>/<%= oneClass._id %>"> <%= oneClass.className %></a>
-      </li>
+      <!-- Show class Details -->
+      <a class="align-middle ml-3" href="/users/<%= userFound._id %>/classes/<%= oneClass._id %>"
+        style="  font-size: 2rem;">
+        <%= oneClass.className %>
+      </a>
+    </li>
     <% }) %>
   </ul>
 </div>
 
-<script type="text/javascript"src="/js/classes.js"></script>
+<script type="text/javascript" src="/js/classes.js"></script>
 <% include ../partials/footer %>

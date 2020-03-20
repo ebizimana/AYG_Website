@@ -19,7 +19,7 @@ $('.deleteClass').on('click', function(e){
 })
 // To set the Delete Action link
 function setDeleteAction(user_id, class_id) {
-  deleteAction = "/classes/" + user_id + "/" + class_id + "?_method=DELETE";
+  deleteAction = "/users/"+ user_id + "/classes/"+ class_id + "?_method=DELETE";
 }
 //Delete an assignment
 function deleteForm(){

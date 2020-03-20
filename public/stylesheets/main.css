@@ -28,85 +28,96 @@ ul {
   border-color: transparent;
 }
 
-.profilePicture{
+.profilePicture {
   margin-top: -3rem;
-  margin-left: 90rem;
+  margin-left: 93%;
   width: 100px;
   height: 100px;
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
 .dropdown-menu {
-  top:-35px !important;
-  left: -110px !important;
+  top: -35px !important;
+  left: -130px !important;
 }
 
 /* The Whole website styles */
-.bodyBackground{
+.bodyBackground {
   background-color: #EEEEEE;
+}
+
+.classNameInShow {
+  color: #2E86C1;
+  font-size: 4rem;
+  font-weight: bolder;
 }
 
 /* Making sure the headers on the form are in the center from the top  */
 #header {
   margin-top: 70px;
-  text-align:center;
+  text-align: center;
 }
 
 /* hide the assignment stats div  */
-#assignmentStats{
+#assignmentStats {
   display: none;
-  width:100%;
+  width: 100%;
   padding: 5px;
   margin-bottom: 30px;
 }
 
 /* Grade Picker  */
-.ui.selection.dropdown{
+.ui.selection.dropdown {
   width: 50px;
   text-align: center;
 }
-.ui.selection.dropdown .menu>.item  {
+
+.ui.selection.dropdown .menu>.item {
   text-align: center;
 }
 
 /* Maximize and minimize grade Picker div  */
-#widnow{
-  width:100%;
+#widnow {
+  width: 100%;
   padding: 5px;
 }
 
-#title_bar{
+#title_bar {
   background: #FEFEFE;
   height: 25px;
   width: 30px;
   float: right;
 }
-#button{
+
+#button {
   border: none;
   text-align: center;
   width: 25px;
   height: 23px;
-  cursor:pointer;
+  cursor: pointer;
 }
-#box{
+
+#box {
   height: auto;
   margin-top: 30px;
   background-color: #EEEEEE;
 }
-#button2{
+
+#button2 {
   border: none;
   text-align: center;
   width: 25px;
   height: 23px;
-  cursor:pointer;
+  cursor: pointer;
 }
-#box2{
+
+#box2 {
   height: auto;
   margin-top: 30px;
   background-color: #EEEEEE;
 }
 
 /* classes/index.js the popover plus icon */
-#plus-sign{
+#plus-sign {
   float: right;
 }

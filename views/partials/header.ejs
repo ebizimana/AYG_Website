@@ -42,16 +42,15 @@
     <a class="item huge header" href="/">
       AYG
     </a>
-    <% if(!currentUser) { %>
-      <a class="item" href="/classes/">
+    <% if (!currentUser) { %>
+      <a class="item" href="/">
         Classes
       </a>
-   <% } else { %>
-    <a class="item" href="/classes/<%= currentUser._id %>">
-      Classes
-    </a>
-  <% } %> 
-
+    <% } else { %> 
+      <a class="item" href="/users/<%= currentUser._id %>/classes">
+        Classes
+      </a>
+    <% } %> 
 
   </div>
 
@@ -59,7 +58,7 @@
     <% if(!currentUser){ %>
     <div class="mt-2 mb-0 mr-3">
       <a href="/login" id="openProfilemodal"
-        class="btn-floating btn-lg btn-default rounded-circle profilePicture d-flex justify-content-center">
+        class="btn-floating btn-lg btn-default rounded-circle profilePicture d-flex justify-content-center ">
         <i class="fas fa-user text-light fa-3x mt-3"></i>
       </a>
     </div>
@@ -72,8 +71,9 @@
 
     <% } else{ %>
 
-    <div class="dropleft">
+    <div class="dropleft" style="height: 0">
       <a href="/" data-toggle="dropdown">
+        <!-- TODO: Add unsplash onerror -->
         <img src="<%= currentUser.profilePicture %>"
           onerror="this.src='https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg'" alt="avatar"
           class="profilePicture rounded-circle img-responsive">
