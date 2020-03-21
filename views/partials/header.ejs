@@ -1,7 +1,5 @@
-<!-- TODO: If they sign in show their image profile -->
 <!-- TODO: User not found should be in the label error -->
 <!-- TODO: Sign in | register in with fb, twittwer or Gmail -->
-<!-- TODO: Check and see if the username is taken  -->
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -126,13 +124,16 @@
       $('a.huge').removeClass('huge header');
       $('a[href="' + location.pathname + '"]').closest('a').addClass('huge header');
     });
-    // Show the flash message for 3 sec
-    $(".messageTime").delay(3000).slideUp(300)
 
     // Display message when not loggIn
-    $('#notLoggedIn').on('click', () => {
-      $("#showErrMsg").removeClass("d-none").addClass('container w-50 text-center').html("You need to be logged in")
+    $('#notLoggedIn').click(() => {
+      $("#showErrMsg").removeClass("d-none")
+      $("#showErrMsg").addClass('container w-50 text-center').html("You need to be logged in")
     })
+
+    // Show the flash message for 3 sec
+    $(".messageTime").delay(3000).slideUp(300)
+    
     // Open The Login | SingUp Modal
     $("#openProfilemodal").on('click', function (e) {
       e.preventDefault()

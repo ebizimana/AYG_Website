@@ -8,7 +8,7 @@
         </button>
     </div>
 
-    <div class="modal-body mx-4">
+    <div class="modal-body mx-4" id="tabOne">
         <div class="md-form mb-5">
             <input type="text" id="forUsername" name="username" class="form-control validate"
                 value="<%= user.username %>">
@@ -24,9 +24,9 @@
                 Change Profile Picture
             </label>
 
-            <p class="font-small blue-text d-flex justify-content-end">Change
-                <a href="#" class="blue-text ml-1">
-                    Password?
+            <p class="font-small blue-text d-flex justify-content-end">
+                <a id="changePassword" role="tab" class="blue-text ml-1">
+                    Change Password?
                 </a>
             </p>
         </div>
@@ -36,4 +36,41 @@
         </div>
 
     </div>
+
+    <div class="modal-body mx-4 d-none" id="tabTwo">
+        <div class="md-form mb-5">
+            <input type="password" id="forUsername" name="oldPassword" class="form-control validate">
+            <label data-error="wrong" data-success="right" class="active" for="forUsername">
+                Old Password
+            </label>
+        </div>
+
+        <div class="md-form pb-3">
+            <input type="text" name="newPassword" class="form-control validate" id="forProfilePicture">
+            <label data-error="wrong" data-success="right" class="active" for="forProfilePicture">
+                New Password
+            </label>
+            <p class="font-small blue-text d-flex justify-content-end">
+                <a id="changeUsername" role="tab" class="blue-text ml-1">
+                    Change Username
+                </a>
+            </p>
+        </div>
+
+        <div class="text-center mb-3">
+            <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Update User</button>
+        </div>
+
+    </div>
+
+    <script>
+        $("#changePassword").on("click", () => {
+            $("#tabOne").addClass("d-none")
+            $('#tabTwo').removeClass("d-none")
+        })
+        $("#changeUsername").on("click",() => {
+            $("#tabOne").removeClass("d-none")
+            $('#tabTwo').addClass("d-none")
+        })
+    </script>
 </form>

@@ -16,18 +16,18 @@
             <i class="fas fa-plus" data-toggle="popover" data-content="Add a Class" data-placement="top"
               data-trigger="hover" style="color:white;">
             </i>
-          </a> 
+          </a>
           <% }else { %>
-            <a href="/users/<%= userFound._id %>/classes/new" id="addClass">
-              <i class="fas fa-plus" data-toggle="popover" data-content="Add a Class" data-placement="top"
-                data-trigger="hover" style="color:white;">
-              </i>
-            </a>
+          <a href="/users/<%= userFound._id %>/classes/new" id="addClass">
+            <i class="fas fa-plus" data-toggle="popover" data-content="Add a Class" data-placement="top"
+              data-trigger="hover" style="color:white;">
+            </i>
+          </a>
           <%} %>
         </div>
 
         <div class="modal fade addNewInputs" id="modalAddClass">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog">
             <div class="modal-content">
             </div>
           </div>
@@ -42,19 +42,29 @@
 
     <% userFound.classes.forEach(function(oneClass){ %>
     <li class="className">
-      <!-- TODO: Put the delete button on the far right  -->
+
       <!-- Delete a class button  -->
-      <a href='/users/<%= userFound._id %>/classes/<%= oneClass._id %>/delete'
-        onclick="setDeleteAction('<%= userFound._id %>','<%= oneClass._id %>')" class="deleteClass">
-        <i class="fas fa-trash-alt"></i>
-      </a>
-      <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+      <div class="text-center">
+        <% if(!currentUser){  %>
+        <a href="/" class="delete">
+          <i class="fas fa-trash-alt text-white"></i>
+        </a>
+        <% } else { %>
+        <a href='/users/<%= userFound._id %>/classes/<%= oneClass._id %>/delete'
+          onclick="setDeleteAction('<%= userFound._id %>','<%= oneClass._id %>')" class="deleteClass">
+          <i class="fas fa-trash-alt"></i>
+        </a>
+        <% } %>
+      </div>
+
+      <div class="modal fade" id="modalDelete">
+        <div class="modal-dialog">
           <div class="modal-content">
           </div>
         </div>
       </div>
+
+
 
       <!-- Show class Details -->
       <a class="align-middle ml-3" href="/users/<%= userFound._id %>/classes/<%= oneClass._id %>"

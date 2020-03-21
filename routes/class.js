@@ -17,7 +17,7 @@ router.get("/new", function (req, res) {
   res.render("class/new")
 })
 
-// TODO: Delete Form | Make sure you can't get to it unless you logged in
+// Delete Form 
 router.get("/:class_id/delete", function (req, res) {
   res.render("class/delete")
 })
@@ -60,7 +60,7 @@ router.get("/:class_id",middleware.isLoggenIn, function (req, res) {
   })
 })
 
-//TODO:  Show Edit Modal | Make sure you can't get to it unless you logged in
+// Show Edit Modal
 router.get("/:class_id/edit", function (req, res) {
   Class.findById(req.params.class_id, function (err, editClass) {
     if (err) {

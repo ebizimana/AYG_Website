@@ -18,13 +18,8 @@
 <!-- Class Edit and Display  -->
 <div class="ui header text-center" style="margin-left:20px;">
   <h1>
-    <a id="editClass" href="/users/<%= currentUser._id %>/classes/<%= classFound._id%>/edit" data-toggle="popover" data-placement="top"
-      title="<%= classFound.className %>" data-html="true" data-content="Course Name: <%= classFound.courseName %> <br/>
-      Professor: <%=classFound.professor %>" data-trigger="hover">
-      <strong class="classNameInShow"><%= classFound.className %></strong>
-    </a>
-    <div class="modal fade modalEditClass" id="editOneClass" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade modalEditClass" id="editOneClass">
+      <div class="modal-dialog">
         <div class="modal-content">
         </div>
       </div>
