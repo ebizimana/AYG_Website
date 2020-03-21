@@ -30,16 +30,22 @@ ul {
 
 .profilePicture {
   margin-top: -3rem;
-  margin-left: 93%;
+  margin-right: 1rem;
+  float: right;
   width: 100px;
   height: 100px;
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
-.dropdown-menu {
-  top: -35px !important;
-  left: -130px !important;
+.dropleft {
+  float: right;
+  width: auto;
 }
+.dropdown-menu{
+  float: right;
+  margin-top: -15px !important;
+}
+
 
 /* The Whole website styles */
 .bodyBackground {

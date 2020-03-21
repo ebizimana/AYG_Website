@@ -1,5 +1,7 @@
 <!-- TODO: If they sign in show their image profile -->
 <!-- TODO: User not found should be in the label error -->
+<!-- TODO: Sign in | register in with fb, twittwer or Gmail -->
+<!-- TODO: Check and see if the username is taken  -->
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -62,7 +64,6 @@
         <i class="fas fa-user text-light fa-3x mt-3"></i>
       </a>
     </div>
-
     <div class="modal fade" id="modalProfile">
       <div class="modal-dialog cascading-modal" role="document">
         <div class="modal-content"></div>
@@ -73,7 +74,6 @@
 
     <div class="dropleft" style="height: 0">
       <a href="/" data-toggle="dropdown">
-        <!-- TODO: Add unsplash onerror -->
         <img src="<%= currentUser.profilePicture %>"
           onerror="this.src='https://source.unsplash.com/100x100/?nature,water'" alt="avatar"
           class="profilePicture rounded-circle img-responsive">
@@ -131,7 +131,7 @@
 
     // Display message when not loggIn
     $('#notLoggedIn').on('click', () => {
-      $("#showErrMsg").removeClass("d-none").addClass('container w-50 text-center').html("You Need To Be Logged in")
+      $("#showErrMsg").removeClass("d-none").addClass('container w-50 text-center').html("You need to be logged in")
     })
     // Open The Login | SingUp Modal
     $("#openProfilemodal").on('click', function (e) {
