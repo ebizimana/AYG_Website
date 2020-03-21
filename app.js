@@ -14,7 +14,7 @@ var express                 = require("express"),
 var Assignment  = require("./models/assignment"),
     User        = require("./models/user"),
     Category    = require("./models/category"),
-    url         = "mongodb://localhost/ayg";
+    url         = process.env.DATABASEURL || "mongodb://localhost/ayg";
 
 // ROUTER SETUP
 var classRouter       = require("./routes/class"),
@@ -55,7 +55,7 @@ app.use("/users/:user_id/classes", classRouter),
 app.use("/classes/:id/categories", categoryRouter),
 app.use("/users/:user_id/classes/:class_id/assignments", assignmentRouter),
 
-app.listen(3000,() => console.log("Server Running on port 3000"))
+app.listen(process.env.PORT || 5000,() => console.log("Server Running on port 3000"))
 
 
 
