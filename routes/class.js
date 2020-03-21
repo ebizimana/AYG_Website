@@ -1,9 +1,8 @@
-// TODO: Before you can add a class you must be signed in 
 var  express        = require("express")
      router         = express.Router({mergeParams: true});
      Class          = require("../models/class")
-     middleware     = require('../middleware')
      User           = require("../models/user")
+     middleware     = require("../middleware")
 
 // Show all classes page
 router.get("/", function (req, res) {
@@ -18,13 +17,13 @@ router.get("/new", function (req, res) {
   res.render("class/new")
 })
 
-// Delete Form
+// TODO: Delete Form | Make sure you can't get to it unless you logged in
 router.get("/:class_id/delete", function (req, res) {
   res.render("class/delete")
 })
 
 //Save the class in the DB
-router.post("/", function (req, res) {
+router.post("/",middleware.isLoggenIn, function (req, res) {
   User.findById(req.params.user_id, (err, userFound) => {
     if (err) {
       return err
@@ -37,7 +36,7 @@ router.post("/", function (req, res) {
         userFound.classes.push(classCreated)
         userFound.save()
         req.flash("success", "Class successfully created")
-        res.redirect("/users/"+ req.params.user_id + "/classes")
+        res.redirect("/users/"+ req.params.user_id + "/classes/")
       }
     })
 
@@ -45,7 +44,7 @@ router.post("/", function (req, res) {
 })
 
 // Show an individual class
-router.get("/:class_id", function (req, res) {
+router.get("/:class_id",middleware.isLoggenIn, function (req, res) {
   User.findById(req.params.user_id, (err, userFound) => {
     if (err) {throw err}
     Class.findById(req.params.class_id).populate("assignments").exec(function (err,classFound) {
@@ -61,7 +60,7 @@ router.get("/:class_id", function (req, res) {
   })
 })
 
-// Show Edit Modal
+//TODO:  Show Edit Modal | Make sure you can't get to it unless you logged in
 router.get("/:class_id/edit", function (req, res) {
   Class.findById(req.params.class_id, function (err, editClass) {
     if (err) {
@@ -75,7 +74,7 @@ router.get("/:class_id/edit", function (req, res) {
 })
 
 // Updated Class in the DB
-router.put("/:class_id", function (req, res) {
+router.put("/:class_id",middleware.isLoggenIn, function (req, res) {
   Class.findByIdAndUpdate(req.params.class_id, req.body.updateClass, function (err, update) {
     if (err) {
       console.log(err);
@@ -87,10 +86,8 @@ router.put("/:class_id", function (req, res) {
   })
 })
 
-
-
 //Delete a class from the DB
-router.delete("/:class_id", function (req, res) {
+router.delete("/:class_id",middleware.isLoggenIn, function (req, res) {
   User.findById(req.params.user_id, (err,userFound) => {
     if(err){throw err}
     Class.findByIdAndDelete(req.params.class_id, function (err) {

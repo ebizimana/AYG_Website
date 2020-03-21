@@ -11,12 +11,21 @@
 
         <!-- Add a new class -->
         <div class="text-center">
-          <a href="/users/<%= userFound._id %>/classes/new" id="addClass">
+          <% if(!currentUser){ %>
+          <a href="/">
             <i class="fas fa-plus" data-toggle="popover" data-content="Add a Class" data-placement="top"
               data-trigger="hover" style="color:white;">
             </i>
-          </a>
+          </a> 
+          <% }else { %>
+            <a href="/users/<%= userFound._id %>/classes/new" id="addClass">
+              <i class="fas fa-plus" data-toggle="popover" data-content="Add a Class" data-placement="top"
+                data-trigger="hover" style="color:white;">
+              </i>
+            </a>
+          <%} %>
         </div>
+
         <div class="modal fade addNewInputs" id="modalAddClass">
           <div class="modal-dialog" role="document">
             <div class="modal-content">

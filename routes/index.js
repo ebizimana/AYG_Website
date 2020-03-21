@@ -5,12 +5,7 @@ User = require("../models/user")
 
 // The home router
 router.get("/", function (req, res) {
-  if(!req.user){
-    req.flash("error","You Need To Be Login")
-    res.render("home")
-  }else {
-    res.render("home")
-  }
+  res.render("home")
 })
 
 // To get the profile modal
@@ -58,9 +53,15 @@ router.get("/logout", function (req, res) {
   res.redirect("/")
 })
 
-//TODO: Update the user profile
-router.post("/updateProfile", function (req, res) {
-
+// Update the user profile
+router.put("/:user_id/updateProfile", function (req, res) {
+  User.findById(req.params.user_id,(err,editedUser) => {
+    if(err) { throw err}
+    editedUser.username = req.body.username
+    editedUser.profilePicture = req.body.profilePicture
+    editedUser.save()
+    res.redirect("/")
+  })
 })
 
 module.exports = router

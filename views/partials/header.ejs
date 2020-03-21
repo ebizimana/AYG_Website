@@ -1,5 +1,5 @@
-<!-- TODO: Make sure the active class works -->
 <!-- TODO: If they sign in show their image profile -->
+<!-- TODO: User not found should be in the label error -->
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -43,14 +43,14 @@
       AYG
     </a>
     <% if (!currentUser) { %>
-      <a class="item" href="/">
-        Classes
-      </a>
-    <% } else { %> 
-      <a class="item" href="/users/<%= currentUser._id %>/classes">
-        Classes
-      </a>
-    <% } %> 
+    <a class="item" id="notLoggedIn">
+      Classes
+    </a>
+    <% } else { %>
+    <a class="item" href="/users/<%= currentUser._id %>/classes">
+      Classes
+    </a>
+    <% } %>
 
   </div>
 
@@ -63,7 +63,7 @@
       </a>
     </div>
 
-    <div class="modal fade" id="modalProfile" tabindex="-1" role="dialog">
+    <div class="modal fade" id="modalProfile">
       <div class="modal-dialog cascading-modal" role="document">
         <div class="modal-content"></div>
       </div>
@@ -75,7 +75,7 @@
       <a href="/" data-toggle="dropdown">
         <!-- TODO: Add unsplash onerror -->
         <img src="<%= currentUser.profilePicture %>"
-          onerror="this.src='https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg'" alt="avatar"
+          onerror="this.src='https://source.unsplash.com/100x100/?nature,water'" alt="avatar"
           class="profilePicture rounded-circle img-responsive">
       </a>
 
@@ -105,20 +105,34 @@
   </div>
 
   <!-- Flash messages in all pages -->
-  <div class="container" id="messageTime">
+  <div class="container messageTime">
     <% if(error && error.length > 0) { %>
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger text-center" role="alert">
       <%= error %>
     </div>
     <% } %>
     <% if(success && success.length > 0) { %>
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-success text-center" role="alert">
       <%= success %>
     </div>
     <% } %>
   </div>
 
+  <div class="alert alert-danger d-none messageTime" role="alert" id="showErrMsg"></div>
+
   <script>
+    // Change the active class on nav
+    $(document).ready(function () {
+      $('a.huge').removeClass('huge header');
+      $('a[href="' + location.pathname + '"]').closest('a').addClass('huge header');
+    });
+    // Show the flash message for 3 sec
+    $(".messageTime").delay(3000).slideUp(300)
+
+    // Display message when not loggIn
+    $('#notLoggedIn').on('click', () => {
+      $("#showErrMsg").removeClass("d-none").addClass('container w-50 text-center').html("You Need To Be Logged in")
+    })
     // Open The Login | SingUp Modal
     $("#openProfilemodal").on('click', function (e) {
       e.preventDefault()
@@ -130,7 +144,4 @@
       e.preventDefault()
       $("#editProfileModal").modal('show').find('.modal-content').load($(this).attr('href'))
     })
-
-    // Show the flash message for 3 sec
-    $("#messageTime").delay(3000).slideUp(300)
   </script>

@@ -1,4 +1,3 @@
-//TODO: add an array of of classes ref
 var mongoose = require("mongoose"),
     passportLocalMongoose = require("passport-local-mongoose");
 
