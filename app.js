@@ -14,7 +14,7 @@ var express                 = require("express"),
 //MODEL SETUP
 var Assignment  = require("./models/assignment"),
     User        = require("./models/user"),
-    Category    = require("./models/category"),
+    Category    = require("./models/category")
 
 // ROUTER SETUP
 var classRouter       = require("./routes/class"),
@@ -28,7 +28,7 @@ app.set("view engine","ejs")
 app.use(methodOverride("_method"))
 app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({extended:true}))
-// dotenv.config()
+dotenv.config()
 url = process.env.DATABASEURL || "mongodb://localhost/ayg";
 mongoose.connect(url,{useNewUrlParser:true})
 
@@ -57,7 +57,7 @@ app.use("/users/:user_id/classes", classRouter),
 app.use("/classes/:id/categories", categoryRouter),
 app.use("/users/:user_id/classes/:class_id/assignments", assignmentRouter),
 
-app.listen(process.env.PORT || 5000,() => console.log("Server Running on port 3000"))
+app.listen(process.env.PORT || 5000,() => console.log("Server Running on port 5000"))
 
 
 
