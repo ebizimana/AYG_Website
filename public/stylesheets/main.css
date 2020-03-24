@@ -49,7 +49,7 @@ ul {
 
 /* The Whole website styles */
 .bodyBackground {
-  background-color: #EEEEEE;
+  background-color: #F4F6F7;
 }
 
 .classNameInShow {
@@ -106,7 +106,6 @@ ul {
 #box {
   height: auto;
   margin-top: 30px;
-  background-color: #EEEEEE;
 }
 
 #button2 {
@@ -120,7 +119,6 @@ ul {
 #box2 {
   height: auto;
   margin-top: 30px;
-  background-color: #EEEEEE;
 }
 
 /* classes/index.js the popover plus icon */
