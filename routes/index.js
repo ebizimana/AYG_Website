@@ -1,3 +1,4 @@
+// TODO: Delete User
 var express = require("express"),
   router = express.Router(),
   passport = require("passport")

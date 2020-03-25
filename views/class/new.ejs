@@ -1,6 +1,4 @@
-
-<form id="addClassForm" action="/users/<%= currentUser._id %>/classes/" 
-  method="post">
+<form id="addClassForm" action="/users/<%= currentUser._id %>/classes/" method="post">
   <div class="modal-header text-center">
     <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new Assignment</h4>
     <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
@@ -19,17 +17,24 @@
     </div>
 
     <div class="md-form mb-5">
-      <input class="form-control validate"id="professor"  name="class[professor]" type="text">
+      <input class="form-control validate" id="professor" name="class[professor]" type="text">
       <label for="professor">Professor Name</label>
+    </div>
+
+    <div class="dropdown mt-0" required>
+      <button class="btn btn-primary  dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">Choose A Category</button>
+
+      <div class="dropdown-menu dropdown-primary" required>
+        <a class="dropdown-item" href="#">Action</a>
+      </div>
     </div>
   </div>
 
   <!-- TODO: Add a radio button to choose if the class is either Point Grade or Weight Grade -->
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-    <button type="submit" id="submit"
-            class="btn btn-outline-primary btn-block buttonAdd"
-            >Add Assignment
+    <button type="submit" id="submit" class="btn btn-outline-primary btn-block buttonAdd">Add Assignment
       <i class="fas fa-paper-plane-o ml-1"></i>
     </button>
   </div>

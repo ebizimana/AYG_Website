@@ -1,9 +1,10 @@
-var express = require("express"),
-  router = express.Router({mergeParams: true}),
-  Class = require("../models/class"),
+var express  = require("express"),
+  router     = express.Router({mergeParams: true}),
+  Class      = require("../models/class"),
   Assignment = require("../models/assignment"),
   User       = require("../models/user")
   
+
 // New Assignmet Form
 router.get("/new", function (req, res) {
   Class.findById(req.params.class_id, function (err, classFound) {
@@ -39,7 +40,6 @@ router.post("/", function (req, res) {
   })
 
 })
-
 
 // Edit form
 router.get("/:assig_id/edit", function (req, res) {
@@ -77,14 +77,14 @@ router.post("/reorder", function (req, res) {
       console.log("I could not find the class")
       res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
     } else {
-      Assignment.deleteMany({},function(err,allRemoved){
+      Assignment.deleteMany({_id:{$in:classFound.assignments}},function(err,allRemoved){
         if(err) throw err;
         Assignment.insertMany(obj, function (err, response) {
           if (err) {
             console.log("I could not insert documents")
             res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
           } else {
-            for(const key of response){
+            for(key of response){
               classFound.assignments.push(key);
             }
             classFound.save();

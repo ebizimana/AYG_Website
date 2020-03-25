@@ -37,14 +37,13 @@ ul {
   display: inline;
 }
 
-li:hover a.deleteClass,li:hover .delete{
+li:hover a.deleteClass,li:hover .delete, a.configClass {
   width:40px;
   height: 60px;
   opacity: 1.0;
 }
 
-a.deleteClass,.delete{
-  background: #e74c3c;
+a.deleteClass,.delete,.configClass{
   height: 60px;
   margin-right: 0;
   margin-top: -0.5rem;
@@ -57,6 +56,13 @@ a.deleteClass,.delete{
   transition: 0.2s linear;
   opacity:0;
   float: right;
+}
+a.configClass {
+  background: transparent;
+  color: #666;
+}
+a.deleteClass,.delete {
+  background: #e74c3c;
 }
 a.classTitle{
   margin-top:1rem;

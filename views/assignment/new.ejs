@@ -6,7 +6,6 @@
     </button>
   </div>
   <div class="modal-body mx-3">
-    <!-- TODO: Make sure the name is not already taken -->
     <div class="md-form mb-5">
       <input name="assignment[name]" type="text" id="inputName" class="form-control validate">
       <label for="inputName">Assignment Name</label>
@@ -24,18 +23,7 @@
       <label for="editTotal">Total</label>
       <label id="error">The total has to be greater than the grade</label>
     </div>
-    <!-- btn-mdb-color -->
-    <div class="dropdown mt-0" required>
-      <button class="btn btn-primary  dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">Choose A Category</button>
 
-      <div class="dropdown-menu dropdown-primary" required>
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div>
-    </div>
   </div>
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
@@ -46,6 +34,7 @@
 </form>
 
 <script src="/js/assignmentForms.js"></script>
+
 <style media="screen">
   #error {
     margin-top: 4em;
