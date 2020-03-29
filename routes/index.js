@@ -1,8 +1,8 @@
 // TODO: Delete User
-var express     = require("express"),
-    router      = express.Router(),
-    passport    = require("passport")
-    User        = require("../models/user")
+var express = require("express"),
+  router = express.Router(),
+  passport = require("passport")
+User = require("../models/user")
 
 // The home router
 router.get("/", function (req, res) {
@@ -13,6 +13,12 @@ router.get("/", function (req, res) {
 router.get("/login", function (req, res) {
   res.render("login")
 })
+
+// Authenticate the user from db/ Login
+router.post('/login', passport.authenticate('local', function (req, res) {
+  req.flash("success", "Welcome Back " + req.user.username)
+  res.redirect("/")
+}))
 
 // Edit User Profile Form
 router.get("/editProfile", function (req, res) {
@@ -28,7 +34,9 @@ router.post("/register", function (req, res) {
     profilePicture: req.body.profilePicture
   })
   // Check to see if username is taken
-  User.findOne({username: req.body.username}, (err, userFound) => {
+  User.findOne({
+    username: req.body.username
+  }, (err, userFound) => {
     if (userFound) {
       req.flash("error", "User already exist")
       res.redirect("/")
@@ -49,14 +57,6 @@ router.post("/register", function (req, res) {
 
 })
 
-// Authenticate the user from db/ Login
-router.post('/login', passport.authenticate('local', {
-  failureRedirect: "/",
-  failureFlash: "User Not found"
-}), function (req, res) {
-  req.flash("success", "Welcome Back " + req.user.username)
-  res.redirect("/")
-})
 
 // logout
 router.get("/logout", function (req, res) {
@@ -67,11 +67,13 @@ router.get("/logout", function (req, res) {
 
 // Update the user profile
 router.put("/:user_id/updateProfile", function (req, res) {
-  User.findOne({username: req.body.username}, (err, userFound) => {
+  User.findOne({
+    username: req.body.username
+  }, (err, userFound) => {
     if (userFound) {
       req.flash("error", "User already exist")
       res.redirect("/")
-    } else{
+    } else {
       User.findById(req.params.user_id, (err, editedUser) => {
         if (err) {
           throw err
