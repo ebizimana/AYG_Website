@@ -15,10 +15,12 @@ router.get("/login", function (req, res) {
 })
 
 // Authenticate the user from db/ Login
-router.post('/login', passport.authenticate('local', function (req, res) {
+router.post('/login', passport.authenticate('local', {
+  failureRedirect: "/",
+  failureFlash: "User Not found"}), (req, res) => {
   req.flash("success", "Welcome Back " + req.user.username)
   res.redirect("/")
-}))
+})
 
 // Edit User Profile Form
 router.get("/editProfile", function (req, res) {
