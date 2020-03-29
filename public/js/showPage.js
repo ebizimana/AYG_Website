@@ -2,6 +2,7 @@
 // TODO: Add method to distrubute the points based on category
 // TODO: Add a method to calculate overall percentage
 
+
 // variables
 var gradeSum = 0, // Toatl sum of graded assignment
   totalPoints = 0, //  Maximum points of all available assignment
@@ -13,6 +14,13 @@ var gradeSum = 0, // Toatl sum of graded assignment
 
 // To make the grade dropdown work
 $('#grade-selector').dropdown();
+
+// Side Nav
+$('#sidebarCollapse').on('click', function (e) {
+  e.preventDefault()
+  $('#sidebar').toggleClass('active').find('.content').load($(this).attr('href'));
+  $('.show-page').toggleClass('mr-5')
+});
 
 // Dishighlight once clicked on white space
 $('body').click(function (e) {
@@ -50,6 +58,9 @@ $('#deleteAssignment').on('click', function (e) {
   e.preventDefault();
   $('#modalDelete').modal('show').find('.modal-content').load($(this).attr('href'))
 })
+
+// TODO: The content of side nav found in another page || Side Nav for Categories 
+
 
 // To maximize and minimize the divs
 $("#button").click(function () {

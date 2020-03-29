@@ -11,6 +11,12 @@ $('#addClass').on('click',function(e){
   $('#modalAddClass').modal('show').find('.modal-content').load($(this).attr('href'))
 })
 
+// To show the modal for configure the categories
+$('.configCategories').on('click', function(e){
+  e.preventDefault()
+  $('#configCategoriesModal').modal('show').find('.modal-content').load($(this).attr('href'))
+})
+
 // To Delete a class
 // To show the modal for delete Assignment form
 $('.deleteClass').on('click', function(e){

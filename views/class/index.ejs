@@ -43,7 +43,7 @@
     <% userFound.classes.forEach(function(oneClass){ %>
     <li class="className">
 
-      <!-- Delete a class button  -->
+      <!-- Delete and Category for a class button  -->
       <div class="text-center">
         <% if(!currentUser){  %>
         <a href="/" class="delete">
@@ -53,9 +53,6 @@
         <a href='/users/<%= userFound._id %>/classes/<%= oneClass._id %>/delete'
           onclick="setDeleteAction('<%= userFound._id %>','<%= oneClass._id %>')" class="deleteClass">
           <i class="fas fa-trash-alt"></i>
-        </a>
-        <a href='/' class="configClass">
-            <i class="fas fa-tasks fa-2x"></i>
         </a>
         <% } %>
       </div>

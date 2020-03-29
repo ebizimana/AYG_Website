@@ -1,11 +1,9 @@
-var express = require("express")
-router = express.Router({
-  mergeParams: true
-});
-Class = require("../models/class")
-Assignment = require("../models/assignment")
-User = require("../models/user")
-middleware = require("../middleware")
+var express      = require("express")
+router           = express.Router({mergeParams: true});
+Class            = require("../models/class")
+Assignment       = require("../models/assignment")
+User             = require("../models/user")
+middleware       = require("../middleware")
 
 // Show all classes page
 router.get("/", function (req, res) {

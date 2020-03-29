@@ -1,4 +1,5 @@
-<form id="addAssignmentForm" action="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/assignments" method="post">
+<form id="addAssignmentForm" action="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/assignments"
+  method="post">
   <div class="modal-header text-center">
     <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new Assignment</h4>
     <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
@@ -7,7 +8,7 @@
   </div>
   <div class="modal-body mx-3">
     <div class="md-form mb-5">
-      <input name="assignment[name]" type="text" id="inputName" class="form-control validate">
+      <input class="form-control validate" id="inputName" type="text" name="assignment[name]">
       <label for="inputName">Assignment Name</label>
     </div>
 
@@ -17,13 +18,21 @@
       <label for="editGrade">Grade</label>
     </div>
 
-    <div class="md-form mb-5">
+    <div class="md-form">
       <input name="assignment[total]" required onblur="checkTotal()" id='editTotal' type="number"
-        class="form-control validate">
+        class="form-control validate mb-0">
       <label for="editTotal">Total</label>
       <label id="error">The total has to be greater than the grade</label>
     </div>
+  </div>
 
+  <div class="dropdown mb-4" required>
+    <button class="btn btn-primary  dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">Choose A Category</button>
+
+    <div class="dropdown-menu dropdown-primary" required>
+      <a class="dropdown-item" href="#">Action</a>
+    </div>
   </div>
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
@@ -31,6 +40,7 @@
       <i class="fas fa-paper-plane-o ml-1"></i>
     </button>
   </div>
+
 </form>
 
 <script src="/js/assignmentForms.js"></script>

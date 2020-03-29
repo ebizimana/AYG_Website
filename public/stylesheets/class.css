@@ -29,7 +29,7 @@ ul {
 }
 
 .className:nth-child(2n) {
-  background: #E5E7E9;
+  background: #F4F6F7;
 }
 
 /* classes/index.js the form outline */
@@ -37,13 +37,13 @@ ul {
   display: inline;
 }
 
-li:hover a.deleteClass,li:hover .delete, a.configClass {
+li:hover a.deleteClass,li:hover .delete{
   width:40px;
   height: 60px;
   opacity: 1.0;
 }
 
-a.deleteClass,.delete,.configClass{
+a.deleteClass,.delete{
   height: 60px;
   margin-right: 0;
   margin-top: -0.5rem;
@@ -57,10 +57,7 @@ a.deleteClass,.delete,.configClass{
   opacity:0;
   float: right;
 }
-a.configClass {
-  background: transparent;
-  color: #666;
-}
+
 a.deleteClass,.delete {
   background: #e74c3c;
 }

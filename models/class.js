@@ -7,6 +7,10 @@ var classShema = new mongoose.Schema({
   assignments:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Assignment"
+  }],
+  categories:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"Category"
   }]
 })
 module.exports = mongoose.model("Class",classShema)
