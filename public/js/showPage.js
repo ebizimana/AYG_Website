@@ -15,24 +15,21 @@ var gradeSum = 0, // Toatl sum of graded assignment
 // To make the grade dropdown work
 $('#grade-selector').dropdown();
 
+// Dishighlight once clicked on white space
+$('#showBody').click(function (e) {
+  if (e.target == this) {
+    $('tr').css({'background-color': ''})
+    $("#editAssignment").prop('disabled', true)
+    $('#deleteAssignment').prop('disabled', true)
+    $("#saveOrder").attr('hidden', true)
+  }
+});
+
 // Side Nav
 $('#sidebarCollapse').on('click', function (e) {
   e.preventDefault()
   $('#sidebar').toggleClass('active').find('.content').load($(this).attr('href'));
   $('.show-page').toggleClass('mr-5')
-});
-
-// Dishighlight once clicked on white space
-$('body').click(function (e) {
-  if (e.target == this) {
-    $('tr').css({
-      'background-color': ''
-    })
-    $("#editAssignment").prop('disabled', true)
-    $('#deleteAssignment').prop('disabled', true)
-    $("#saveOrder").attr('hidden', true)
-
-  }
 });
 
 // To show the modal for the class edit form
@@ -183,6 +180,8 @@ function runClass(num, grade, total, idName) {
         count++;
         gradeSum += Number(gradeArr[i]);
         totalPoints += Number(totalArr[i]);
+        $('#estimateColumn').removeAttr('hidden')
+        result.removeAttr('hidden')
         // TODO: Change this to look more awesome
         result.html("*Graded*")
         print();
@@ -194,9 +193,13 @@ function runClass(num, grade, total, idName) {
 
         if (outPutGrade < 0) {
           outPutGrade = 0
+          $('#estimateColumn').removeAttr('hidden')
+          result.removeAttr('hidden')
           result.html(outPutGrade.toFixed(0))
           print();
         } else {
+          $('#estimateColumn').removeAttr('hidden')
+          result.removeAttr('hidden')
           result.html(outPutGrade.toFixed(0))
           print();
         }
