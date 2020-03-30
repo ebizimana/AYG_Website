@@ -29,7 +29,7 @@ app.use(methodOverride("_method"))
 app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({extended:true}))
 dotenv.config()
-url = "mongodb://localhost/ayg";
+url = process.env.DATABASEURL || "mongodb://localhost/ayg";
 mongoose.connect(url,{useNewUrlParser:true})
 
 

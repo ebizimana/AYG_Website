@@ -1,8 +1,10 @@
 // TODO: Delete User
-var express = require("express"),
-  router = express.Router(),
-  passport = require("passport")
-User = require("../models/user")
+// TODO: Change Password
+
+var express     = require("express"),
+    router      = express.Router(),
+    passport    = require("passport"),
+    User        = require("../models/user");
 
 // The home router
 router.get("/", function (req, res) {
@@ -19,7 +21,7 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: "/",
   failureFlash: "User Not found"}), (req, res) => {
   req.flash("success", "Welcome Back " + req.user.username)
-  res.redirect("/")
+  res.render("home")
 })
 
 // Edit User Profile Form
@@ -50,7 +52,7 @@ router.post("/register", function (req, res) {
         } else {
           passport.authenticate("local")(req, res, function () {
             req.flash("success", "Welcome to AYG " + req.user.username)
-            res.redirect("/")
+            res.render("home")
           })
         }
       })
@@ -58,7 +60,6 @@ router.post("/register", function (req, res) {
   })
 
 })
-
 
 // logout
 router.get("/logout", function (req, res) {
