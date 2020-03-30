@@ -21,7 +21,7 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: "/",
   failureFlash: "User Not found"}), (req, res) => {
   req.flash("success", "Welcome Back " + req.user.username)
-  res.render("home")
+  res.redirect("/")
 })
 
 // Edit User Profile Form
@@ -52,7 +52,7 @@ router.post("/register", function (req, res) {
         } else {
           passport.authenticate("local")(req, res, function () {
             req.flash("success", "Welcome to AYG " + req.user.username)
-            res.render("home")
+            res.redirect("/")
           })
         }
       })
