@@ -18,7 +18,9 @@ $('#grade-selector').dropdown();
 // Dishighlight once clicked on white space
 $('#showBody').click(function (e) {
   if (e.target == this) {
-    $('tr').css({'background-color': ''})
+    $('tr').css({
+      'background-color': ''
+    })
     $("#editAssignment").prop('disabled', true)
     $('#deleteAssignment').prop('disabled', true)
     $("#saveOrder").attr('hidden', true)
@@ -26,11 +28,11 @@ $('#showBody').click(function (e) {
 });
 
 // Side Nav
-$('#sidebarCollapse').on('click', function (e) {
-  e.preventDefault()
-  $('#sidebar').toggleClass('active').find('.content').load($(this).attr('href'));
-  $('.show-page').toggleClass('mr-5')
-});
+  $('#sidebarCollapse').click(function (e) {
+    e.preventDefault();
+    $('#sidebar').toggleClass('active').find('.content').load($(this).attr('href'));
+  });
+
 
 // To show the modal for the class edit form
 $('#editClass').on('click', function (e) {

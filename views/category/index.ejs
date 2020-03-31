@@ -1,109 +1,117 @@
 <head>
-    <!-- Font Awesome for Awesome icons  -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
-    <!-- My own stylesheet -->
+    <!-- My Own Styles -->
+    <link rel="stylesheet" href="/stylesheets/main.css">
     <link rel="stylesheet" href="/stylesheets/sidenav.css">
 
-    <!-- Semantic -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <!-- Font Awesome for Awesome icons  -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- JQuery -->
-    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js">
-    </script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
-    </script>
+
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.6.0/css/mdb.min.css" rel="stylesheet">
+
 </head>
 
-<!-- Category Edit and Display  -->
-<div class="ui header text-center" style="margin-left:20px;">
-    <!-- Display Class Name -->
-    <h2>
-        <strong>Configure Category</strong>
-        <hr style="width:50%; margin-top:5px;">
-    </h2>
+<body>
+    <!-- Category Edit and Display  -->
+    <div class="ui header text-center" style="margin-left:20px;">
+        <!-- Display Class Name -->
+        <h2>
+            <strong>Configure Category</strong>
+            <hr style="width:50%; margin-top:5px;">
+        </h2>
 
-    <!-- Display Table Options -->
+        <!-- Display Table Options -->
 
-    <div class="ui main show-page container">
-        <!-- Assignment Configuration -->
-        <div id="header" class="wrapper-modal-editor">
-            <div class="row d-flex justify-content-center modalWrapper mb-3">
+        <div class="ui main show-page container">
+            <!-- Assignment Configuration -->
+            <div id="header" class="wrapper-modal-editor">
+                <div class="row d-flex justify-content-center modalWrapper mb-3">
 
-                <!-- Add new assignment to the table  -->
-                <div class="text-center">
-                    <a href="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/categories/new"
-                        class="btn btn-info btn-rounded btn-sm" id="addAssignment">Add
-                        <i class="fas fa-plus-square ml-1"></i>
-                    </a>
-                </div>
-                <div class="modal fade addNewInputs" id="modalAdd">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                    <!-- Add new assignment to the table  -->
+                    <div class="text-center">
+                        <a href="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/categories/new"
+                            class="btn btn-info btn-rounded btn-sm" id="addAssignment">Add
+                            <i class="fas fa-plus-square ml-1"></i>
+                        </a>
+                    </div>
+                    <div class="modal fade addNewInputs" id="modalAdd">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Edit the selected assignment  -->
-                <div class="text-center buttonEditWrapper">
-                    <button class="btn btn-info btn-rounded btn-sm buttonEdit" id="editAssignment" disabled>Edit
-                        <i class="fas fa-pencil-square ml-1"></i>
-                    </button>
-                </div>
-                <div class="modal fade modalEditClass" id="modalEdit">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                    <!-- Edit the selected assignment  -->
+                    <div class="text-center buttonEditWrapper">
+                        <button class="btn btn-info btn-rounded btn-sm buttonEdit" id="editAssignment" disabled>Edit
+                            <i class="fas fa-pencil-square ml-1"></i>
+                        </button>
+                    </div>
+                    <div class="modal fade modalEditClass" id="modalEdit">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Delete the selected  assignment  -->
-                <div class="text-center">
-                    <button id="deleteAssignment" class="btn btn-danger btn-sm btn-rounded buttonDelete delete-form"
-                        disabled>
-                        Delete <i class="fas fa-times ml-1"></i>
-                    </button>
-                </div>
-                <div class="modal fade" id="modalDelete">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                    <!-- Delete the selected  assignment  -->
+                    <div class="text-center">
+                        <button id="deleteAssignment" class="btn btn-danger btn-sm btn-rounded buttonDelete delete-form"
+                            disabled>
+                            Delete <i class="fas fa-times ml-1"></i>
+                        </button>
+                    </div>
+                    <div class="modal fade" id="modalDelete">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
+
+            <!-- Assignments Table -->
+
+            <table id="dtBasicExample" class="table table-striped table-bordered text-center" cellspacing="0"
+                width="100%">
+                <thead>
+                    <th class="th-sm">Name</th>
+                    <th class="th-sm">Weight</th>
+                    <th class="th-sm">Total Assignments</th>
+                </thead>
+                <tbody>
+                    <% classFound.categories.forEach(function(oneClass){ %>
+                    <tr id="rowid">
+                        <td id="name"> <%= oneClass.name %></td>
+                        <td id="grade"> <%= oneClass.weight %></td>
+                        <a id="assignmentsInCategory">
+                            <td id="total"> <%= oneClass.totalAssignments %></td>
+                        </a>
+                        <td id="<%= oneClass._id %>"></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+
         </div>
-
-        <!-- Assignments Table -->
-
-        <table id="dtBasicExample" class="table table-striped table-bordered text-center" cellspacing="0" width="100%">
-            <thead>
-                <th class="th-sm">Name</th>
-                <th class="th-sm">Weight</th>
-                <th class="th-sm">Total Assignments</th>
-            </thead>
-            <tbody>
-                <% classFound.categories.forEach(function(oneClass){ %>
-                <tr id="rowid">
-                    <td id="name"> <%= oneClass.name %></td>
-                    <td id="grade"> <%= oneClass.weight %></td>
-                    <a id="assignmentsInCategory">
-                        <td id="total"> <%= oneClass.totalAssignments %></td>
-                    </a>
-                    <td id="<%= oneClass._id %>"></td>
-                </tr>
-                <% }) %>
-            </tbody>
-        </table>
-
     </div>
-</div>
+</body>
 
-<script src="/js/categories.js"></script>
+<footer>
+    <!-- Own JS file -->
+    <script src="/js/categories.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.6.0/js/mdb.min.js">
+    </script>
+</footer>
+
+
+
+
 
 <% include ../partials/footer %>
