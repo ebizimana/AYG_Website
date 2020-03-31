@@ -3,19 +3,11 @@
     width: 100%;
     align-items: stretch;
 }
-.wrapper {
-    display: flex;
-    align-items: stretch;
-}
 
 #content {
     width: 100%;
     min-height: 100vh; 
     transition: all 0.3s;
-}
-
-#sidebar.active {
-    margin-right: -1200px;
 }
 
 #sidebar {
@@ -27,8 +19,6 @@
     transition: all 0.3s;
 }
 
-a[data-toggle="collapse"] {
-    position: relative;
+#sidebar.active {
+    margin-right: -1200px;
 }
-
-
