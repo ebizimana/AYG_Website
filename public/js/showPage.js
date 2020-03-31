@@ -16,11 +16,9 @@ var gradeSum = 0, // Toatl sum of graded assignment
 $('#grade-selector').dropdown();
 
 // Dishighlight once clicked on white space
-$('#showBody').click(function (e) {
+$('#content').click(function (e) {
   if (e.target == this) {
-    $('tr').css({
-      'background-color': ''
-    })
+    $('tr').css({'background-color': ''})
     $("#editAssignment").prop('disabled', true)
     $('#deleteAssignment').prop('disabled', true)
     $("#saveOrder").attr('hidden', true)
