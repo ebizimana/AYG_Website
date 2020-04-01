@@ -7,7 +7,7 @@ var express  = require("express"),
 
 // New Assignmet Form
 router.get("/new", function (req, res) {
-  Class.findById(req.params.class_id, function (err, classFound) {
+  Class.findById(req.params.class_id).populate("categories").exec(function (err, classFound) {
     if (err) {
 
     } else {
@@ -43,16 +43,20 @@ router.post("/", function (req, res) {
 
 // Edit form
 router.get("/:assig_id/edit", function (req, res) {
-  Assignment.findById(req.params.assig_id, function (err, assignFound) {
-    if (err) {
-      res.redirect("back")
-    } else {
-      res.render("assignment/edit", {
-        class_id: req.params.class_id,
-        assignFound: assignFound
-      })
-    }
+  Class.findById(req.params.class_id).populate("categories").exec((err,classFound) => {
+    if(err) throw err
+    Assignment.findById(req.params.assig_id, function (err, assignFound) {
+      if (err) {
+        res.redirect("back")
+      } else {
+        res.render("assignment/edit", {
+          assignFound: assignFound,
+          classFound: classFound
+        })
+      }
+    })
   })
+
 })
 
 // Update

@@ -1,3 +1,4 @@
+<!-- TODO: Make sure they choose a category before submitting -->
 <form id="addAssignmentForm" action="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/assignments"
   method="post">
   <div class="modal-header text-center">
@@ -26,14 +27,12 @@
     </div>
   </div>
 
-  <div class="dropdown mb-4" required>
-    <button class="btn btn-primary  dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">Choose A Category</button>
+  <select class="ui selection mb-4 dropdown" name="category">
+    <% classFound.categories.forEach(function(category){ %>
+    <option value="<%= category.name %>"><%= category.name %></option>
+    <% }) %>
+  </select>
 
-    <div class="dropdown-menu dropdown-primary" required>
-      <a class="dropdown-item" href="#">Action</a>
-    </div>
-  </div>
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
     <button type="submit" id="submit" class="btn btn-outline-primary btn-block buttonAdd">Add Assignment

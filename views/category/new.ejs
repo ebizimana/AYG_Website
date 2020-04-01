@@ -1,4 +1,4 @@
-<form id="addClassForm" action="/users/<%= currentUser._id %>/classes/" method="post">
+<form id="addClassForm" action="/users/<%= currentUser._id %>/classes/<%= class_id %>/categories" method="post">
 
     <div class="modal-header text-center">
       <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add New Category</h4>
@@ -9,19 +9,19 @@
 
     <div class="modal-body mx-3">
       <div class="md-form mb-5">
-        <input class="form-control validate" id="categoryName" type="text" name="category[categoryName]">
+        <input class="form-control validate" id="categoryName" type="text" name="category[name]">
         <label for="className">Category Name</label>
       </div>
   
       <div class="md-form mb-5">
-        <input class="form-control validate" id="categoryWeight" name="category[categoryWeight]" type="number">
+        <input class="form-control validate" id="categoryWeight" name="category[weight]" type="number">
         <label for="categoryWeight">Category Weight</label>
       </div>
 
     </div>
   
     <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-      <button type="submit" id="submit" class="btn btn-outline-primary btn-block buttonAdd">Add Assignment
+      <button type="submit" id="submit" class="btn btn-outline-primary btn-block buttonAdd">Add Category
         <i class="fas fa-paper-plane-o ml-1"></i>
       </button>
     </div>

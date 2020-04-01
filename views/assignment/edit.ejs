@@ -1,5 +1,6 @@
-
-<form  class="needs-validation" id="editAssignmentForm" action="/users/<%= currentUser._id %>/classes/<%= class_id %>/assignments/<%= assignFound._id %>?_method=PUT" method="post">
+<form class="needs-validation" id="editAssignmentForm"
+  action="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/assignments/<%= assignFound._id %>?_method=PUT"
+  method="post">
   <div class="modal-header text-center">
     <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Edit Assignment</h4>
     <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
@@ -8,36 +9,43 @@
   </div>
   <div class="modal-body mx-3">
     <div class="md-form mb-5">
-      <input name="assignUpdate[name]"  type="text" id='inputName'value="<%= assignFound.name %>" class="form-control validate">
+      <input name="assignUpdate[name]" type="text" id='inputName' value="<%= assignFound.name %>"
+        class="form-control validate">
       <label class='active' for="inputName">Assignment Name</label>
     </div>
 
     <!-- TODO: Can't become a negative grade -->
     <div class="md-form mb-5">
-      <input  name="assignUpdate[grade]" required onblur="checkTotal()" type="number" id='editGrade' value="<%= assignFound.grade %>" class="form-control validate">
-      <label  class='active' for="editGrade">Grade</label>
+      <input name="assignUpdate[grade]" required onblur="checkTotal()" type="number" id='editGrade'
+        value="<%= assignFound.grade %>" class="form-control validate">
+      <label class='active' for="editGrade">Grade</label>
     </div>
 
     <!-- TODO: Can't become a negative number -->
     <div class="md-form mb-5">
-      <input   name="assignUpdate[total]" onblur="checkTotal()" id='editTotal' type="number" value="<%= assignFound.total %>" class="form-control validate">
-      <label   class='active'  for="editTotal">Total</label>
+      <input name="assignUpdate[total]" onblur="checkTotal()" id='editTotal' type="number"
+        value="<%= assignFound.total %>" class="form-control validate">
+      <label class='active' for="editTotal">Total</label>
       <label id="error">The total has to be greater than the grade</label>
     </div>
   </div>
 
+  <select class="ui selection mb-4 dropdown" name="category">
+    <% classFound.categories.forEach(function(category){ %>
+    <option value="<%= category.name %>"><%= category.name %></option>
+    <% }) %>
+  </select>
+
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-    <button type="submit" id="submit"
-            class="btn btn-outline-primary btn-block buttonAdd"
-            >Edit Assignment
+    <button type="submit" id="submit" class="btn btn-outline-primary btn-block buttonAdd">Edit Assignment
       <i class="fas fa-paper-plane-o ml-1"></i>
     </button>
   </div>
 </form>
 
 <script src="/js/assignmentForms.js"></script>
-<style  media="screen">
-  #error{
+<style media="screen">
+  #error {
     margin-top: 2em;
     color: #CD5C5C;
     font-size: inherit;

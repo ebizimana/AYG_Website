@@ -1,17 +1,17 @@
 <% include ../partials/header %>
-
-</head>
-<!-- initializing variables -->
-<% numberOfAssign = 0 %>
-<% gradeArr       = [] %>
-<% totalArr       = [] %>
-<% idArr          = [] %>
-<% classFound.assignments.forEach(function(oneClass){ %>
-<% numberOfAssign += 1 %>
-<% gradeArr.push(oneClass.grade) %>
-<% totalArr.push(oneClass.total) %>
-<% idArr.push(oneClass._id) %>
-<% }) %>
+<header>
+  <!-- initializing variables -->
+  <% numberOfAssign = 0 %>
+  <% gradeArr       = [] %>
+  <% totalArr       = [] %>
+  <% idArr          = [] %>
+  <% classFound.assignments.forEach(function(oneClass){ %>
+  <% numberOfAssign += 1 %>
+  <% gradeArr.push(oneClass.grade) %>
+  <% totalArr.push(oneClass.total) %>
+  <% idArr.push(oneClass._id) %>
+  <% }) %>
+</header>
 
 <body id="showBody">
   <!-- Display the calculation errors -->
@@ -123,7 +123,6 @@
             </form>
 
             <!-- Settings for categories  -->
-            <!-- href="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/categories" -->
             <div class="ml-auto mb-4">
               <a href="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/categories" type="button"
                 id="sidebarCollapse" data-toggle="popover" data-placement="bottom"
@@ -137,13 +136,14 @@
 
         <!-- Assignments Table -->
         <table id="dtBasicExample" class="table table-striped table-bordered text-center" cellspacing="0" width="100%">
+
           <thead>
             <th class="th-sm">Name</th>
             <th class="th-sm">Grade</th>
             <th class="th-sm">Total</th>
-            <!-- TODO:  Hide this colum until submit button is pressed -->
             <th class="th-sm" id="estimateColumn" hidden> Estimate </th>
           </thead>
+          
           <tbody>
             <% classFound.assignments.forEach(function(oneClass){ %>
             <tr id="rowid"
@@ -195,7 +195,6 @@
   </div>
 
 </body>
-
 
 <script type="text/javascript" src="/js/showPage.js"></script>
 
