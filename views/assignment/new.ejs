@@ -27,9 +27,9 @@
     </div>
   </div>
 
-  <select class="ui selection mb-4 dropdown" name="category">
+  <select class="ui selection mb-4 dropdown" name="assignment[category]">
     <% classFound.categories.forEach(function(category){ %>
-    <option value="<%= category.name %>"><%= category.name %></option>
+    <option value="<%= category._id %>"><%= category.name %></option>
     <% }) %>
   </select>
 

@@ -30,7 +30,7 @@ app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({extended:true}))
 dotenv.config()
 url = process.env.DATABASEURL || "mongodb://localhost/ayg";
-mongoose.connect(url,{useNewUrlParser:true})
+mongoose.connect(url,{useNewUrlParser:true, useFindAndModify:false})
 
 
 //PASSPORT SETUP

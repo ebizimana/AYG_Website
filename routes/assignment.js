@@ -1,5 +1,6 @@
 var express  = require("express"),
   router     = express.Router({mergeParams: true}),
+  Category   = require("../models/category"),
   Class      = require("../models/class"),
   Assignment = require("../models/assignment"),
   User       = require("../models/user")
@@ -20,20 +21,22 @@ router.get("/new", function (req, res) {
 router.post("/", function (req, res) {
   User.findById(req.params.user_id,(err,userFound)=> {
     if(err){throw err}
-    Class.findById(req.params.class_id, function (err, classFound) {
+    Class.findById(req.params.class_id).populate("categories").exec(function (err, classFound) {
       if (err) {
         console.log(err);
         req.flash("error","They was a problem creating a new assignment")
         res.redirect("/users/" + req.params.user_id + "/classes/")
       } else {
         Assignment.create(req.body.assignment, function (err, assig) {
-          if (err) {
-            console.log(err);
-          } else {
-            classFound.assignments.push(assig);
-            classFound.save();
-            res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
-          }
+          if (err) console.log(err)
+          classFound.assignments.push(assig);
+          Category.findOneAndUpdate(
+            {_id:req.body.assignment.category},
+            {$push:{assignments:req.body.assignment.name}}, 
+            (err,categoryFound) => {
+          })
+          classFound.save();
+          res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
         })
       }
     })
@@ -62,7 +65,7 @@ router.get("/:assig_id/edit", function (req, res) {
 // Update
 router.put("/:assig_id", function (req, res) {
   // An if statement for editing one assignment
-  Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function (err, updateAssign) {
+  Assignment.findOneAndUpdate(req.params.assig_id, req.body.assignUpdate, function (err, updateAssign) {
     if (err) {
       console.log("Update Error: " + err);
       res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)

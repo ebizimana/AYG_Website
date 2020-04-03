@@ -85,14 +85,21 @@
                     <th class="th-sm">Total Assignments</th>
                 </thead>
                 <tbody>
-                    <% classFound.categories.forEach(function(oneClass){ %>
+                    <% classFound.categories.forEach(function(category){ %>
                     <tr id="rowid">
-                        <td id="name"> <%= oneClass.name %></td>
-                        <td id="grade"> <%= oneClass.weight %></td>
-                        <a id="assignmentsInCategory">
-                            <td id="total"> <%= oneClass.totalAssignments %></td>
-                        </a>
-                        <td id="<%= oneClass._id %>" class="d-none"></td>
+                        <td id="name"> <%= category.name %></td>
+                        <td id="weight"> <%= category.weight %></td>
+                        <td id="total"data-toggle="popover"
+                        data-placement="top" title="Assignment Name" 
+                        data-html="true" 
+                        data-content="
+                        <% category.assignments.forEach((name) => { %>
+                            <div class='text-center'> 
+                                <%= name %> <br/>
+                            </div>
+                        <% }) %>" 
+                        data-trigger="hover"> <%= category.assignments.length %></td>
+                        <td id="<%= category._id %>" class="d-none"></td>
                     </tr>
                     <% }) %>
                 </tbody>
