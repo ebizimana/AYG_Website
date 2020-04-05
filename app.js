@@ -57,7 +57,7 @@ app.use("/users/:user_id/classes", classRouter),
 app.use("/users/:user_id/classes/:class_id/categories", categoryRouter),
 app.use("/users/:user_id/classes/:class_id/assignments", assignmentRouter),
 
-app.listen(process.env.PORT || 5000,() => console.log("Server Running on port 5000"))
+app.listen(process.env.PORT || 3000,() => console.log("Server Running on port 5000"))
 
 
 

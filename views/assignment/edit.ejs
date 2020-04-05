@@ -30,9 +30,12 @@
     </div>
   </div>
 
-  <select class="ui selection mb-4 dropdown" name="category">
+  <h3 style="display: inline-block; margin-right:10px;" class="ui header">
+    <label>Pick A Category: </label>
+  </h3>
+  <select class="ui selection mb-4 dropdown" name="assignUpdate[category]">
     <% classFound.categories.forEach(function(category){ %>
-    <option value="<%= category.name %>"><%= category.name %></option>
+    <option value="<%= category._id %>"><%= category.name %></option>
     <% }) %>
   </select>
 
