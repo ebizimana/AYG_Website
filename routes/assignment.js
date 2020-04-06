@@ -74,36 +74,45 @@ router.get("/:assig_id/edit", function (req, res) {
 
 // Update
 router.put("/:assig_id", function (req, res) {
-  Class.findById(req.params.class_id).populate("categories").exec((err, classFound) => {
+  Class.findById(req.params.class_id).populate("categories").populate("assignments").exec((err, classFound) => {
     if (err) console.log(err)
+    // Update the category array
+    newArray = []
+    changeAssign = ''
+    for (item of classFound.assignments) {
+      if (item._id == req.params.assig_id) {
+        changeAssign = item.name
+      }
+    }
 
-    // Update the category assignment name
-    Assignment.findOne({_id: req.params.assig_id}, (err, assignFound) => {
-      if (err) console.log(err)
-      
-      Category.findOne({_id:req.body.assignUpdate.category}, (err, categoryFound) => {
-        console.log(categoryFound)
-      })
+    for (item of classFound.categories) {
+      if (req.body.assignUpdate.category == item._id) {
+        for (assign of item.assignments) {
+          if (assign == changeAssign){
+            assign = req.body.assignUpdate.name
+          }
+          newArray.push(assign)
+        }
+      }
+    }
 
-      classFound.save()
+    Category.findOneAndUpdate({
+        _id: req.body.assignUpdate.category
+      }, {
+        $set: {assignments:newArray}
+      },
+      (err, categoryFound) => {})
+    classFound.save();
 
-      // for(index in categoryFound.assignments){
-      //   if(categoryFound.assignments[index] == assignFound.name){
-      //     categoryFound.assignments[index] = req.body.assignUpdate.name
-      //     classFound.save()
-      //     console.log(categoryFound.assignments)
-      //   }
-      // }
-    })
     // update the assignment 
-    // Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function (err, updateAssign) {
-    //   if (err) {
-    //     console.log("Update Error: " + err);
-    //     res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
-    //   } else {
-    //     res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
-    //   }
-    // })
+    Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function (err, updateAssign) {
+      if (err) {
+        console.log("Update Error: " + err);
+        res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
+      } else {
+        res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
+      }
+    })
   })
 })
 
