@@ -47,6 +47,12 @@
 </form>
 
 <script src="/js/assignmentForms.js"></script>
+
+<!-- Preselect the right category -->
+<script>
+  $('.dropdown option[value=<%= assignFound.category %>]').attr('selected','selected')
+</script>
+
 <style media="screen">
   #error {
     margin-top: 2em;
