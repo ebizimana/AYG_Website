@@ -79,12 +79,15 @@ router.put("/:assig_id", function (req, res) {
     // Update the category array
     newArray = []
     changeAssign = ''
+
+    // Get the unchanged assginment name
     for (item of classFound.assignments) {
       if (item._id == req.params.assig_id) {
         changeAssign = item.name
       }
     }
 
+    // Fill up the new array 
     for (item of classFound.categories) {
       if (req.body.assignUpdate.category == item._id) {
         for (assign of item.assignments) {
@@ -96,6 +99,7 @@ router.put("/:assig_id", function (req, res) {
       }
     }
 
+    // Change the old array
     Category.findOneAndUpdate({
         _id: req.body.assignUpdate.category
       }, {
