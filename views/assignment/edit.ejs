@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <h3 style="display: inline-block; margin-right:10px;" class="ui header">
+  <h3 style="display: inline-block; margin-right:10px;" class="ui header" >
     <label>Pick A Category: </label>
   </h3>
   <select class="ui selection mb-4 dropdown" name="assignUpdate[category]">
@@ -38,6 +38,8 @@
     <option value="<%= category._id %>"><%= category.name %></option>
     <% }) %>
   </select>
+
+  <input type="hidden" name="assignUpdate[flag]">
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
     <button type="submit" id="submit" class="btn btn-outline-primary btn-block buttonAdd">Edit Assignment
@@ -51,6 +53,7 @@
 <!-- Preselect the right category -->
 <script>
   $('.dropdown option[value=<%= assignFound.category %>]').attr('selected','selected')
+  $('input[name="assignUpdate[flag]"]').val('<%= assignFound.category %>')
 </script>
 
 <style media="screen">

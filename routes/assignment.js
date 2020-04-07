@@ -76,37 +76,49 @@ router.get("/:assig_id/edit", function (req, res) {
 router.put("/:assig_id", function (req, res) {
   Class.findById(req.params.class_id).populate("categories").populate("assignments").exec((err, classFound) => {
     if (err) console.log(err)
-    // Update the category array
-    newArray = []
-    changeAssign = ''
-
-    // Get the unchanged assginment name
-    for (item of classFound.assignments) {
-      if (item._id == req.params.assig_id) {
-        changeAssign = item.name
-      }
-    }
-
-    // Fill up the new array 
-    for (item of classFound.categories) {
-      if (req.body.assignUpdate.category == item._id) {
-        for (assign of item.assignments) {
-          if (assign == changeAssign){
-            assign = req.body.assignUpdate.name
+    // Check to see if you have to update or remove
+    if (req.body.assignUpdate.flag == req.body.assignUpdate.category) {
+      // Check to see if the assignment name changed
+      classFound.assignments.forEach((assign) => {
+        if (assign._id == req.params.assig_id) {
+          if (assign.name != req.body.assignUpdate.name) {
+            Category.findOne({_id:req.body.assignUpdate.category},(err,categoryFound) =>{
+              if(err) console.log(err)
+              categoryFound.assignments.forEach((item,index) =>{
+                if(item == assign.name){
+                  categoryFound.assignments[index] = req.body.assignUpdate.name
+                  categoryFound.markModified('assignments')
+                  categoryFound.save()
+                }
+              })
+            })
+          } else {
+            console.log(assign.name)
+            console.log(req.body.assignUpdate.name)
+            console.log("The name was not changed")
           }
-          newArray.push(assign)
         }
-      }
+      })
+    } else {
+      console.log(req.body.assignUpdate.flag)
+      console.log(req.body.assignUpdate.category)
+      console.log("Remove the item in the array")
+      Assignment.findOne({_id:req.params.assig_id},(err,assignmentFound) => {
+        if(err) console.log(err)
+        Category.findOne({_id: req.body.assignUpdate.flag},(err,categoryFound) =>{
+          if(err) console.log(err)
+          categoryFound.assignments.forEach((item,index)=>{
+            if(item == assignmentFound.name){
+              console.log(categoryFound.assignments)
+              categoryFound.assignments.splice(index,1)
+              console.log(categoryFound.assignments)
+            }
+          })
+          console.log(categoryFound)
+          categoryFound.save()
+        })
+      })
     }
-
-    // Change the old array
-    Category.findOneAndUpdate({
-        _id: req.body.assignUpdate.category
-      }, {
-        $set: {assignments:newArray}
-      },
-      (err, categoryFound) => {})
-    classFound.save();
 
     // update the assignment 
     Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function (err, updateAssign) {
