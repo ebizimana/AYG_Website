@@ -10,7 +10,14 @@
 </div>
 <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
   <form id="delete-form" method="post" >
+    <input type="hidden" name="assignName">
+    <input type="hidden" name="assignCategoryId">
     <button onclick="deleteForm()"  class="btn btn-danger btnYesClass" type="submit">Yes</button>
   </form>
   <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
 </div>
+
+<script>
+$('input[name="assignName"]').val('<%= assignFound.name %>')
+$('input[name="assignCategoryId"]').val('<%= assignFound.category %>')
+</script>

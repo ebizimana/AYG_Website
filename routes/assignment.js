@@ -112,7 +112,6 @@ router.put("/:assig_id", function (req, res) {
               categoryFound.assignments.splice(index,1)
             }
           })
-          console.log(categoryFound)
           categoryFound.save()
         })
         // Add the item to the new category
@@ -170,12 +169,15 @@ router.post("/reorder", function (req, res) {
 
 // Show the delete modal
 router.get("/:assig_id", function (req, res) {
-  res.render("assignment/delete")
+  Assignment.findOne({_id:req.params.assig_id}, (err,assignFound) => {
+    if(err) console.log(err)
+    res.render("assignment/delete",{assignFound: assignFound})
+  })
 })
 
 // Delete Assignment in DB
 router.delete("/:assig_id", function (req, res) {
-  Class.findById(req.params.class_id, (err, ClassFound) => {
+  Class.findById(req.params.class_id,(err, classFound) => {
     if (err) {
       throw err
     }
@@ -183,9 +185,19 @@ router.delete("/:assig_id", function (req, res) {
       if (err) {
         res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
       } else {
-        deleteItem = ClassFound.assignments.indexOf(req.params.assig_id)
-        ClassFound.assignments.splice(deleteItem, 1)
-        ClassFound.save()
+        deleteAssignment = classFound.assignments.indexOf(req.params.assig_id)
+        classFound.assignments.splice(deleteAssignment, 1)
+        Category.findOne({_id:req.body.assignCategoryId},(err,categoryFound) =>{
+          if(err) console.log(err)
+          categoryFound.assignments.forEach((item,index) =>{
+            if(item == req.body.assignName){
+              categoryFound.assignments.splice(index,1)
+              categoryFound.save()
+            }
+          })
+        })
+
+        classFound.save()
         res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
       }
     })
