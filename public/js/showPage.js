@@ -16,11 +16,13 @@ var gradeSum = 0, // Toatl sum of graded assignment
 $('#grade-selector').dropdown();
 
 // Dishighlight once clicked on white space
-$('#content').click(function (e) {
+$('#content, #sidebar').click(function (e) {
   if (e.target == this) {
     $('tr').css({'background-color': ''})
     $("#editAssignment").prop('disabled', true)
     $('#deleteAssignment').prop('disabled', true)
+    $("#editCategory").prop('disabled', true)
+    $('#deleteCategory').prop('disabled', true)
     $("#saveOrder").attr('hidden', true)
   }
 });
