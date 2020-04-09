@@ -18,7 +18,9 @@ $('#grade-selector').dropdown();
 // Dishighlight once clicked on white space
 $('#content, #sidebar').click(function (e) {
   if (e.target == this) {
-    $('tr').css({'background-color': ''})
+    $('tr').css({
+      'background-color': ''
+    })
     $("#editAssignment").prop('disabled', true)
     $('#deleteAssignment').prop('disabled', true)
     $("#editCategory").prop('disabled', true)
@@ -28,10 +30,10 @@ $('#content, #sidebar').click(function (e) {
 });
 
 // Side Nav
-  $('#sidebarCollapse').click(function (e) {
-    e.preventDefault();
-    $('#sidebar').toggleClass('active').find('.content').load($(this).attr('href'));
-  });
+$('#sidebarCollapse').click(function (e) {
+  e.preventDefault();
+  $('#sidebar').toggleClass('active').find('.content').load($(this).attr('href'));
+});
 
 
 // To show the modal for the class edit form
@@ -57,9 +59,6 @@ $('#deleteAssignment').on('click', function (e) {
   e.preventDefault();
   $('#modalDelete').modal('show').find('.modal-content').load($(this).attr('href'))
 })
-
-// TODO: The content of side nav found in another page || Side Nav for Categories 
-
 
 // To maximize and minimize the divs
 $("#button").click(function () {
@@ -147,6 +146,13 @@ function runClass(num, grade, total, idName) {
   //TODO: Check and see if there is any assignments in the table if
   //      there is none output a message
 
+
+/**************   WEIGHT PREDICTION METHOD **********************************/
+// Get the category id number
+// get the get id weight 
+
+
+/**************   POINTS PREDICTION METHOD **********************************/
   // initialize the global variables
   setTotalPoints(0);
   setGradeSum(0);

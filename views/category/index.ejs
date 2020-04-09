@@ -87,7 +87,7 @@
                     <% classFound.categories.forEach(function(category){ %>
                     <tr onclick="editCategoryTable('<%=currentUser._id %>','<%=classFound._id %>','<%=category._id %>')">
                         <td id="name"> <%= category.name %></td>
-                        <td id="weight"> <%= category.weight %></td>
+                        <td id="weight"> <%= category.weight %> %</td>
                         <td id="total" data-toggle="popover" data-placement="top" title="Assignment Name"
                             data-html="true" data-content="
                         <% category.assignments.forEach((name) => { %>

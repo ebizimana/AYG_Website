@@ -23,13 +23,13 @@ router.get("/new", function (req, res) {
   })
 })
 
-// Create One
+// Create an Assignment 
 router.post("/", function (req, res) {
   User.findById(req.params.user_id, (err, userFound) => {
     if (err) {
       throw err
     }
-    Class.findById(req.params.class_id).populate("categories").exec(function (err, classFound) {
+    Class.findById(req.params.class_id).populate("assignments").exec(function (err, classFound) {
       if (err) {
         console.log(err);
         req.flash("error", "They was a problem creating a new assignment")
@@ -45,7 +45,11 @@ router.post("/", function (req, res) {
                 assignments: req.body.assignment.name
               }
             },
-            (err, categoryFound) => {})
+            (err, categoryFound) => {
+              assig.category.id     = req.body.assignment.category
+              assig.category.weight = categoryFound.weight
+              assig.save()
+            })
           classFound.save();
           res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
         })
@@ -79,15 +83,17 @@ router.put("/:assig_id", function (req, res) {
 
     // Update category assignment approprietly
     if (req.body.assignUpdate.flag == req.body.assignUpdate.category) {
-      
+
       // Check to see if the assignment name changed
       classFound.assignments.forEach((assign) => {
         if (assign._id == req.params.assig_id) {
           if (assign.name != req.body.assignUpdate.name) {
-            Category.findOne({_id:req.body.assignUpdate.category},(err,categoryFound) =>{
-              if(err) console.log(err)
-              categoryFound.assignments.forEach((item,index) =>{
-                if(item == assign.name){
+            Category.findOne({
+              _id: req.body.assignUpdate.category
+            }, (err, categoryFound) => {
+              if (err) console.log(err)
+              categoryFound.assignments.forEach((item, index) => {
+                if (item == assign.name) {
                   categoryFound.assignments[index] = req.body.assignUpdate.name
                   categoryFound.markModified('assignments')
                   categoryFound.save()
@@ -102,21 +108,28 @@ router.put("/:assig_id", function (req, res) {
         }
       })
     } else {
-      Assignment.findOne({_id:req.params.assig_id},(err,assignmentFound) => {
-        if(err) console.log(err)
+      Assignment.findOne({
+        _id: req.params.assig_id
+      }, (err, assignmentFound) => {
+        if (err) console.log(err)
+
         // Remove the item from the one category
-        Category.findOne({_id: req.body.assignUpdate.flag},(err,categoryFound) =>{
-          if(err) console.log(err)
-          categoryFound.assignments.forEach((item,index)=>{
-            if(item == assignmentFound.name){
-              categoryFound.assignments.splice(index,1)
+        Category.findOne({
+          _id: req.body.assignUpdate.flag
+        }, (err, categoryFound) => {
+          if (err) console.log(err)
+          categoryFound.assignments.forEach((item, index) => {
+            if (item == assignmentFound.name) {
+              categoryFound.assignments.splice(index, 1)
             }
           })
           categoryFound.save()
         })
         // Add the item to the new category
-        Category.findOne({_id:req.body.assignUpdate.category},(err,categoryFound) => {
-          if(err) console.log(err)
+        Category.findOne({
+          _id: req.body.assignUpdate.category
+        }, (err, categoryFound) => {
+          if (err) console.log(err)
           categoryFound.assignments.push(req.body.assignUpdate.name)
           categoryFound.save()
         })
@@ -169,15 +182,15 @@ router.post("/reorder", function (req, res) {
 
 // Show the delete modal
 router.get("/:assig_id", function (req, res) {
-  Assignment.findOne({_id:req.params.assig_id}, (err,assignFound) => {
-    if(err) console.log(err)
-    res.render("assignment/delete",{assignFound: assignFound})
+  Assignment.findOne({_id: req.params.assig_id}, (err, assignFound) => {
+    if (err) console.log(err)
+    res.render("assignment/delete", {assignFound: assignFound})
   })
 })
 
 // Delete Assignment in DB
 router.delete("/:assig_id", function (req, res) {
-  Class.findById(req.params.class_id,(err, classFound) => {
+  Class.findById(req.params.class_id, (err, classFound) => {
     if (err) {
       throw err
     }
@@ -187,11 +200,13 @@ router.delete("/:assig_id", function (req, res) {
       } else {
         deleteAssignment = classFound.assignments.indexOf(req.params.assig_id)
         classFound.assignments.splice(deleteAssignment, 1)
-        Category.findOne({_id:req.body.assignCategoryId},(err,categoryFound) =>{
-          if(err) console.log(err)
-          categoryFound.assignments.forEach((item,index) =>{
-            if(item == req.body.assignName){
-              categoryFound.assignments.splice(index,1)
+        Category.findOne({
+          _id: req.body.assignCategoryId
+        }, (err, categoryFound) => {
+          if (err) console.log(err)
+          categoryFound.assignments.forEach((item, index) => {
+            if (item == req.body.assignName) {
+              categoryFound.assignments.splice(index, 1)
               categoryFound.save()
             }
           })

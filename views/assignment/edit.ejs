@@ -52,8 +52,8 @@
 
 <!-- Preselect the right category -->
 <script>
-  $('.dropdown option[value=<%= assignFound.category %>]').attr('selected','selected')
-  $('input[name="assignUpdate[flag]"]').val('<%= assignFound.category %>')
+  $('.dropdown option[value=<%= assignFound.category.id %>]').attr('selected','selected')
+  $('input[name="assignUpdate[flag]"]').val('<%= assignFound.category.id %>')
 </script>
 
 <style media="screen">
