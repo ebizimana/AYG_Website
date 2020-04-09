@@ -149,7 +149,7 @@ function runClass(num, grade, total, idName) {
 
 /**************   WEIGHT PREDICTION METHOD **********************************/
 // Get the category id number
-// get the get id weight 
+// get the category weight 
 
 
 /**************   POINTS PREDICTION METHOD **********************************/
