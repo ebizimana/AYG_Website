@@ -211,9 +211,9 @@ router.delete("/:assig_id", function (req, res) {
           _id: req.body.assignCategoryId
         }, (err, categoryFound) => {
           if (err) console.log(err)
-          categoryFound.assignments.forEach((item, index) => {
+          categoryFound.assignments.name.forEach((item, index) => {
             if (item == req.body.assignName) {
-              categoryFound.assignments.splice(index, 1)
+              categoryFound.assignments.name.splice(index, 1)
               categoryFound.save()
             }
           })
