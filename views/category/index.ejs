@@ -90,11 +90,11 @@
                         <td id="weight"> <%= category.weight %> %</td>
                         <td id="total" data-toggle="popover" data-placement="top" title="Assignment Name"
                             data-html="true" data-content="
-                        <% category.assignments.forEach((name) => { %>
+                        <% category.assignments.name.forEach((name) => { %>
                             <div class='text-center'> 
                                 <%= name %> <br/>
                             </div>
-                        <% }) %>" data-trigger="hover"> <%= category.assignments.length %></td>
+                        <% }) %>" data-trigger="hover"> <%= category.assignments.name.length %></td>
                         <td id="<%= category._id %>" class="d-none"></td>
                     </tr>
                     <% }) %>

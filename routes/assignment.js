@@ -42,13 +42,20 @@ router.post("/", function (req, res) {
               _id: req.body.assignment.category
             }, {
               $push: {
-                assignments: req.body.assignment.name
+                'assignments.name': req.body.assignment.name
               }
             },
             (err, categoryFound) => {
               assig.category.id     = req.body.assignment.category
               assig.category.weight = categoryFound.weight
               assig.save()
+              if(!categoryFound.assignments.totalPerCategory){
+                categoryFound.assignments.totalPerCategory = Number(req.body.assignment.total)
+              }else{
+                categoryFound.assignments.totalPerCategory += Number(req.body.assignment.total)
+              }
+              console.log(categoryFound.assignments.totalPerCategory)
+              categoryFound.save()
             })
           classFound.save();
           res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
@@ -92,9 +99,9 @@ router.put("/:assig_id", function (req, res) {
               _id: req.body.assignUpdate.category
             }, (err, categoryFound) => {
               if (err) console.log(err)
-              categoryFound.assignments.forEach((item, index) => {
+              categoryFound.assignments.name.forEach((item, index) => {
                 if (item == assign.name) {
-                  categoryFound.assignments[index] = req.body.assignUpdate.name
+                  categoryFound.assignments.name[index] = req.body.assignUpdate.name
                   categoryFound.markModified('assignments')
                   categoryFound.save()
                 }
@@ -118,9 +125,9 @@ router.put("/:assig_id", function (req, res) {
           _id: req.body.assignUpdate.flag
         }, (err, categoryFound) => {
           if (err) console.log(err)
-          categoryFound.assignments.forEach((item, index) => {
-            if (item == assignmentFound.name) {
-              categoryFound.assignments.splice(index, 1)
+          categoryFound.assignments.name.forEach((item, index) => {
+            if (item.name == assignmentFound.name) {
+              categoryFound.assignments.name.splice(index, 1)
             }
           })
           categoryFound.save()
@@ -130,7 +137,7 @@ router.put("/:assig_id", function (req, res) {
           _id: req.body.assignUpdate.category
         }, (err, categoryFound) => {
           if (err) console.log(err)
-          categoryFound.assignments.push(req.body.assignUpdate.name)
+          categoryFound.assignments.name.push(req.body.assignUpdate.name)
           categoryFound.save()
         })
       })

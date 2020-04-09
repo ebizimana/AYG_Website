@@ -1,7 +1,10 @@
 var mongoose = require('mongoose')
 
 var categorySchema = new mongoose.Schema({
-    assignments:[],
+    assignments:{
+        name: [String],
+        totalPerCategory: Number
+    },
     name: String,
     weight: Number,
 })
