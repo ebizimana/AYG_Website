@@ -54,7 +54,7 @@ router.get("/:class_id", middleware.isLoggenIn, function (req, res) {
     if (err) {
       throw err
     }
-    Class.findById(req.params.class_id).populate("assignments").exec(function (err, classFound) {
+    Class.findById(req.params.class_id).populate("assignments").populate("categories").exec(function (err, classFound) {
       if (err) {
         console.log(err);
         req.flash("error", err.message)

@@ -52,9 +52,10 @@ router.post("/", function (req, res) {
               if(!categoryFound.assignments.totalPerCategory){
                 categoryFound.assignments.totalPerCategory = Number(req.body.assignment.total)
               }else{
-                categoryFound.assignments.totalPerCategory += Number(req.body.assignment.total)
+                categoryFound.assignments.totalPoints += Number
+                (req.body.assignment.total)
+                categoryFound.assignments.totalNumber = categoryFound.assignments.name.length + 1
               }
-              console.log(categoryFound.assignments.totalPerCategory)
               categoryFound.save()
             })
           classFound.save();

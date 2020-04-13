@@ -142,17 +142,10 @@ $("#saveOrder").on('click', function () {
 
 
 // Fills up the Estimate column in assignmnet table
-function runClass(num, grade, total, idName) {
+function runClass(num, categoryTotal, grade, total, idName, weight, categories) {
   //TODO: Check and see if there is any assignments in the table if
   //      there is none output a message
 
-
-/**************   WEIGHT PREDICTION METHOD **********************************/
-// Get the category id number
-// get the category weight 
-
-
-/**************   POINTS PREDICTION METHOD **********************************/
   // initialize the global variables
   setTotalPoints(0);
   setGradeSum(0);
@@ -166,10 +159,40 @@ function runClass(num, grade, total, idName) {
     gradeArr = grade.split(','),
     totalArr = total.split(','),
     idArr = idName.split(','),
+    weightArr = weight.split(','), 
     gradeLetter = $('#grade-selector').find(":selected").text();
 
   // check to see if grade can be attained
   pointsLeftNumber = pointsLeft(gradeLetter, grade, total);
+
+  /**************   WEIGHT PREDICTION METHOD **********************************/
+  console.log('categoryTotal: ' + categoryTotal)
+  console.log(weightArr)
+  console.log(categories)
+
+  // for (i = 0; i < assignNumber; i++) {
+  //   if (gradeLetter == 'A') {
+  //     console.log('categoryTotal: ' + categoryTotal) // output 4
+  //     weightDistribution = 10 / categoryTotal
+  //     console.log('weightDistribution: ' + weightDistribution) // output 2.5
+  //     leastPercentage = weightArr[i] - weightDistribution
+  //     console.log('weightArr[i]: ' + weightArr[i])  // output 30
+  //     console.log('leastPercentage: ' + leastPercentage) // output 27
+  //     subtotalGrade = (leastPercentage * 100) / weightArr[i]
+  //     console.log('subTotalGrade: ' + subtotalGrade) // output 27.5
+  //     console.log('totalPerCategory: ' + totalPerCategory) // output 500
+  //     console.log('totalAssignmentsPerCategory' + totalAssignmentsPerCategory) // output 5
+  //     estimatePerCategory = (subtotalGrade * totalPerCategory) / (100 * totalAssignmentsPerCategory)
+  //     console.log('estimatePerCategory: ' + estimatePerCategory) // output 91.7
+  //   }
+  // }
+
+  // Get the category id number
+  // get the category weight 
+
+
+  /**************   POINTS PREDICTION METHOD **********************************/
+
   if (pointsLeftNumber < 0) {
     $(document).ready(function () {
       $("#message").hide()

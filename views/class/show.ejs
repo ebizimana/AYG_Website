@@ -5,11 +5,18 @@
   <% gradeArr       = [] %>
   <% totalArr       = [] %>
   <% idArr          = [] %>
+  <% weightArr      = [] %>
+  <% categories     = [] %>
+  <% categoryTotal = classFound.categories.length %>
   <% classFound.assignments.forEach(function(oneClass){ %>
   <% numberOfAssign += 1 %>
-  <% gradeArr.push(oneClass.grade) %>
+  <% gradeArr.push(oneClass.grade) %>0
   <% totalArr.push(oneClass.total) %>
   <% idArr.push(oneClass._id) %>
+  <% weightArr.push(oneClass.category.weight) %>
+  <% }) %>
+  <% classFound.categories.forEach(function(category){ %>
+  <% categories.push(category) %>
   <% }) %>
 </header>
 
@@ -61,8 +68,11 @@
           </div>
 
           <div class="text-center">
-            <button type="submit" class="btn btn-info btn-rounded btn-md"
-              onclick="runClass('<%=numberOfAssign%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>')">
+            <button 
+            type="submit" 
+            class="btn btn-info btn-rounded btn-md"
+            onclick="runClass('<%=numberOfAssign%>','<%=categoryTotal%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>', '<%=[ weightArr ]%>','<%= categories %>')"
+            >
               Submit
             </button>
           </div>

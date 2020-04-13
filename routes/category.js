@@ -1,7 +1,6 @@
 var express = require("express"),
 Class     = require("../models/class"),
 Category  = require("../models/category"),
-Assignment = require("../models/assignment"),
 router = express.Router({mergeParams: true})
 
 // Show all the categories
