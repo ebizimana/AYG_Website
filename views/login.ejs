@@ -6,8 +6,10 @@
   <link rel="stylesheet" href="/stylesheets/main.css">
 </head>
 
+<body id="body">
+  
 <!--Modal cascading tabs-->
-<div class="modal-c-tabs">
+<div class="modal-c-tabs pop">
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs md-tabs tabs-2 darken-3" role="tablist">
@@ -136,7 +138,7 @@
             <label data-error="wrong" data-success="right" for="modalLRInput10">Email</label>
           </div>
           <div class="text-center mt-2">
-            <button class="btn btn-info">Submit<i class="fas fa-sign-in ml-1"></i></button>
+            <button class="btn btn-info">Send Email<i class="fas fa-sign-in ml-1"></i></button>
           </div>
         </div>
 
@@ -156,6 +158,7 @@
 
 </div>
 
+</body>
 
 <!-- JQuery -->
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
@@ -164,14 +167,13 @@
 
 <script>
 
-  // When clicked close, page will reload so that the modal works again
-  $(".closebtn").on("click", function(e){
-          location.reload(true);
-      })
-  // When clicked on body to close modal, page will reload so the modal works again
-      $('body').click(function (e) {
-      location.reload(true);
-    })
+  // When modal is closed, page will refresh
+  $("#modalProfile").on('hidden.bs.modal', function(e){
+    location.reload(true);
+  }) 
+
+  
+    
 
   // when clicking on the signup button, it clicks the Register for you automatically
   $(".signUpbtn").on('click', function (e) {

@@ -48,7 +48,7 @@
   <div>
     <% if(!currentUser){ %>
     <div class="mt-5 mb-0 mr-3">
-      <a href="/login" id="openProfilemodal"
+      <a href="/login"  id="openProfilemodal"
         class="btn-floating btn-lg btn-default rounded-circle profilePicture d-flex justify-content-center ">
         <i class="fas fa-user text-light fa-3x mt-3"></i>
       </a>
@@ -147,7 +147,7 @@
       e.preventDefault()
       $("#modalProfile").modal('show').find('.modal-content').load($(this).attr('href'))
     })
-
+    
     // Open Edit Profile Modal
     $("#editProfile").on('click', function (e) {
       e.preventDefault()
