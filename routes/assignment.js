@@ -49,8 +49,8 @@ router.post("/", function (req, res) {
               assig.category.id     = req.body.assignment.category
               assig.category.weight = categoryFound.weight
               assig.save()
-              if(!categoryFound.assignments.totalPerCategory){
-                categoryFound.assignments.totalPerCategory = Number(req.body.assignment.total)
+              if(!categoryFound.assignments.totalPoints){
+                categoryFound.assignments.totalPoints = Number(req.body.assignment.total)
               }else{
                 categoryFound.assignments.totalPoints += Number
                 (req.body.assignment.total)

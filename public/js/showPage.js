@@ -140,9 +140,20 @@ $("#saveOrder").on('click', function () {
   dateName.val(JSON.stringify(newOrder, null, "  "))
 })
 
+// Calculate Estimate Points for Assignment Per Category
+function ePAC(subtotalGrade, assignId, categories) {
+  result = 0
+  categories.forEach((item,index) => {
+    if(item.id == assignId){
+      result = (subtotalGrade * categories[index].totalPoints) / (100 * categories[index].totalNumber)
+    }
+  })
+  return result
+}
+
 
 // Fills up the Estimate column in assignmnet table
-function runClass(num, categoryTotal, grade, total, idName, weight, categories) {
+function runClass(num, categoryTotal, grade, total, idName, weight, totalPerCategory, totalNumberPerCategory, assignmentsCategoryIdArr, categoryIdArr) {
   //TODO: Check and see if there is any assignments in the table if
   //      there is none output a message
 
@@ -159,36 +170,45 @@ function runClass(num, categoryTotal, grade, total, idName, weight, categories) 
     gradeArr = grade.split(','),
     totalArr = total.split(','),
     idArr = idName.split(','),
-    weightArr = weight.split(','), 
+    weightArr = weight.split(','),
+    assignIdArr = assignmentsCategoryIdArr.split(','),
     gradeLetter = $('#grade-selector').find(":selected").text();
+
+  // initialize local variables for categories
+  categoryId = categoryIdArr.split(',')
+  totalPointsCategory = totalPerCategory.split(',')
+  totalNumber = totalNumberPerCategory.split(',')
+
+  // Construct the Category Array Object
+  categories = [{id: String,totalPoints: Number,totalNumber: Number}]
+  categoryId.forEach((item, index) => {
+    categories.push({
+      id: item,
+      totalPoints: Number(totalPointsCategory[index]),
+      totalNumber: Number(totalNumber[index])
+    })
+  })
+  categories.splice(0, 1)
 
   // check to see if grade can be attained
   pointsLeftNumber = pointsLeft(gradeLetter, grade, total);
 
   /**************   WEIGHT PREDICTION METHOD **********************************/
-  console.log('categoryTotal: ' + categoryTotal)
-  console.log(weightArr)
-  console.log(categories)
 
-  // for (i = 0; i < assignNumber; i++) {
-  //   if (gradeLetter == 'A') {
-  //     console.log('categoryTotal: ' + categoryTotal) // output 4
-  //     weightDistribution = 10 / categoryTotal
-  //     console.log('weightDistribution: ' + weightDistribution) // output 2.5
-  //     leastPercentage = weightArr[i] - weightDistribution
-  //     console.log('weightArr[i]: ' + weightArr[i])  // output 30
-  //     console.log('leastPercentage: ' + leastPercentage) // output 27
-  //     subtotalGrade = (leastPercentage * 100) / weightArr[i]
-  //     console.log('subTotalGrade: ' + subtotalGrade) // output 27.5
-  //     console.log('totalPerCategory: ' + totalPerCategory) // output 500
-  //     console.log('totalAssignmentsPerCategory' + totalAssignmentsPerCategory) // output 5
-  //     estimatePerCategory = (subtotalGrade * totalPerCategory) / (100 * totalAssignmentsPerCategory)
-  //     console.log('estimatePerCategory: ' + estimatePerCategory) // output 91.7
-  //   }
-  // }
-
-  // Get the category id number
-  // get the category weight 
+  for (i = 0; i < assignNumber; i++) {
+    if (gradeLetter == 'A') {
+      console.log('categoryTotal: ' + categoryTotal) // output 4
+      weightDistribution = 10 / categoryTotal
+      console.log('weightDistribution: ' + weightDistribution) // output 2.5
+      leastPercentage = weightArr[i] - weightDistribution
+      console.log('weightArr[i]: ' + weightArr[i])  // output 30
+      console.log('leastPercentage: ' + leastPercentage) // output 27.5
+      subtotalGrade = (leastPercentage * 100) / weightArr[i]
+      console.log('subTotalGrade: ' + subtotalGrade.toFixed(0)) // output 91.7
+      estimatePerCategory = ePAC(subtotalGrade.toFixed(0),assignIdArr[i],categories)
+      console.log("estimatePerCategory: " + estimatePerCategory)
+    }
+  }
 
 
   /**************   POINTS PREDICTION METHOD **********************************/
