@@ -1,6 +1,5 @@
 // PACKAGE INSTALLATION
 var express                 = require("express"),
-    dotenv                  = require("dotenv"),
     mongoose                = require("mongoose"),
     passport                = require("passport"),
     bodyParser              = require("body-parser"),
@@ -28,7 +27,7 @@ app.set("view engine","ejs")
 app.use(methodOverride("_method"))
 app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({extended:true}))
-dotenv.config()
+require('dotenv/config')
 url = process.env.DATABASEURL || "mongodb://localhost/ayg";
 mongoose.connect(url,{useNewUrlParser:true, useFindAndModify:false})
 

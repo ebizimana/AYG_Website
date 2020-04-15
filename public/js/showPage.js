@@ -2,6 +2,9 @@
 // TODO: Add method to distrubute the points based on category
 // TODO: Add a method to calculate overall percentage
 
+import ClassFound from '/routes/class.js'
+
+console.log("ClassFound: ", ClassFound.classFound)
 
 // variables
 var gradeSum = 0, // Toatl sum of graded assignment
@@ -151,9 +154,11 @@ function ePAC(subtotalGrade, assignId, categories) {
   return result
 }
 
+// Get the classFound Object
 
 // Fills up the Estimate column in assignmnet table
 function runClass(num, categoryTotal, grade, total, idName, weight, totalPerCategory, totalNumberPerCategory, assignmentsCategoryIdArr, categoryIdArr) {
+
   //TODO: Check and see if there is any assignments in the table if
   //      there is none output a message
 

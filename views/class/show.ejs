@@ -79,7 +79,7 @@
             <button 
             type="submit" 
             class="btn btn-info btn-rounded btn-md"
-            onclick="runClass('<%=numberOfAssign%>','<%=categoryTotal%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>', '<%=[ weightArr ]%>','<%= [ totalPointsPerCategory ] %>','<%= [ totalNumberPerCategory ] %>', '<%= [ assignmentsCategoryIdArr ] %>','<%= [categoryIdArr] %>');"
+            onclick="runClass('<%=numberOfAssign%>','<%=categoryTotal%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>', '<%=[ weightArr ]%>','<%= [ totalPointsPerCategory ] %>','<%= [ totalNumberPerCategory ] %>', '<%= [ assignmentsCategoryIdArr ] %>','<%= [categoryIdArr] %>'); test('<%- classFound %>')"
             >
               Submit
             </button>
@@ -214,7 +214,7 @@
 
 </body>
 
-<script type="text/javascript" src="/js/showPage.js"></script>
+<script type="module" src="/js/showPage.js"></script>
 
 
 <% include ../partials/footer %>

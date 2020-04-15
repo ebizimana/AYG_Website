@@ -59,9 +59,8 @@ router.get("/:class_id", middleware.isLoggenIn, function (req, res) {
         console.log(err);
         req.flash("error", err.message)
       } else {
-        res.render("class/show", {
-          classFound: classFound
-        })
+        res.render("class/show", {classFound: classFound})
+        exports.ClassFound = classFound
       }
     })
   })
