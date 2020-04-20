@@ -6,22 +6,29 @@
   <link rel="stylesheet" href="/stylesheets/main.css">
 </head>
 
+<body id="body">
+  
 <!--Modal cascading tabs-->
-<div class="modal-c-tabs">
+<div class="modal-c-tabs pop">
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs md-tabs tabs-2 darken-3" role="tablist">
 
     <li class="nav-item">
-      <a class="nav-link active text-white" data-toggle="tab" href="#login" role="tab">
+      <a id="loginbtn" class="nav-link active text-white" data-toggle="tab" href="#login" role="tab">
         <i class="fas fa-user mr-1"></i>
-        Login
+        <span>Login</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-white" data-toggle="tab" href="#signUp" role="tab">
+      <a id="signBtn" class="nav-link text-white signUp" data-toggle="tab" href="#signUp" role="tab">
         <i class="fas fa-user-plus mr-1"></i>
-        Register
+        <span>Register</span>
+      </a>
+    </li>
+    <li class="nav-item" style="display: none;">
+      <a id="forgotbtn" class="nav-link text-white" data-toggle="tab" href="#forgotPassword" role="tab">
+        <span>Forgot password</span>
       </a>
     </li>
   </ul>
@@ -46,17 +53,18 @@
           </div>
 
           <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in
-              with:</p>
-      
+            with:</p>
+
           <div class="row my-3 d-flex justify-content-center">
-              <!--Facebook-->
-              <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i
-                      class="fab fa-facebook-f text-center"></i></button>
-              <!--Twitter-->
-              <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i
-                      class="fab fa-twitter"></i></button>
-              <!--Google +-->
-              <button type="button" class="btn btn-white btn-rounded z-depth-1a"><i class="fab fa-google-plus-g"></i></button>
+            <!--Facebook-->
+            <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i
+                class="fab fa-facebook-f text-center"></i></button>
+            <!--Twitter-->
+            <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i
+                class="fab fa-twitter"></i></button>
+            <!--Google +-->
+            <button type="button" class="btn btn-white btn-rounded z-depth-1a"><i
+                class="fab fa-google-plus-g"></i></button>
           </div>
 
           <div class="text-center mt-2">
@@ -67,10 +75,10 @@
         <!--Footer-->
         <div class="modal-footer">
           <div class="options text-center text-md-right mt-1">
-            <p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
-            <p>Forgot <a href="#" class="blue-text">Password?</a></p>
+            <p>Not a member? <a class="blue-text signUpbtn">Sign Up</a></p>
+            <p>Forgot <a href="#" class="blue-text forgotPassbtn">Password?</a></p>
           </div>
-          <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-info waves-effect ml-auto closebtn" data-dismiss="modal">Close</button>
         </div>
       </form>
 
@@ -94,7 +102,7 @@
           </div>
 
           <div class="md-form form-sm mb-4">
-            <i class="fas fa-lock prefix"></i>
+            <i class="fas fa-user prefix"></i>
             <input type="text" name="profilePicture" class="form-control form-control-sm validate">
             <label data-error="wrong" data-success="right" for="modalLRInput14">Add a Profile picture</label>
           </div>
@@ -107,19 +115,83 @@
         <!--Footer-->
         <div class="modal-footer">
           <div class="options text-right">
-            <p class="pt-1">Already have an account? <a href="#" class="blue-text">Log In</a></p>
+            <p class="pt-1">Already have an account? <a href="#" class="blue-text loginbtn">Log In</a></p>
           </div>
-          <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-info waves-effect ml-auto closebtn" data-dismiss="modal">Close</button>
         </div>
       </form>
+
+
 
     </div>
     <!--/. Register Form-->
 
 
+    <!-- forgot password form -->
+    <div class="tab-pane fade in show" id="forgotPassword" role="tabpanel">
+      <form action="/" method="POST">
+        <!--Body-->
+        <div class="modal-body mb-1">
+          <div class="md-form form-sm mb-5">
+            <i class="fas fa-envelope prefix"></i>
+            <input type="email" name="" class="form-control form-control-sm validate"> <!--TODO: fill out name-->
+            <label data-error="wrong" data-success="right" for="modalLRInput10">Email</label>
+          </div>
+          <div class="text-center mt-2">
+            <button class="btn btn-info">Send Email<i class="fas fa-sign-in ml-1"></i></button>
+          </div>
+        </div>
+
+        <!--Footer-->
+        <div class="modal-footer">
+          <div class="options text-center text-md-right mt-1">
+            <p>Not a member? <a class="blue-text signUpbtn">Sign Up</a></p>
+            <p class="pt-1">Already have an account? <a href="#" class="blue-text loginbtn">Log In</a></p>
+          </div>
+          <button type="button" class="btn btn-outline-info waves-effect ml-auto closebtn" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+
+    </div>
+
   </div>
 
 </div>
+
+</body>
+
+<!-- JQuery -->
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js">
+</script>
+
+<script>
+
+  // When modal is closed, page will refresh
+  $("#modalProfile").on('hidden.bs.modal', function(e){
+    location.reload(true);
+  }) 
+
+  
+    
+
+  // when clicking on the signup button, it clicks the Register for you automatically
+  $(".signUpbtn").on('click', function (e) {
+    $('#signBtn span').trigger("click");
+    e.preventDefault();
+  });
+  // when clicking on the login button, it clicks the login for you automatically
+  $(".loginbtn").on('click', function (e) {
+    $('#loginbtn span').trigger("click");
+    e.preventDefault();
+  });
+
+  $(".forgotPassbtn").on('click', function (e) {
+    $('#forgotbtn span').trigger("click");
+    e.preventDefault();
+  });
+  
+</script>
 
 
 <footer>
