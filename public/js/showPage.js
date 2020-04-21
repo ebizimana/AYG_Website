@@ -2,9 +2,6 @@
 // TODO: Add method to distrubute the points based on category
 // TODO: Add a method to calculate overall percentage
 
-import ClassFound from '/routes/class.js'
-
-console.log("ClassFound: ", ClassFound.classFound)
 
 // variables
 var gradeSum = 0, // Toatl sum of graded assignment
