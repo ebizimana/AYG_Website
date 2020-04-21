@@ -2,13 +2,14 @@
 <header>
   <!-- TODO: Find a better way to do this -->
   <!-- initializing variables -->
+  <% sendData = JSON.stringify(classFound) %>
   <% numberOfAssign = 0 %>
   <% gradeArr       = [] %>
   <% totalArr       = [] %>
   <% idArr          = [] %>
   <% weightArr      = [] %>
   <% assignmentsCategoryIdArr  = [] %>
-  <% categoryIdArr  =[] %>           
+  <% categoryIdArr  =[] %>
   <% totalPointsPerCategory     = [] %>
   <% totalNumberPerCategory     = [] %>
   <% categoryTotal = classFound.categories.length %>
@@ -79,7 +80,7 @@
             <button 
             type="submit" 
             class="btn btn-info btn-rounded btn-md"
-            onclick="runClass('<%=numberOfAssign%>','<%=categoryTotal%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>', '<%=[ weightArr ]%>','<%= [ totalPointsPerCategory ] %>','<%= [ totalNumberPerCategory ] %>', '<%= [ assignmentsCategoryIdArr ] %>','<%= [categoryIdArr] %>'); test('<%- classFound %>')"
+            onclick="runClass('<%=numberOfAssign%>','<%=categoryTotal%>','<%=[ gradeArr ]%>','<%=[ totalArr ]%>','<%=[ idArr ]%>', '<%=[ weightArr ]%>','<%= [ totalPointsPerCategory ] %>','<%= [ totalNumberPerCategory ] %>', '<%= [ assignmentsCategoryIdArr ] %>','<%= [categoryIdArr] %>'); test('<%= sendData %>')"
             >
               Submit
             </button>
@@ -214,7 +215,8 @@
 
 </body>
 
-<script type="module" src="/js/showPage.js"></script>
+<script src="/js/showPage.js"></script>
 
 
 <% include ../partials/footer %>
+

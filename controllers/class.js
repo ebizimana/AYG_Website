@@ -47,7 +47,7 @@ exports.showOneClass = (req, res) => {
   Class.findById(req.params.class_id).populate("assignments categories").exec(function (err, classFound) {
     if (err) throw err
     // TODO: Export the class Found to the showpage js
-      res.render("class/show", {classFound: classFound})
+    res.render("class/show", {classFound: classFound})
   })
 }
 

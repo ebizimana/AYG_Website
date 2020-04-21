@@ -143,16 +143,26 @@ $("#saveOrder").on('click', function () {
 // Calculate Estimate Points for Assignment Per Category
 function ePAC(subtotalGrade, assignId, categories) {
   result = 0
-  categories.forEach((item,index) => {
-    if(item.id == assignId){
+  categories.forEach((item, index) => {
+    if (item.id == assignId) {
       result = (subtotalGrade * categories[index].totalPoints) / (100 * categories[index].totalNumber)
     }
   })
   return result
 }
 
-// Get the classFound Object
-
+//TODO: Get the classFound Object
+var url = window.location.href
+function test(classFound){
+  console.log(JSON.parse(classFound))
+}
+// fetch(url).then(response)
+//   .then((result) => {
+//     console.log('success:', result)
+//   })
+// $.get(url, {}, function(classFound){
+//   console.log(classFound)
+// });
 // Fills up the Estimate column in assignmnet table
 function runClass(num, categoryTotal, grade, total, idName, weight, totalPerCategory, totalNumberPerCategory, assignmentsCategoryIdArr, categoryIdArr) {
 
@@ -182,7 +192,11 @@ function runClass(num, categoryTotal, grade, total, idName, weight, totalPerCate
   totalNumber = totalNumberPerCategory.split(',')
 
   // Construct the Category Array Object
-  categories = [{id: String,totalPoints: Number,totalNumber: Number}]
+  categories = [{
+    id: String,
+    totalPoints: Number,
+    totalNumber: Number
+  }]
   categoryId.forEach((item, index) => {
     categories.push({
       id: item,
@@ -203,11 +217,11 @@ function runClass(num, categoryTotal, grade, total, idName, weight, totalPerCate
       weightDistribution = 10 / categoryTotal
       console.log('weightDistribution: ' + weightDistribution) // output 2.5
       leastPercentage = weightArr[i] - weightDistribution
-      console.log('weightArr[i]: ' + weightArr[i])  // output 30
+      console.log('weightArr[i]: ' + weightArr[i]) // output 30
       console.log('leastPercentage: ' + leastPercentage) // output 27.5
       subtotalGrade = (leastPercentage * 100) / weightArr[i]
       console.log('subTotalGrade: ' + subtotalGrade.toFixed(0)) // output 91.7
-      estimatePerCategory = ePAC(subtotalGrade.toFixed(0),assignIdArr[i],categories)
+      estimatePerCategory = ePAC(subtotalGrade.toFixed(0), assignIdArr[i], categories)
       console.log("estimatePerCategory: " + estimatePerCategory)
     }
   }
