@@ -116,6 +116,7 @@ function editRow(userId, classId, assignId, num) {
   })
 
   setDeleteAction(deleteAction)
+
   //enable the edit and delete buttons
   $("#editAssignment").prop('disabled', false).attr('href', editUrl)
   $('#deleteAssignment').prop('disabled', false).attr('href', deleteUrl)
@@ -133,7 +134,7 @@ function editRow(userId, classId, assignId, num) {
   });
 }
 
-// save new order
+// Save new order
 $("#saveOrder").on('click', function () {
   dateName = $('input[name="newOrderInput"]')
   newOrder = newOrder.splice(1)
@@ -144,91 +145,43 @@ $("#saveOrder").on('click', function () {
 function ePAC(subtotalGrade, assignId, categories) {
   result = 0
   categories.forEach((item, index) => {
-    if (item.id == assignId) {
-      result = (subtotalGrade * categories[index].totalPoints) / (100 * categories[index].totalNumber)
+    if (item._id == assignId) {
+      result = (subtotalGrade * item.assignments.totalPoints) / (100 * item.assignments.totalNumber)
     }
   })
   return result
 }
 
-//TODO: Get the classFound Object
-var url = window.location.href
-function test(classFound){
-  console.log(JSON.parse(classFound))
-}
-// fetch(url).then(response)
-//   .then((result) => {
-//     console.log('success:', result)
-//   })
-// $.get(url, {}, function(classFound){
-//   console.log(classFound)
-// });
 // Fills up the Estimate column in assignmnet table
-function runClass(num, categoryTotal, grade, total, idName, weight, totalPerCategory, totalNumberPerCategory, assignmentsCategoryIdArr, categoryIdArr) {
+function runClass(data) {
+  classFound = JSON.parse(data)
 
-  //TODO: Check and see if there is any assignments in the table if
-  //      there is none output a message
+  // Class Breakdown
+  assignmentNumber = classFound.assignments.length
+  categoryNumber = classFound.categories.length
+  grade = [], total = [], id = [], weight = [], categoryId = []
+  classFound.assignments.forEach((item) => {
+    id.push(item._id)
+    grade.push(item.grade)
+    total.push(item.total)
+    weight.push(item.category.weight)
+    categoryId.push(item.category.id)
+  })
 
-  // initialize the global variables
+
+  // Global variables
   setTotalPoints(0);
   setGradeSum(0);
   setPointsLeftNumber(0);
-  setAssignNumber(num);
+  setAssignNumber(assignmentNumber);
 
-  // initialize local variables
-  var count = 0, // number of graded assignment
-    distr = 0,
-    outPutGrade = 0,
-    gradeArr = grade.split(','),
-    totalArr = total.split(','),
-    idArr = idName.split(','),
-    weightArr = weight.split(','),
-    assignIdArr = assignmentsCategoryIdArr.split(','),
-    gradeLetter = $('#grade-selector').find(":selected").text();
-
-  // initialize local variables for categories
-  categoryId = categoryIdArr.split(',')
-  totalPointsCategory = totalPerCategory.split(',')
-  totalNumber = totalNumberPerCategory.split(',')
-
-  // Construct the Category Array Object
-  categories = [{
-    id: String,
-    totalPoints: Number,
-    totalNumber: Number
-  }]
-  categoryId.forEach((item, index) => {
-    categories.push({
-      id: item,
-      totalPoints: Number(totalPointsCategory[index]),
-      totalNumber: Number(totalNumber[index])
-    })
-  })
-  categories.splice(0, 1)
-
-  // check to see if grade can be attained
+  // Local variables 
+  gradeLetter = $('#grade-selector').find(":selected").text();
   pointsLeftNumber = pointsLeft(gradeLetter, grade, total);
-
-  /**************   WEIGHT PREDICTION METHOD **********************************/
-
-  for (i = 0; i < assignNumber; i++) {
-    if (gradeLetter == 'A') {
-      console.log('categoryTotal: ' + categoryTotal) // output 4
-      weightDistribution = 10 / categoryTotal
-      console.log('weightDistribution: ' + weightDistribution) // output 2.5
-      leastPercentage = weightArr[i] - weightDistribution
-      console.log('weightArr[i]: ' + weightArr[i]) // output 30
-      console.log('leastPercentage: ' + leastPercentage) // output 27.5
-      subtotalGrade = (leastPercentage * 100) / weightArr[i]
-      console.log('subTotalGrade: ' + subtotalGrade.toFixed(0)) // output 91.7
-      estimatePerCategory = ePAC(subtotalGrade.toFixed(0), assignIdArr[i], categories)
-      console.log("estimatePerCategory: " + estimatePerCategory)
-    }
-  }
-
-
+  count = 0
+  distr = 0
+  
   /**************   POINTS PREDICTION METHOD **********************************/
-
   if (pointsLeftNumber < 0) {
     $(document).ready(function () {
       $("#message").hide()
@@ -240,23 +193,24 @@ function runClass(num, categoryTotal, grade, total, idName, weight, totalPerCate
         })
     });
 
-  } else {
+  } 
+  else {
     for (var i = 0; i < assignNumber; i++) {
-      result = $('#' + idArr[i]);
-      if (gradeArr[i] != -1) {
+      result = $('#' + id[i]);
+      if (grade[i] != -1) {
         count++;
-        gradeSum += Number(gradeArr[i]);
-        totalPoints += Number(totalArr[i]);
+        gradeSum += Number(grade[i]);
+        totalPoints += Number(total[i]);
         $('#estimateColumn').removeAttr('hidden')
         result.removeAttr('hidden')
         // TODO: Change this to look more awesome
-        result.html("*Graded*")
+        result.html("<span style='font-size: 14px;' class='badge badge-pill badge-info font-weight-bolder'>Graded</span>")
         print();
       } else {
-        totalPoints += Number(totalArr[i]);
+        totalPoints += Number(total[i]);
         nongraded = assignNumber - count;
         distr = pointsLeftNumber / nongraded
-        outPutGrade = Number(totalArr[i]) - distr
+        outPutGrade = Number(total[i]) - distr
 
         if (outPutGrade < 0) {
           outPutGrade = 0
@@ -273,18 +227,33 @@ function runClass(num, categoryTotal, grade, total, idName, weight, totalPerCate
       }
     }
   }
+
+    /**************   WEIGHT PREDICTION METHOD **********************************/
+
+    for (i = 0; i < assignNumber; i++) {
+      if (gradeLetter == 'A') {
+        console.log('categoryTotal: ' + categoryNumber) // output 4
+        weightDistribution = 10 / categoryNumber
+        console.log('weightDistribution: ' + weightDistribution) // output 2.5
+        leastPercentage = weight[i] - weightDistribution
+        console.log('weight[i]: ' + weight[i])  // output 30
+        console.log('leastPercentage: ' + leastPercentage) // output 27.5
+        subtotalGrade = (leastPercentage * 100) / weight[i]
+        console.log('subTotalGrade: ' + subtotalGrade.toFixed(0)) // output 91.7
+        estimatePerCategory = ePAC(subtotalGrade.toFixed(0),categoryId[i],classFound.categories)
+        console.log("estimatePerCategory: " + estimatePerCategory)
+      }
+    }
 }
 
 // Calculates points left before you loose your current grade
-function pointsLeft(letter, inGrade, inTotal) {
+function pointsLeft(letter, grade, total) {
   var left = 0,
-    sumLeft = 0,
-    gradeArr = inGrade.split(','),
-    totalArr = inTotal.split(',');
+    sumLeft = 0;
 
   for (let i = 0; i < assignNumber; i++) {
-    if (gradeArr[i] != -1) {
-      left = totalArr[i] - gradeArr[i];
+    if (grade[i] != -1) {
+      left = total[i] - grade[i];
       sumLeft += left;
     }
   }
