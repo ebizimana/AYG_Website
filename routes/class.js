@@ -1,22 +1,19 @@
 var express      = require("express")
-router           = express.Router({mergeParams: true});
-Class            = require("../models/class")
-Assignment       = require("../models/assignment")
-User             = require("../models/user")
 middleware       = require("../middleware")
 ClassController  = require('../controllers/class')
+router           = express.Router({mergeParams: true});
 
 // Show all classes page
-router.get("/", ClassController.showAllClasses)
+router.get("/", middleware.isLoggenIn, ClassController.showAllClasses)
 
 // Create a new class form
-router.get("/new", ClassController.createClassForm)
+router.get("/new", middleware.isLoggenIn, ClassController.createClassForm)
 
 // Show Edit Class Form
-router.get("/:class_id/edit", ClassController.editClassForm)
+router.get("/:class_id/edit", middleware.isLoggenIn, ClassController.editClassForm)
 
 // Show Delete Class Form 
-router.get("/:class_id/delete", ClassController.deleteClassForm)
+router.get("/:class_id/delete", middleware.isLoggenIn, ClassController.deleteClassForm)
 
 //Save the class in the DB
 router.post("/", middleware.isLoggenIn, ClassController.saveClass)

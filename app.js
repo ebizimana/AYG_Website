@@ -28,9 +28,13 @@ app.use(methodOverride("_method"))
 app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({extended:true}))
 require('dotenv/config')
-url = process.env.DATABASEURL || "mongodb://localhost/ayg";
-mongoose.connect(url,{useNewUrlParser:true, useFindAndModify:false})
 
+// DB SETUP
+url = process.env.DATABASEURL || "mongodb://localhost/ayg";
+mongoose.connect(url,{
+  useNewUrlParser:true, 
+  useFindAndModify:false,
+  useUnifiedTopology: true })
 
 //PASSPORT SETUP
 app.use(expressSession({
@@ -56,7 +60,8 @@ app.use("/users/:user_id/classes", classRouter),
 app.use("/users/:user_id/classes/:class_id/categories", categoryRouter),
 app.use("/users/:user_id/classes/:class_id/assignments", assignmentRouter),
 
-app.listen(process.env.PORT || 3000,() => console.log("Server Running on port 5000"))
+// SEVER LISTEN
+app.listen(process.env.PORT || 5000,() => console.log("Server Running on port 5000"))
 
 
 
