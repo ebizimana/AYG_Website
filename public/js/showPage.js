@@ -192,7 +192,6 @@ function runClass(data) {
           $('#message').slideUp(700)
         })
     });
-
   } 
   else {
     for (var i = 0; i < assignNumber; i++) {

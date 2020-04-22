@@ -1,6 +1,7 @@
+// Initialise Models
 Class            = require("../models/class")
-Assignment       = require("../models/assignment")
 User             = require("../models/user")
+Assignment       = require("../models/assignment")
 
 // Show all classes page
 exports.showAllClasses = (req, res) => {
