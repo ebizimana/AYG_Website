@@ -154,6 +154,8 @@ function ePAC(subtotalGrade, assignId, categories) {
 
 // Fills up the Estimate column in assignmnet table
 function runClass(data) {
+  // TODO: output message if there is no assignment
+  // TODO: determine which method to use (point or weight prediction)
   classFound = JSON.parse(data)
 
   // Class Breakdown
@@ -228,7 +230,7 @@ function runClass(data) {
   }
 
     /**************   WEIGHT PREDICTION METHOD **********************************/
-
+    // TODO: Make sure all assignments belong to a category
     for (i = 0; i < assignNumber; i++) {
       if (gradeLetter == 'A') {
         console.log('categoryTotal: ' + categoryNumber) // output 4

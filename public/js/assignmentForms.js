@@ -1,3 +1,4 @@
+// Form Error Handler
 function checkTotal(){
    var totalInput =  parseInt($('#editTotal').val());
    var gradeInput = parseInt($('#editGrade').val());
@@ -29,3 +30,5 @@ function checkTotal(){
      $('#submit').submit()
     }
 }
+
+

@@ -16,7 +16,7 @@ exports.newAssignmentForm = (req, res) => {
 exports.editAssignmentForm = (req, res) => {
     Class.findById(req.params.class_id).populate("categories").exec((err, classFound) => {
         if (err) throw err
-        Assignment.findById(req.params.assig_id, (err, assignFound) => {
+        Assignment.findOne({_id:req.params.assig_id}, (err, assignFound) => {
             if (err) throw err
             res.render("assignment/edit", {
                 assignFound: assignFound,
@@ -69,17 +69,13 @@ exports.createAssignment = (req, res) => {
 exports.updateOneAssignment = (req, res) => {
     Class.findById(req.params.class_id).populate("categories assignments").exec((err, classFound) => {
         if (err) console.log(err)
-
         // Update category assignment approprietly
-        if (req.body.assignUpdate.flag == req.body.assignUpdate.category) {
-
+        if (req.body.assignUpdate.flag == req.body.assignUpdate.categoryID) {
             // Check to see if the assignment name changed
             classFound.assignments.forEach((assign) => {
                 if (assign._id == req.params.assig_id) {
                     if (assign.name != req.body.assignUpdate.name) {
-                        Category.findOne({
-                            _id: req.body.assignUpdate.category
-                        }, (err, categoryFound) => {
+                        Category.findOne({_id: req.body.assignUpdate.categoryID}, (err, categoryFound) => {
                             if (err) console.log(err)
                             categoryFound.assignments.name.forEach((item, index) => {
                                 if (item == assign.name) {
@@ -89,36 +85,22 @@ exports.updateOneAssignment = (req, res) => {
                                 }
                             })
                         })
-                    } else {
-                        console.log(assign.name)
-                        console.log(req.body.assignUpdate.name)
-                        console.log("The name was not changed")
                     }
                 }
             })
         } else {
-            Assignment.findOne({
-                _id: req.params.assig_id
-            }, (err, assignmentFound) => {
+            Assignment.findOne({_id: req.params.assig_id}, (err, assignmentFound) => {
                 if (err) console.log(err)
-
                 // Remove the item from the one category
-                Category.findOne({
-                    _id: req.body.assignUpdate.flag
-                }, (err, categoryFound) => {
+                Category.findOne({_id: req.body.assignUpdate.flag}, (err, categoryFound) => {
                     if (err) console.log(err)
                     categoryFound.assignments.name.forEach((item, index) => {
-                        if (item.name == assignmentFound.name) {
-                            categoryFound.assignments.name.splice(index, 1)
-                        }
+                        if (item.name == assignmentFound.name) categoryFound.assignments.name.splice(index, 1)
                     })
                     categoryFound.save()
                 })
-
                 // Add the item to the new category
-                Category.findOne({
-                    _id: req.body.assignUpdate.category
-                }, (err, categoryFound) => {
+                Category.findOne({_id: req.body.assignUpdate.categoryID}, (err, categoryFound) => {
                     if (err) console.log(err)
                     categoryFound.assignments.name.push(req.body.assignUpdate.name)
                     categoryFound.save()
