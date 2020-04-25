@@ -1,7 +1,6 @@
-
 express               = require("express")
-router                = express.Router({mergeParams: true})
 AssignmentController  = require('../controllers/assignment')
+router                = express.Router({mergeParams: true})
 
 // New Assignmet Form
 router.get("/new", AssignmentController.newAssignmentForm)
