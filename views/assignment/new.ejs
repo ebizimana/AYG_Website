@@ -1,4 +1,3 @@
-<!-- TODO: Make sure they choose a category before submitting -->
 <form id="addAssignmentForm" action="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/assignments"
   method="post">
   <div class="modal-header text-center">
@@ -14,9 +13,10 @@
     </div>
 
     <div class="md-form mb-5">
-      <input name="assignment[grade]" required onblur="checkTotal()" type="number" id="editGrade"
-        class="form-control validate">
-      <label for="editGrade">Grade</label>
+      <input name="assignment[grade]" required onblur="checkTotal()" type="text"  id="editGrade"
+      placeholder="Not Graded" class="form-control validate">
+      <label class="active">Grade</label>
+      <label id="gradeErr" class="text-warning">Please Change this value if graded</label>
     </div>
 
     <div class="md-form">
@@ -26,15 +26,16 @@
       <label id="error">The total has to be greater than the grade</label>
     </div>
   </div>
+
   <h3 style="display: inline-block; margin-right:10px;" class="ui header">
     <label>Pick A Category: </label>
   </h3>
+
   <select class="ui selection mb-4 dropdown" name="assignment[category]">
     <% classFound.categories.forEach(function(category){ %>
     <option value="<%= category._id %>"><%= category.name %></option>
     <% }) %>
   </select>
-
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
     <button type="submit" id="submit" class="btn btn-outline-primary btn-block buttonAdd">Add Assignment
@@ -48,9 +49,18 @@
 
 <style media="screen">
   #error {
-    margin-top: 4em;
+    margin-top: 30px;
     color: #CD5C5C;
     font-size: inherit;
     visibility: hidden;
+  }
+
+  #gradeErr {
+    margin-top: 30px
+  }
+  .md-form .text-warning.active, #error.active{
+    transform:translateY(0%);
+    font-size: 1rem;
+    transition: none;
   }
 </style>

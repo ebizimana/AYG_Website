@@ -122,11 +122,7 @@ exports.updateManyAssignment = (req, res) => {
 
     Class.findById(req.params.class_id, (err, classFound) => {
         if (err) res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
-        Assignment.deleteMany({
-            _id: {
-                $in: classFound.assignments
-            }
-        }, function (err, allRemoved) {
+        Assignment.deleteMany({_id: {$in: classFound.assignments}}, function (err, allRemoved) {
             if (err) throw err;
             Assignment.insertMany(obj, function (err, response) {
                 if (err) res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
@@ -148,17 +144,17 @@ exports.deleteAssignment = function (req, res) {
             if (err) res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
             deleteAssignment = classFound.assignments.indexOf(req.params.assig_id)
             classFound.assignments.splice(deleteAssignment, 1)
-            Category.findOne({
-                _id: req.body.assignCategoryId
-            }, (err, categoryFound) => {
-                if (err) console.log(err)
-                categoryFound.assignments.name.forEach((item, index) => {
-                    if (item == req.body.assignName) {
-                        categoryFound.assignments.name.splice(index, 1)
-                        categoryFound.save()
-                    }
+            if(classFound.categories.length != 0){
+                Category.findOne({_id: req.body.assignCategoryId}, (err, categoryFound) => {
+                    if (err) console.log(err)
+                    categoryFound.assignments.name.forEach((item, index) => {
+                        if (item == req.body.assignName) {
+                            categoryFound.assignments.name.splice(index, 1)
+                            categoryFound.save()
+                        }
+                    })
                 })
-            })
+            }
             classFound.save()
             res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
         })
