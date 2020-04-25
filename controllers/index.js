@@ -11,14 +11,6 @@ exports.profileForm = (req, res) => {
     res.render("login")
 }
 
-// Authenticate User
-exports.authenticateUser = passport.authenticate('local', {
-    failureRedirect: "/",
-    failureFlash: "User Not found"}), (req, res) => {
-    req.flash("success", "Welcome Back " + req.user.username)
-    res.redirect("/")
-}
-
 // Edit User Form
 exports.editUser = (req, res) => {
     res.render("editProfile", {user: req.user})

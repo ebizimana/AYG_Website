@@ -12,7 +12,12 @@ router.get("/", IndexController.home)
 router.get("/login", IndexController.profileForm)
 
 // Authenticate User
-router.post('/login', IndexController.authenticateUser)
+router.post('/login', passport.authenticate('local', {
+    failureRedirect: "/",
+    failureFlash: "User Not found"}), (req, res) => {
+    req.flash("success", "Welcome Back " + req.user.username)
+    res.redirect("/")
+})
 
 // Edit User Profile Form
 router.get("/editProfile", IndexController.editUser)
