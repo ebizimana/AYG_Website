@@ -40,6 +40,9 @@ exports.createAssignment = (req, res) => {
         if (err) throw err
         Class.findById(req.params.class_id).populate("assignments").exec((err, classFound) => {
             if (err) throw err
+            // TODO: Check to see if the name already exist
+            // TODO: Make sure the total and grade is not negatives
+            // TODO: Make sure the total and grade is a number 
             Assignment.create(req.body.assignment, (err, assig) => {
                 if (err) console.log(err)
                 classFound.assignments.push(assig);
@@ -69,46 +72,49 @@ exports.createAssignment = (req, res) => {
 exports.updateOneAssignment = (req, res) => {
     Class.findById(req.params.class_id).populate("categories assignments").exec((err, classFound) => {
         if (err) console.log(err)
-        // Update category assignment approprietly
-        if (req.body.assignUpdate.flag == req.body.assignUpdate.categoryID) {
-            // Check to see if the assignment name changed
-            classFound.assignments.forEach((assign) => {
-                if (assign._id == req.params.assig_id) {
-                    if (assign.name != req.body.assignUpdate.name) {
-                        Category.findOne({_id: req.body.assignUpdate.categoryID}, (err, categoryFound) => {
-                            if (err) console.log(err)
-                            categoryFound.assignments.name.forEach((item, index) => {
-                                if (item == assign.name) {
-                                    categoryFound.assignments.name[index] = req.body.assignUpdate.name
-                                    categoryFound.markModified('assignments')
-                                    categoryFound.save()
-                                }
+
+        // TODO: Check to see if the name already exist
+        // TODO: Make sure the total and grade is not negatives
+        // TODO: Make sure the total and grade is a number 
+
+
+        if(classFound.categories.length !=0){
+            if (req.body.assignUpdate.flag == req.body.assignUpdate.categoryID) {
+                classFound.assignments.forEach((assign) => {
+                    if (assign._id == req.params.assig_id) {
+                        if (assign.name != req.body.assignUpdate.name) {
+                            Category.findOne({_id: req.body.assignUpdate.categoryID}, (err, categoryFound) => {
+                                if (err) console.log(err)
+                                categoryFound.assignments.name.forEach((item, index) => {
+                                    if (item == assign.name) {
+                                        categoryFound.assignments.name[index] = req.body.assignUpdate.name
+                                        categoryFound.markModified('assignments')
+                                        categoryFound.save()
+                                    }
+                                })
                             })
-                        })
+                        }
                     }
-                }
-            })
-        } else {
-            Assignment.findOne({_id: req.params.assig_id}, (err, assignmentFound) => {
-                if (err) console.log(err)
-                // Remove the item from the one category
-                Category.findOne({_id: req.body.assignUpdate.flag}, (err, categoryFound) => {
+                })
+            } else {
+                Assignment.findOne({_id: req.params.assig_id}, (err, assignmentFound) => {
                     if (err) console.log(err)
-                    categoryFound.assignments.name.forEach((item, index) => {
-                        if (item.name == assignmentFound.name) categoryFound.assignments.name.splice(index, 1)
+                    Category.findOne({_id: req.body.assignUpdate.flag}, (err, categoryFound) => {
+                        if (err) console.log(err)
+                        categoryFound.assignments.name.forEach((item, index) => {
+                            if (item.name == assignmentFound.name) categoryFound.assignments.name.splice(index, 1)
+                        })
+                        categoryFound.save()
                     })
-                    categoryFound.save()
+                    Category.findOne({_id: req.body.assignUpdate.categoryID}, (err, categoryFound) => {
+                        if (err) console.log(err)
+                        categoryFound.assignments.name.push(req.body.assignUpdate.name)
+                        categoryFound.save()
+                    })
                 })
-                // Add the item to the new category
-                Category.findOne({_id: req.body.assignUpdate.categoryID}, (err, categoryFound) => {
-                    if (err) console.log(err)
-                    categoryFound.assignments.name.push(req.body.assignUpdate.name)
-                    categoryFound.save()
-                })
-            })
+            }
         }
 
-        // update the assignment 
         Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function (err, updateAssign) {
             if (err) console.log("Update Error: " + err);
             res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)

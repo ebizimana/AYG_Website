@@ -8,13 +8,13 @@
   </div>
   <div class="modal-body mx-3">
     <div class="md-form mb-5">
-      <input class="form-control validate" id="inputName" type="text" name="assignment[name]">
+      <input class="form-control validate" required id="inputName" type="text" name="assignment[name]">
       <label for="inputName">Assignment Name</label>
     </div>
 
     <div class="md-form mb-5">
       <input name="assignment[grade]" required onblur="checkTotal()" type="text"  id="editGrade"
-      placeholder="NG" class="form-control validate">
+      value="NG" class="form-control validate">
       <label class="active">Grade</label>
       <label id="gradeErr" class="text-info">Please Input 'NG' if it's Not Graded</label>
     </div>

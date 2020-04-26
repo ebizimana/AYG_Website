@@ -2,7 +2,7 @@
   action="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/assignments/<%= assignFound._id %>?_method=PUT"
   method="post">
   <div class="modal-header text-center">
-    <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Edit Assignment</h4>
+    <h4 class="modal-title w-100 font-weight-bold text-default ml-5">Edit Assignment</h4>
     <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -10,21 +10,25 @@
   <div class="modal-body mx-3">
     <div class="md-form mb-5">
       <input name="assignUpdate[name]" type="text" id='inputName' value="<%= assignFound.name %>"
-        class="form-control validate">
+        class="form-control validate" required>
       <label class='active' for="inputName">Assignment Name</label>
     </div>
 
-    <!-- TODO: Can't become a negative grade -->
     <div class="md-form mb-5">
-      <input name="assignUpdate[grade]" required onblur="checkTotal()" type="number" id='editGrade'
-        value="<%= assignFound.grade %>" class="form-control validate">
+      <% if(assignFound.grade == -1){ %>
+        <input name="assignUpdate[grade]" onblur="checkTotal()" type="text" id='editGrade'
+        value="NG" class="form-control validate" required>
+      <% } else { %>
+        <input name="assignUpdate[grade]" onblur="checkTotal()" type="text" id='editGrade'
+        value="<%= assignFound.grade %>" class="form-control validate" required>
+      <% } %>
       <label class='active' for="editGrade">Grade</label>
+      <label id="gradeErr" class="text-info">Please Input 'NG' if it's Not Graded</label>
     </div>
 
-    <!-- TODO: Can't become a negative number -->
     <div class="md-form mb-5">
       <input name="assignUpdate[total]" onblur="checkTotal()" id='editTotal' type="number"
-        value="<%= assignFound.total %>" class="form-control validate">
+        value="<%= assignFound.total %>" class="form-control validate" required>
       <label class='active' for="editTotal">Total</label>
       <label id="error">The total has to be greater than the grade</label>
     </div>
@@ -42,18 +46,17 @@
   <input type="hidden" name="assignUpdate[flag]">
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-    <button type="submit" id="submit" class="btn btn-outline-primary btn-block buttonAdd">Edit Assignment
+    <button type="submit" id="submit" class="btn btn-outline-default waves-effect btn-block buttonAdd">Edit Assignment
     </button>
   </div>
 </form>
 
+<script src="/js/assignmentForms.js"></script>
 <script>
 // Assign value to input name 
 $('input[name="assignUpdate[flag]"]').val('<%= assignFound.category.id %>')
 $('.dropdown option[value=<%= assignFound.category.id %>]').attr('selected', 'selected')
 </script>
-
-<script src="/js/assignmentForms.js"></script>
 
 <style media="screen">
   #error {
@@ -61,5 +64,13 @@ $('.dropdown option[value=<%= assignFound.category.id %>]').attr('selected', 'se
     color: #CD5C5C;
     font-size: inherit;
     visibility: hidden;
+  }
+  #gradeErr {
+    margin-top: 30px
+  }
+  .md-form .text-info.active, #error.active{
+    transform:translateY(0%);
+    font-size: 1rem;
+    transition: none;
   }
 </style>
