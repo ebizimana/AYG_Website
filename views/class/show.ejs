@@ -80,7 +80,7 @@
 
             <!-- Edit the selected assignment  -->
             <div class="text-center buttonEditWrapper">
-              <button class="btn btn-info btn-rounded btn-sm buttonEdit" id="editAssignment" disabled>Edit
+              <button class="btn btn-dark btn-rounded btn-sm buttonEdit" id="editAssignment" disabled>Edit
                 <i class="far fa-edit ml-1"></i>
               </button>
             </div>
@@ -139,7 +139,11 @@
             <tr id="rowid" style="font-size: 14px;"
               onclick="editRow('<%=currentUser._id %>','<%=classFound._id %>','<%=oneClass._id %>','<%= classFound.assignments.length %>')">
               <td id="name"> <%= oneClass.name %></td>
-              <td id="grade"> <%= oneClass.grade %></td>
+              <% if(oneClass.grade == -1){ %>
+                <td id="grade"> Not Graded</td>
+              <% } else { %>
+                <td id="grade"> <%= oneClass.grade %></td>
+              <% } %>
               <td id="total"> <%= oneClass.total %></td>
               <td hidden id="<%= oneClass._id %>"></td>
             </tr>

@@ -1,7 +1,7 @@
 <form id="addAssignmentForm" action="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/assignments"
   method="post">
   <div class="modal-header text-center">
-    <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new Assignment</h4>
+    <h4 class="modal-title w-100 font-weight-bold text-info ml-5">Add new Assignment</h4>
     <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -14,9 +14,9 @@
 
     <div class="md-form mb-5">
       <input name="assignment[grade]" required onblur="checkTotal()" type="text"  id="editGrade"
-      placeholder="Not Graded" class="form-control validate">
+      placeholder="NG" class="form-control validate">
       <label class="active">Grade</label>
-      <label id="gradeErr" class="text-warning">Please Change this value if graded</label>
+      <label id="gradeErr" class="text-info">Please Input 'NG' if it's Not Graded</label>
     </div>
 
     <div class="md-form">
@@ -38,7 +38,7 @@
   </select>
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-    <button type="submit" id="submit" class="btn btn-outline-primary btn-block buttonAdd">Add Assignment
+    <button type="submit" id="submit" class="btn btn-outline-info btn-block buttonAdd">Add Assignment
       <i class="fas fa-paper-plane-o ml-1"></i>
     </button>
   </div>
@@ -58,7 +58,7 @@
   #gradeErr {
     margin-top: 30px
   }
-  .md-form .text-warning.active, #error.active{
+  .md-form .text-info.active, #error.active{
     transform:translateY(0%);
     font-size: 1rem;
     transition: none;
