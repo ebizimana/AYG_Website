@@ -10,7 +10,7 @@ function checkTotal() {
   if ($('#editGrade').val() == 'NG') gradeInput = -1
 
   // If it's not a number
-  if (!gradeInput || gradeInput != 0) {
+  if (!gradeInput && gradeInput != 0) {
     $('#gradeErr').html("Please Input a Number or 'NG' ").attr('style', 'color: #CD5C5C !important')
     $('#editGrade').css({
       color: "#CD5C5C",
@@ -50,7 +50,6 @@ function checkTotal() {
       "box-shadow": "0 1px 0 0  #00c851"
     })
     styles.style.visibility = 'hidden'
-    $('#submit').prop('disabled', false)
   }
 
   // If total is lower than 0 
@@ -86,9 +85,15 @@ function checkTotal() {
     $('#submit').prop('disabled', false)
   }
 
-  // When submit is pressed
-  $('#submit').on('click', () => {
-    if ($('#editGrade').val() == 'NG') gradeName.val(-1), gradeEditName.val(-1)
+  // When submit is pressed OR 
+  // TODO: Enter is pressed 
+  $('#submit').on('click', function(){
+    alert("I am in the submit function")
+    if ($('#editGrade').val() == 'NG') {
+      alert("I am here")
+      gradeName.val(-1)
+      gradeEditName.val(-1)
+    }
     $('#submit').submit()
   })
 }
