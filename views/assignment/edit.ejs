@@ -9,7 +9,7 @@
   </div>
   <div class="modal-body mx-3">
     <div class="md-form mb-5">
-      <input name="assignUpdate[name]" type="text" id='inputName' value="<%= assignFound.name %>"
+      <input name="assignUpdate[name]" onblur="checkTotal()" type="text" id='inputName' value="<%= assignFound.name %>"
         class="form-control validate" required>
       <label class='active' for="inputName">Assignment Name</label>
     </div>

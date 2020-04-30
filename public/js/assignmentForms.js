@@ -85,15 +85,23 @@ function checkTotal() {
     $('#submit').prop('disabled', false)
   }
 
-  // When submit is pressed OR 
-  // TODO: Enter is pressed 
-  $('#submit').on('click', function(){
-    alert("I am in the submit function")
+  // When submit is pressed
+  $('#submit').on('click', function () {
     if ($('#editGrade').val() == 'NG') {
-      alert("I am here")
       gradeName.val(-1)
       gradeEditName.val(-1)
     }
     $('#submit').submit()
   })
+
 }
+
+// Enter is pressed 
+$(document).keypress(function (e) {
+  if (e.which == 13) {
+    if ($('#editGrade').val() == 'NG') {
+      $('input[name="assignment[grade]"]').val(-1)
+      $('input[name="assignUpdate[grade]"]').val(-1)
+    }
+  }
+});
