@@ -1,6 +1,6 @@
 <form class="needs-validation" id="editAssignmentForm"
   action="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/assignments/<%= assignFound._id %>?_method=PUT"
-  method="post">
+  method="post" onsubmit="checkTotal()">
   <div class="modal-header text-center">
     <h4 class="modal-title w-100 font-weight-bold text-default ml-5">Edit Assignment</h4>
     <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">

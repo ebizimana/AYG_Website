@@ -1,9 +1,10 @@
+var gradeName = $('input[name="assignment[grade]"]');
+var gradeEditName = $('input[name="assignUpdate[grade]"]');
+
 // Form Error Handler
 function checkTotal() {
   var totalInput = parseInt($('#editTotal').val());
   var gradeInput = parseInt($('#editGrade').val());
-  var gradeName = $('input[name="assignment[grade]"]');
-  var gradeEditName = $('input[name="assignUpdate[grade]"]');
   var styles = document.getElementById('error');
 
   // Change grade input back to number
@@ -85,23 +86,22 @@ function checkTotal() {
     $('#submit').prop('disabled', false)
   }
 
+}
+
   // When submit is pressed
   $('#submit').on('click', function () {
     if ($('#editGrade').val() == 'NG') {
       gradeName.val(-1)
       gradeEditName.val(-1)
     }
-    $('#submit').submit()
   })
-
-}
 
 // Enter is pressed 
 $(document).keypress(function (e) {
   if (e.which == 13) {
     if ($('#editGrade').val() == 'NG') {
-      $('input[name="assignment[grade]"]').val(-1)
-      $('input[name="assignUpdate[grade]"]').val(-1)
+      gradeName.val(-1)
+      gradeEditName.val(-1)
     }
   }
 });

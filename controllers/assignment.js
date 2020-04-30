@@ -102,6 +102,9 @@ exports.updateOneAssignment = (req, res) => {
                     break
                 } 
                 if (!Number(req.body.assignUpdate.grade) || !Number(req.body.assignUpdate.total) || Number(req.body.assignUpdate.grade) < -1 || Number(req.body.assignUpdate.total) < 0) {
+                    console.log("req.body.assignUpdate.grade: ", req.body.assignUpdate.grade);
+                    console.log("req.body.assignUpdate.total: ", req.body.assignUpdate.total);
+                    
                     req.flash("error", "Please Input a None Negative Number")
                     flag = false
                     break;
