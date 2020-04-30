@@ -104,7 +104,8 @@ function editRow(userId, classId, assignId, num) {
       newOrder = [{}]
       for (var i = 0; i < num; i++) {
         name = $(this).context.children[i].children[0].innerText
-        grade = Number($(this).context.children[i].children[1].innerText)
+        if($(this).context.children[i].children[1].innerText == "Not Graded") grade = -1
+        else grade = Number($(this).context.children[i].children[1].innerText)
         total = Number($(this).context.children[i].children[2].innerText)
         newOrder.push({
           name: name,

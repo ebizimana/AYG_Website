@@ -155,13 +155,13 @@ exports.updateOneAssignment = (req, res) => {
 // Update Many Assignments
 exports.updateManyAssignment = (req, res) => {
     obj = JSON.parse(req.body.newOrderInput)
-
+    
     Class.findById(req.params.class_id, (err, classFound) => {
         if (err) res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
         Assignment.deleteMany({_id: {$in: classFound.assignments}}, function (err, allRemoved) {
             if (err) throw err;
             Assignment.insertMany(obj, function (err, response) {
-                if (err) res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
+                if (err) throw err
                 for (key of response) {
                     classFound.assignments.push(key);
                 }
