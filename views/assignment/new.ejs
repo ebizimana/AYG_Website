@@ -13,8 +13,8 @@
     </div>
 
     <div class="md-form mb-5">
-      <input name="assignment[grade]" required onblur="checkTotal()" type="text"  id="editGrade"
-      value="NG" class="form-control validate">
+      <input name="assignment[grade]" required onblur="checkTotal()" type="text" id="editGrade" value="NG"
+        class="form-control validate">
       <label class="active">Grade</label>
       <label id="gradeErr" class="text-info">Please Input 'NG' if it's Not Graded</label>
     </div>
@@ -25,17 +25,21 @@
       <label for="editTotal">Total</label>
       <label id="error">The total has to be greater than the grade</label>
     </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+        Pick A Category
+      </button>
+      <div class="dropdown-menu">
+        <% classFound.categories.forEach(function(category){ %>
+        <a class="dropdown-item" data-value="<%= category._id %>"><%= category.name %></a>
+        <div class="dropdown-divider"></div>
+        <% }) %>
+      </div>
+    </div>
   </div>
 
-  <h3 style="display: inline-block; margin-right:10px;" class="ui header">
-    <label>Pick A Category: </label>
-  </h3>
-
-  <select class="ui selection mb-4 dropdown" name="assignment[category]">
-    <% classFound.categories.forEach(function(category){ %>
-    <option value="<%= category._id %>"><%= category.name %></option>
-    <% }) %>
-  </select>
+  <input type="hidden" name="assignment[category]">
 
   <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
     <button type="submit" id="submit" class="btn btn-outline-info btn-block buttonAdd">Add Assignment
@@ -46,6 +50,13 @@
 </form>
 
 <script src="/js/assignmentForms.js"></script>
+<script>
+  $(".dropdown-menu a").click(function () {
+    $('.dropdown-toggle').html($(this).parents(".dropdown").context.innerHTML)
+    dataValue = $(this).attr('data-value')
+    $('input[name="assignment[category]"]').val(dataValue)
+  });
+</script>
 
 <style media="screen">
   #error {
@@ -58,8 +69,10 @@
   #gradeErr {
     margin-top: 30px
   }
-  .md-form .text-info.active, #error.active{
-    transform:translateY(0%);
+
+  .md-form .text-info.active,
+  #error.active {
+    transform: translateY(0%);
     font-size: 1rem;
     transition: none;
   }
