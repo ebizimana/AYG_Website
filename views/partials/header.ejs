@@ -15,13 +15,12 @@
   <!-- Font Awesome for Awesome icons  -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
   <!-- Semantic -->
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
   <!-- Material Design Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.6.0/css/mdb.min.css" rel="stylesheet">
@@ -48,7 +47,7 @@
   <div>
     <% if(!currentUser){ %>
     <div class="mt-5 mb-0 mr-3">
-      <a href="/login"  id="openProfilemodal"
+      <a href="/login" id="openProfilemodal"
         class="btn-floating btn-lg btn-default rounded-circle profilePicture d-flex justify-content-center ">
         <i class="fas fa-user text-light fa-3x mt-3"></i>
       </a>
@@ -116,7 +115,7 @@
   <script src="//code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js">
   </script>
-  
+
   <!-- Bootstrap JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
     integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
@@ -147,7 +146,7 @@
       e.preventDefault()
       $("#modalProfile").modal('show').find('.modal-content').load($(this).attr('href'))
     })
-    
+
     // Open Edit Profile Modal
     $("#editProfile").on('click', function (e) {
       e.preventDefault()

@@ -1,6 +1,7 @@
 var gradeName = $('input[name="assignment[grade]"]');
 var gradeEditName = $('input[name="assignUpdate[grade]"]');
 
+
 // Form Error Handler
 function checkTotal() {
   var totalInput = parseInt($('#editTotal').val());
