@@ -104,7 +104,7 @@ function editRow(userId, classId, assignId, num) {
       newOrder = [{}]
       for (var i = 0; i < num; i++) {
         name = $(this).context.children[i].children[0].innerText
-        if($(this).context.children[i].children[1].innerText == "Not Graded") grade = -1
+        if ($(this).context.children[i].children[1].innerText == "Not Graded") grade = -1
         else grade = Number($(this).context.children[i].children[1].innerText)
         total = Number($(this).context.children[i].children[2].innerText)
         newOrder.push({
@@ -162,15 +162,6 @@ function runClass(data) {
   // Class Breakdown
   assignmentNumber = classFound.assignments.length
   categoryNumber = classFound.categories.length
-  grade = [], total = [], id = [], weight = [], categoryId = []
-  classFound.assignments.forEach((item) => {
-    id.push(item._id)
-    grade.push(item.grade)
-    total.push(item.total)
-    weight.push(item.category.weight)
-    categoryId.push(item.category.id)
-  })
-
 
   // Global variables
   setTotalPoints(0);
@@ -180,13 +171,13 @@ function runClass(data) {
 
   // Local variables 
   gradeLetter = $('#grade-selector').find(":selected").text();
-  pointsLeftNumber = pointsLeft(gradeLetter, grade, total);
+  pointsLeftNumber = pointsLeft(gradeLetter, classFound);
   count = 0
   distr = 0
-  
-  /**************   POINTS PREDICTION METHOD **********************************/
-  if (pointsLeftNumber < 0) {
-    $(document).ready(function () {
+
+  // Points Prediction Method 2.0
+  if (classFound.categories.length == 0) {
+    if (pointsLeftNumber < 0) {
       $("#message").hide()
         .addClass('alert alert-danger')
         .html('I am sorry. You lost too many points to achieve a(n) ' + gradeLetter)
@@ -194,71 +185,95 @@ function runClass(data) {
         .slideUp(700, function () {
           $('#message').slideUp(700)
         })
-    });
-  } 
-  else {
-    for (var i = 0; i < assignNumber; i++) {
-      result = $('#' + id[i]);
-      if (grade[i] != -1) {
-        count++;
-        gradeSum += Number(grade[i]);
-        totalPoints += Number(total[i]);
-        $('#estimateColumn').removeAttr('hidden')
-        result.removeAttr('hidden')
-        // TODO: Change this to look more awesome
-        result.html("<span style='font-size: 14px;' class='badge badge-pill badge-info font-weight-bolder'>Graded</span>")
-        print();
-      } else {
-        totalPoints += Number(total[i]);
-        nongraded = assignNumber - count;
-        distr = pointsLeftNumber / nongraded
-        outPutGrade = Number(total[i]) - distr
-
-        if (outPutGrade < 0) {
-          outPutGrade = 0
-          $('#estimateColumn').removeAttr('hidden')
-          result.removeAttr('hidden')
-          result.html(outPutGrade.toFixed(0))
-          print();
+    } else {
+      classFound.assignments.forEach((assignment) => {
+        assignmentId = $('#' + assignment._id)
+        if (assignment.grade != -1) {
+          count++;
+          gradeSum += Number(assignment.grade);
+          totalPoints += Number(assignment.total);
+          cellResult(true, assignmentId)
         } else {
-          $('#estimateColumn').removeAttr('hidden')
-          result.removeAttr('hidden')
-          result.html(outPutGrade.toFixed(0))
-          print();
+          totalPoints += Number(assignment.total);
+          nongraded = assignNumber - count;
+          distr = pointsLeftNumber / nongraded
+          outPutGrade = Number(assignment.total) - distr
+          cellResult(false, assignmentId, outPutGrade)
         }
-      }
+      })
+    }
+  } else {
+    if (pointsLeftNumber < 0) {
+      $("#message").hide()
+        .addClass('alert alert-danger')
+        .html('I am sorry. You lost too many points to achieve a(n) ' + gradeLetter)
+        .fadeTo(2000, 500)
+        .slideUp(700, function () {
+          $('#message').slideUp(700)
+        })
+    } else {
+      // Weight Prediction Method 2.0
+      classFound.assignments.forEach((assignment) => {
+        // TODO: Make sure all assignments belong to a category
+        // TODO: Check the letter grade act accondingly
+        assignmentId = $('#' + assignment._id)
+        if (assignment.grade != -1) {
+          count++;
+          gradeSum += Number(assignment.grade);
+          totalPoints += Number(assignment.total);
+          cellResult(true, assignmentId)
+        } else {
+          switch (gradeLetter) {
+            case 'A': categoryGrade = 10; break;
+            case 'B': categoryGrade = 20; break;
+            case 'C': categoryGrade = 30; break;
+            case 'D': categoryGrade = 40; break;
+            case 'F': categoryGrade = 50; break;
+          }
+          weightDistribution = categoryGrade / categoryNumber
+          leastPercentage = assignment.category.weight - weightDistribution
+          subtotalGrade = (leastPercentage * 100) / assignment.category.weight
+          estimatePerCategory = ePAC(subtotalGrade.toFixed(0), assignment.category.id, classFound.categories)
+          cellResult(false, assignmentId, estimatePerCategory)
+        }
+      })
+    }
+
+  }
+}
+
+// Print cell result
+function cellResult(flag, assignmentId, result) {
+  if (flag) {
+    $('#estimateColumn').removeAttr('hidden')
+    assignmentId.removeAttr('hidden')
+    assignmentId.html("<span style='font-size: 14px;' class='badge badge-pill badge-info font-weight-bolder'>Graded</span>")
+  } else {
+    if (result < 0) {
+      result = 0
+      $('#estimateColumn').removeAttr('hidden')
+      assignmentId.removeAttr('hidden')
+      assignmentId.html(result.toFixed(0))
+    } else {
+      $('#estimateColumn').removeAttr('hidden')
+      assignmentId.removeAttr('hidden')
+      assignmentId.html(result.toFixed(0))
     }
   }
-
-    /**************   WEIGHT PREDICTION METHOD **********************************/
-    // TODO: Make sure all assignments belong to a category
-    for (i = 0; i < assignNumber; i++) {
-      if (gradeLetter == 'A') {
-        console.log('categoryTotal: ' + categoryNumber) // output 4
-        weightDistribution = 10 / categoryNumber
-        console.log('weightDistribution: ' + weightDistribution) // output 2.5
-        leastPercentage = weight[i] - weightDistribution
-        console.log('weight[i]: ' + weight[i])  // output 30
-        console.log('leastPercentage: ' + leastPercentage) // output 27.5
-        subtotalGrade = (leastPercentage * 100) / weight[i]
-        console.log('subTotalGrade: ' + subtotalGrade.toFixed(0)) // output 91.7
-        estimatePerCategory = ePAC(subtotalGrade.toFixed(0),categoryId[i],classFound.categories)
-        console.log("estimatePerCategory: " + estimatePerCategory)
-      }
-    }
+  print();
 }
 
 // Calculates points left before you loose your current grade
-function pointsLeft(letter, grade, total) {
+function pointsLeft(letter, classFound) {
   var left = 0,
     sumLeft = 0;
 
-  for (let i = 0; i < assignNumber; i++) {
-    if (grade[i] != -1) {
-      left = total[i] - grade[i];
-      sumLeft += left;
+  classFound.assignments.forEach((assignment) => {
+    if (assignment.grade != -1) {
+      left = assignment.total - assignment.grade
+      sumLeft += left
     }
-  }
+  })
 
   switch (letter) {
     case 'A':
