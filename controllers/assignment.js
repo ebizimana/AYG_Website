@@ -60,15 +60,18 @@ exports.createAssignment = (req, res) => {
                     flag = false
                     break
                 }
+                if(!req.body.assignment.category){
+                    req.flash("error","Make sure you select a category")
+                    flag = false
+                    break
+                }
             }
             if (flag) {
                 Assignment.create(req.body.assignment, (err, assig) => {
                     if (err) console.log(err)
                     classFound.assignments.push(assig);
                     if (classFound.categories.length != 0) {
-                        Category.findOneAndUpdate({
-                            _id: req.body.assignment.category
-                        }, {
+                        Category.findOneAndUpdate({_id: req.body.assignment.category}, {
                             $push: {
                                 'assignments.name': req.body.assignment.name
                             }
@@ -96,7 +99,6 @@ exports.createAssignment = (req, res) => {
 }
 
 // Update One Assignment
-// TODO: Make sure to add one time an assigment in the category array 
 exports.updateOneAssignment = (req, res) => {
     Class.findById(req.params.class_id).populate("categories assignments").exec((err, classFound) => {
         if (err) console.log(err)
@@ -139,12 +141,9 @@ exports.updateOneAssignment = (req, res) => {
                         if (err) console.log(err)
                         categoryFound.assignments.name.forEach((item, index) => {
                             if (item == assignmentFound.name) {
-                                console.log("I am here");
                                 categoryFound.assignments.name.splice(index, 1)
                             }
-                        })
-                        console.log("assignmentFound",assignmentFound.name);
-                        
+                        })                        
                         categoryFound.save()
                     })
                     Category.findOne({_id: req.body.assignUpdate.categoryID}, (err, categoryFound) => {
