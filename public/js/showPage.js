@@ -230,6 +230,9 @@ function runClass(data) {
             case 'D': categoryGrade = 40; break;
             case 'F': categoryGrade = 50; break;
           }
+          console.log("gradeSum: ", gradeSum);
+          console.log("totalPoints:");
+          
           weightDistribution = categoryGrade / categoryNumber
           leastPercentage = assignment.category.weight - weightDistribution
           subtotalGrade = (leastPercentage * 100) / assignment.category.weight

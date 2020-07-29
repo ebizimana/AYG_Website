@@ -60,8 +60,8 @@ exports.createAssignment = (req, res) => {
                     flag = false
                     break
                 }
-                if(!req.body.assignment.category){
-                    req.flash("error","Make sure you select a category")
+                if (!req.body.assignment.category) {
+                    req.flash("error", "Make sure you select a category")
                     flag = false
                     break
                 }
@@ -71,7 +71,9 @@ exports.createAssignment = (req, res) => {
                     if (err) console.log(err)
                     classFound.assignments.push(assig);
                     if (classFound.categories.length != 0) {
-                        Category.findOneAndUpdate({_id: req.body.assignment.category}, {
+                        Category.findOneAndUpdate({
+                            _id: req.body.assignment.category
+                        }, {
                             $push: {
                                 'assignments.name': req.body.assignment.name
                             }
@@ -100,10 +102,13 @@ exports.createAssignment = (req, res) => {
 
 // Update One Assignment
 exports.updateOneAssignment = (req, res) => {
+    console.log(req.body.assignUpdate);
     Class.findById(req.params.class_id).populate("categories assignments").exec((err, classFound) => {
         if (err) console.log(err)
         flag = true
-        Assignment.findOne({_id: req.params.assig_id}, (err, assignmentFound) => {
+        Assignment.findOne({
+            _id: req.params.assig_id
+        }, (err, assignmentFound) => {
             for (item of classFound.assignments) {
                 if (item.name == req.body.assignUpdate.name && item.name != assignmentFound.name) {
                     req.flash("error", "Assignment Already exist")
@@ -137,16 +142,20 @@ exports.updateOneAssignment = (req, res) => {
                         }
                     })
                 } else {
-                    Category.findOne({_id: req.body.assignUpdate.flag}, (err, categoryFound) => {
+                    Category.findOne({
+                        _id: req.body.assignUpdate.flag
+                    }, (err, categoryFound) => {
                         if (err) console.log(err)
                         categoryFound.assignments.name.forEach((item, index) => {
                             if (item == assignmentFound.name) {
                                 categoryFound.assignments.name.splice(index, 1)
                             }
-                        })                        
+                        })
                         categoryFound.save()
                     })
-                    Category.findOne({_id: req.body.assignUpdate.categoryID}, (err, categoryFound) => {
+                    Category.findOne({
+                        _id: req.body.assignUpdate.categoryID
+                    }, (err, categoryFound) => {
                         if (err) console.log(err)
                         categoryFound.assignments.name.push(req.body.assignUpdate.name)
                         assignmentFound.category.id = req.body.assignUpdate.categoryID

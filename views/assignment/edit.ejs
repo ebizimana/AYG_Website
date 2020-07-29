@@ -34,12 +34,12 @@
     </div>
 
     <div class="btn-group">
-    <!-- Select the picked category -->
+      <!-- Select the picked category -->
       <% selectedName = "" %>
       <% classFound.categories.forEach(function(category){ %>
-        <% if(assignFound.category.id == category._id){ %>
-          <% selectedName = category.name %>
-       <% } %>
+      <% if(assignFound.category.id == category._id){ %>
+      <% selectedName = category.name %>
+      <% } %>
       <% }) %>
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         <%= selectedName %>
@@ -65,6 +65,7 @@
 <script src="/js/assignmentForms.js"></script>
 
 <script>
+  $('input[name="assignUpdate[categoryID]"]').val('<%= assignFound.category.id %>')
   $(".dropdown-menu a").click(function () {
     $('.dropdown-toggle').html($(this).parents(".dropdown").context.innerHTML)
     dataValue = $(this).attr('data-value')
