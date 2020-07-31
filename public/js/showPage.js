@@ -2,7 +2,6 @@
 // TODO: Add method to distrubute the points based on category
 // TODO: Add a method to calculate overall percentage
 
-
 // variables
 var gradeSum = 0, // Toatl sum of graded assignment
   totalPoints = 0, //  Maximum points of all available assignment
@@ -13,52 +12,66 @@ var gradeSum = 0, // Toatl sum of graded assignment
   deleteAction;
 
 // To make the grade dropdown work
-$('#grade-selector').dropdown();
+$("#grade-selector").dropdown();
 
 // Dishighlight once clicked on white space
-$('#content, #sidebar').click(function (e) {
+$("#content, #sidebar").click(function (e) {
   if (e.target == this) {
-    $('tr').css({
-      'background-color': ''
-    })
-    $("#editAssignment").prop('disabled', true)
-    $('#deleteAssignment').prop('disabled', true)
-    $("#editCategory").prop('disabled', true)
-    $('#deleteCategory').prop('disabled', true)
-    $("#saveOrder").attr('hidden', true)
+    $("tr").css({
+      "background-color": "",
+    });
+    $("#editAssignment").prop("disabled", true);
+    $("#deleteAssignment").prop("disabled", true);
+    $("#editCategory").prop("disabled", true);
+    $("#deleteCategory").prop("disabled", true);
+    $("#saveOrder").attr("hidden", true);
   }
 });
 
 // Side Nav
-$('#sidebarCollapse').click(function (e) {
+$("#sidebarCollapse").click(function (e) {
   e.preventDefault();
-  $('#sidebar').toggleClass('active').find('.content').load($(this).attr('href'));
+  $("#sidebar")
+    .toggleClass("active")
+    .find(".content")
+    .load($(this).attr("href"));
 });
 
-
 // To show the modal for the class edit form
-$('#editClass').on('click', function (e) {
+$("#editClass").on("click", function (e) {
   e.preventDefault();
-  $('#editOneClass').modal('show').find('.modal-content').load($(this).attr('href'))
-})
+  $("#editOneClass")
+    .modal("show")
+    .find(".modal-content")
+    .load($(this).attr("href"));
+});
 
 // To show the modal for the add Assignment form
-$('#addAssignment').on('click', function (e) {
+$("#addAssignment").on("click", function (e) {
   e.preventDefault();
-  $('#modalAdd').modal('show').find('.modal-content').load($(this).attr('href'));
+  $("#modalAdd")
+    .modal("show")
+    .find(".modal-content")
+    .load($(this).attr("href"));
 });
 
 // To show the modal for Edit Assignment form
-$('#editAssignment').on('click', function (e) {
+$("#editAssignment").on("click", function (e) {
   e.preventDefault();
-  $('#modalEdit').modal('show').find('.modal-content').load($(this).attr('href'));
+  $("#modalEdit")
+    .modal("show")
+    .find(".modal-content")
+    .load($(this).attr("href"));
 });
 
 // To show the modal for delete Assignment form
-$('#deleteAssignment').on('click', function (e) {
+$("#deleteAssignment").on("click", function (e) {
   e.preventDefault();
-  $('#modalDelete').modal('show').find('.modal-content').load($(this).attr('href'))
-})
+  $("#modalDelete")
+    .modal("show")
+    .find(".modal-content")
+    .load($(this).attr("href"));
+});
 
 // To maximize and minimize the divs
 $("#button").click(function () {
@@ -69,99 +82,117 @@ $("#button").click(function () {
   }
   $("#box").slideToggle();
 });
-$('#button2').click(function () {
+$("#button2").click(function () {
   if ($(this).html() == "-") {
     $(this).html("+");
   } else {
-    $(this).html("-")
+    $(this).html("-");
   }
   $("#box2").slideToggle();
-})
+});
 
 // popovers Initialization
 $(function () {
-  $('[data-toggle="popover"]').popover()
-})
+  $('[data-toggle="popover"]').popover();
+});
 
 //Delete an assignment
 function deleteForm() {
-  $('#delete-form').attr('action', deleteAction)
+  $("#delete-form").attr("action", deleteAction);
 }
 
 // Editing and deleting assignments
 function editRow(userId, classId, assignId, num) {
   // initialize variables
-  editUrl = "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId + "/edit"
-  deleteUrl = "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId
-  deleteAction = "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId + "?_method=DELETE"
+  editUrl =
+    "/users/" +
+    userId +
+    "/classes/" +
+    classId +
+    "/assignments/" +
+    assignId +
+    "/edit";
+  deleteUrl =
+    "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId;
+  deleteAction =
+    "/users/" +
+    userId +
+    "/classes/" +
+    classId +
+    "/assignments/" +
+    assignId +
+    "?_method=DELETE";
   setAssignNumber(num);
-  setClassId(classId)
+  setClassId(classId);
 
   // To get the new data
   $("tbody").sortable({
     update: function (event, ui) {
-      $("#saveOrder").attr('hidden', false)
-      newOrder = [{}]
+      $("#saveOrder").attr("hidden", false);
+      newOrder = [{}];
       for (var i = 0; i < num; i++) {
-        name = $(this).context.children[i].children[0].innerText
-        if ($(this).context.children[i].children[1].innerText == "Not Graded") grade = -1
-        else grade = Number($(this).context.children[i].children[1].innerText)
-        total = Number($(this).context.children[i].children[2].innerText)
+        name = $(this).context.children[i].children[0].innerText;
+        if ($(this).context.children[i].children[1].innerText == "Not Graded")
+          grade = -1;
+        else grade = Number($(this).context.children[i].children[1].innerText);
+        total = Number($(this).context.children[i].children[2].innerText);
         newOrder.push({
           name: name,
           grade: grade,
-          total: total
-        })
+          total: total,
+        });
       }
-    }
-  })
+    },
+  });
 
-  setDeleteAction(deleteAction)
+  setDeleteAction(deleteAction);
 
   //enable the edit and delete buttons
-  $("#editAssignment").prop('disabled', false).attr('href', editUrl)
-  $('#deleteAssignment').prop('disabled', false).attr('href', deleteUrl)
+  $("#editAssignment").prop("disabled", false).attr("href", editUrl);
+  $("#deleteAssignment").prop("disabled", false).attr("href", deleteUrl);
 
   //highlight the row
-  $("#dtBasicExample").on("click", 'td', function () {
+  $("#dtBasicExample").on("click", "td", function () {
     $("tr").each(function () {
       $(this).css({
-        'background-color': ''
-      })
+        "background-color": "",
+      });
     });
     $(this).closest("tr").css({
-      'background-color': '#87CEEB'
-    })
+      "background-color": "#87CEEB",
+    });
   });
 }
 
 // Save new order
-$("#saveOrder").on('click', function () {
-  dateName = $('input[name="newOrderInput"]')
-  newOrder = newOrder.splice(1)
-  dateName.val(JSON.stringify(newOrder, null, "  "))
-})
+$("#saveOrder").on("click", function () {
+  dateName = $('input[name="newOrderInput"]');
+  newOrder = newOrder.splice(1);
+  dateName.val(JSON.stringify(newOrder, null, "  "));
+});
 
 // Calculate Estimate Points for Assignment Per Category
 function ePAC(subtotalGrade, assignId, categories) {
-  result = 0
+  result = 0;
   categories.forEach((item, index) => {
     if (item._id == assignId) {
-      result = (subtotalGrade * item.assignments.totalPoints) / (100 * item.assignments.totalNumber)
+      result =
+        (subtotalGrade * item.assignments.totalPoints) /
+        (100 * item.assignments.totalNumber);
     }
-  })
-  return result
+  });
+  return result;
 }
 
 // Fills up the Estimate column in assignmnet table
 function runClass(data) {
   // TODO: output message if there is no assignment
   // TODO: determine which method to use (point or weight prediction)
-  classFound = JSON.parse(data)
+  classFound = JSON.parse(data);
 
   // Class Breakdown
-  assignmentNumber = classFound.assignments.length
-  categoryNumber = classFound.categories.length
+  assignmentNumber = classFound.assignments.length;
+  categoryNumber = classFound.categories.length;
 
   // Global variables
   setTotalPoints(0);
@@ -169,98 +200,124 @@ function runClass(data) {
   setPointsLeftNumber(0);
   setAssignNumber(assignmentNumber);
 
-  // Local variables 
-  gradeLetter = $('#grade-selector').find(":selected").text();
+  // Local variables
+  gradeLetter = $("#grade-selector").find(":selected").text();
   pointsLeftNumber = pointsLeft(gradeLetter, classFound);
-  count = 0
-  distr = 0
+  count = 0;
+  distr = 0;
 
   // Points Prediction Method 2.0
   if (classFound.categories.length == 0) {
     if (pointsLeftNumber < 0) {
-      $("#message").hide()
-        .addClass('alert alert-danger')
-        .html('I am sorry. You lost too many points to achieve a(n) ' + gradeLetter)
+      $("#message")
+        .hide()
+        .addClass("alert alert-danger")
+        .html(
+          "I am sorry. You lost too many points to achieve a(n) " + gradeLetter
+        )
         .fadeTo(2000, 500)
         .slideUp(700, function () {
-          $('#message').slideUp(700)
-        })
+          $("#message").slideUp(700);
+        });
     } else {
       classFound.assignments.forEach((assignment) => {
-        assignmentId = $('#' + assignment._id)
+        assignmentId = $("#" + assignment._id);
         if (assignment.grade != -1) {
           count++;
           gradeSum += Number(assignment.grade);
           totalPoints += Number(assignment.total);
-          cellResult(true, assignmentId)
+          cellResult(true, assignmentId);
         } else {
           totalPoints += Number(assignment.total);
           nongraded = assignNumber - count;
-          distr = pointsLeftNumber / nongraded
-          outPutGrade = Number(assignment.total) - distr
-          cellResult(false, assignmentId, outPutGrade)
+          distr = pointsLeftNumber / nongraded;
+          outPutGrade = Number(assignment.total) - distr;
+          cellResult(false, assignmentId, outPutGrade);
         }
-      })
+      });
     }
   } else {
     if (pointsLeftNumber < 0) {
-      $("#message").hide()
-        .addClass('alert alert-danger')
-        .html('I am sorry. You lost too many points to achieve a(n) ' + gradeLetter)
+      $("#message")
+        .hide()
+        .addClass("alert alert-danger")
+        .html(
+          "I am sorry. You lost too many points to achieve a(n) " + gradeLetter
+        )
         .fadeTo(2000, 500)
         .slideUp(700, function () {
-          $('#message').slideUp(700)
-        })
+          $("#message").slideUp(700);
+        });
     } else {
       // Weight Prediction Method 2.0
       classFound.assignments.forEach((assignment) => {
         // TODO: Make sure all assignments belong to a category
-        // TODO: Check the letter grade act accondingly
-        assignmentId = $('#' + assignment._id)
+        assignmentId = $("#" + assignment._id);
         if (assignment.grade != -1) {
           count++;
           gradeSum += Number(assignment.grade);
           totalPoints += Number(assignment.total);
-          cellResult(true, assignmentId)
+          cellResult(true, assignmentId);
         } else {
           switch (gradeLetter) {
-            case 'A': categoryGrade = 10; break;
-            case 'B': categoryGrade = 20; break;
-            case 'C': categoryGrade = 30; break;
-            case 'D': categoryGrade = 40; break;
-            case 'F': categoryGrade = 50; break;
+            case "A":
+              leastPercentage = assignment.category.weight * 0.9;
+              break;
+            case "B":
+              leastPercentage = assignment.category.weight * 0.8;
+              break;
+            case "C":
+              leastPercentage = assignment.category.weight * 0.7;
+              break;
+            case "D":
+              leastPercentage = assignment.category.weight * 0.6;
+              break;
+            case "F":
+              leastPercentage = assignment.category.weight * 0.5;
+              break;
           }
-          console.log("gradeSum: ", gradeSum);
-          console.log("totalPoints:");
-          
-          weightDistribution = categoryGrade / categoryNumber
-          leastPercentage = assignment.category.weight - weightDistribution
-          subtotalGrade = (leastPercentage * 100) / assignment.category.weight
-          estimatePerCategory = ePAC(subtotalGrade.toFixed(0), assignment.category.id, classFound.categories)
-          cellResult(false, assignmentId, estimatePerCategory)
-        }
-      })
-    }
+          totalNumberAssignmentNotScored = 0;
+          totalPointsScored = 0;
+          totalPointsNotScored = 0;
 
+          classFound.categories.forEach((item) => {
+            if (item._id == assignment.category.id) {
+              totalPointsNotScored = item.assignments.totalPoints;
+              totalNumberAssignmentNotScored = item.assignments.numberAssignmentNotGraded
+              totalPointsScored = item.assignments.sumActualScore
+            }
+          });
+
+          estimatePerCategory =
+            ((leastPercentage * totalPointsNotScored) /
+              assignment.category.weight -
+              totalPointsScored) /
+            totalNumberAssignmentNotScored;
+          cellResult(false, assignmentId, estimatePerCategory);
+        }
+      });
+    }
   }
 }
 
 // Print cell result
 function cellResult(flag, assignmentId, result) {
   if (flag) {
-    $('#estimateColumn').removeAttr('hidden')
-    assignmentId.removeAttr('hidden')
-    assignmentId.html("<span style='font-size: 14px;' class='badge badge-pill badge-info font-weight-bolder'>Graded</span>")
+    $("#estimateColumn").removeAttr("hidden");
+    assignmentId.removeAttr("hidden");
+    assignmentId.html(
+      "<span style='font-size: 14px;' class='badge badge-pill badge-info font-weight-bolder'>Graded</span>"
+    );
   } else {
     if (result < 0) {
-      result = 0
-      $('#estimateColumn').removeAttr('hidden')
-      assignmentId.removeAttr('hidden')
-      assignmentId.html(result.toFixed(0))
+      result = 0;
+      $("#estimateColumn").removeAttr("hidden");
+      assignmentId.removeAttr("hidden");
+      assignmentId.html(result.toFixed(0));
     } else {
-      $('#estimateColumn').removeAttr('hidden')
-      assignmentId.removeAttr('hidden')
-      assignmentId.html(result.toFixed(0))
+      $("#estimateColumn").removeAttr("hidden");
+      assignmentId.removeAttr("hidden");
+      assignmentId.html(result.toFixed(0));
     }
   }
   print();
@@ -273,25 +330,25 @@ function pointsLeft(letter, classFound) {
 
   classFound.assignments.forEach((assignment) => {
     if (assignment.grade != -1) {
-      left = assignment.total - assignment.grade
-      sumLeft += left
+      left = assignment.total - assignment.grade;
+      sumLeft += left;
     }
-  })
+  });
 
   switch (letter) {
-    case 'A':
+    case "A":
       sumLeft = 100 - sumLeft;
       break;
-    case 'B':
+    case "B":
       sumLeft = 200 - sumLeft;
       break;
-    case 'C':
+    case "C":
       sumLeft = 300 - sumLeft;
       break;
-    case 'D':
+    case "D":
       sumLeft = 400 - sumLeft;
       break;
-    case 'F':
+    case "F":
       sumLeft = 500 - sumLeft;
       break;
     default:
@@ -302,20 +359,19 @@ function pointsLeft(letter, classFound) {
 
 // prints all the assignment stats
 function print() {
-  gradeResult = $('#maxGrade')
-  totalResult = $('#maxTotal')
-  pointsLeftResult = $('#pointsLeft')
-  gradeProgressBar = $('#gradeProgressBar')
-  pointsLeftProgressBar = $('#pointsLeftProgressBar')
-  totalPercentage = (gradeSum / totalPoints) * 100
+  gradeResult = $("#maxGrade");
+  totalResult = $("#maxTotal");
+  pointsLeftResult = $("#pointsLeft");
+  gradeProgressBar = $("#gradeProgressBar");
+  pointsLeftProgressBar = $("#pointsLeftProgressBar");
+  totalPercentage = (gradeSum / totalPoints) * 100;
 
-  $('#assignmentStats').css("display", "block")
-  gradeProgressBar.width(totalPercentage + '%')
-  pointsLeftProgressBar.width(pointsLeftNumber + "%")
-  gradeResult.html(gradeSum)
-  totalResult.html(totalPoints)
-  pointsLeftResult.html(pointsLeftNumber)
-
+  $("#assignmentStats").css("display", "block");
+  gradeProgressBar.width(totalPercentage + "%");
+  pointsLeftProgressBar.width(pointsLeftNumber + "%");
+  gradeResult.html(gradeSum);
+  totalResult.html(totalPoints);
+  pointsLeftResult.html(pointsLeftNumber);
 }
 
 // To set the assignment Numbers
@@ -325,17 +381,17 @@ function setAssignNumber(num) {
 
 // To set gradeSum
 function setGradeSum(num) {
-  gradeSum = num
+  gradeSum = num;
 }
 
 // To set Total Points
 function setTotalPoints(num) {
-  totalPoints = num
+  totalPoints = num;
 }
 
 // To set number of assignments
 function setPointsLeftNumber(num) {
-  pointsLeftNumber = num
+  pointsLeftNumber = num;
 }
 
 // To set the Delete Action link
@@ -344,5 +400,5 @@ function setDeleteAction(action) {
 }
 
 function setClassId(string) {
-  classId = string
+  classId = string;
 }

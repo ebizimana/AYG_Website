@@ -1,13 +1,15 @@
 var mongoose = require('mongoose')
 
 var categorySchema = new mongoose.Schema({
-    assignments:{
+    assignments: {
         name: [String],
         totalPoints: Number,
-        totalNumber: Number
+        totalNumber: Number,
+        numberAssignmentNotGraded: Number,
+        sumActualScore: Number
     },
     name: String,
     weight: Number,
 })
 
-module.exports = mongoose.model("Category",categorySchema)
+module.exports = mongoose.model("Category", categorySchema)

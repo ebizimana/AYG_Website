@@ -83,9 +83,16 @@ exports.createAssignment = (req, res) => {
                             assig.save()
                             if (!categoryFound.assignments.totalPoints) {
                                 categoryFound.assignments.totalPoints = Number(req.body.assignment.total)
+                                categoryFound.assignments.numberAssignmentNotGraded = 1
+                                categoryFound.assignments.sumActualScore = 0
                             } else {
                                 categoryFound.assignments.totalPoints += Number(req.body.assignment.total)
                                 categoryFound.assignments.totalNumber = categoryFound.assignments.name.length + 1
+                                if (req.body.assignment.grade == -1) {
+                                    categoryFound.assignments.numberAssignmentNotGraded += 1
+                                } else {
+                                    categoryFound.assignments.sumActualScore += Number(req.body.assignment.grade)
+                                }
                             }
                             categoryFound.save()
                         })
@@ -102,13 +109,13 @@ exports.createAssignment = (req, res) => {
 
 // Update One Assignment
 exports.updateOneAssignment = (req, res) => {
-    console.log(req.body.assignUpdate);
     Class.findById(req.params.class_id).populate("categories assignments").exec((err, classFound) => {
         if (err) console.log(err)
         flag = true
         Assignment.findOne({
             _id: req.params.assig_id
         }, (err, assignmentFound) => {
+            // Check for Input Error 
             for (item of classFound.assignments) {
                 if (item.name == req.body.assignUpdate.name && item.name != assignmentFound.name) {
                     req.flash("error", "Assignment Already exist")
@@ -121,6 +128,7 @@ exports.updateOneAssignment = (req, res) => {
                     break;
                 }
             }
+            // Updating the category name array accondingly
             if (classFound.categories.length != 0 && flag) {
                 if (req.body.assignUpdate.flag == req.body.assignUpdate.categoryID) {
                     classFound.assignments.forEach((assign) => {
@@ -163,6 +171,21 @@ exports.updateOneAssignment = (req, res) => {
                         categoryFound.save()
                     })
                 }
+                Category.findOne({
+                    _id: req.body.assignUpdate.categoryID
+                }, (err, categoryFound) => {
+                    if (err) console.log("Error Occured");
+                    if (!categoryFound.assignments.sumActualScore) {
+                        categoryFound.assignments.sumActualScore = 0
+                    }
+                    if (req.body.assignUpdate.grade == -1) {
+                        categoryFound.assignments.numberAssignmentNotGraded += 1
+                    } else {
+                        categoryFound.assignments.sumActualScore += Number(req.body.assignUpdate.grade)
+                        categoryFound.assignments.numberAssignmentNotGraded -= 1
+                    }
+                    categoryFound.save()
+                })
             }
             if (flag) {
                 Assignment.findByIdAndUpdate(req.params.assig_id, req.body.assignUpdate, function (err, updateAssign) {
