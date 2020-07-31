@@ -285,14 +285,15 @@ function runClass(data) {
               totalPointsNotScored = item.assignments.totalPoints;
               totalNumberAssignmentNotScored = item.assignments.numberAssignmentNotGraded
               totalPointsScored = item.assignments.sumActualScore
+              console.log("sumActualScore: ", item.assignments.sumActualScore);
+              console.log("numberAssignmentNotGraded: ", item.assignments.numberAssignmentNotGraded);
+              console.log("totalPoints: ", item.assignments.totalPoints);
             }
           });
-
-          estimatePerCategory =
-            ((leastPercentage * totalPointsNotScored) /
-              assignment.category.weight -
-              totalPointsScored) /
-            totalNumberAssignmentNotScored;
+          part1 = leastPercentage * totalPointsNotScored
+          part2 = part1 / assignment.category.weight
+          part3 = part2 - totalPointsScored
+          estimatePerCategory = part3 / totalNumberAssignmentNotScored;
           cellResult(false, assignmentId, estimatePerCategory);
         }
       });

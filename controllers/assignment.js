@@ -1,3 +1,5 @@
+const category = require("../models/category")
+
 // Initialise Models
 User = require("../models/user")
 Class = require("../models/class")
@@ -238,6 +240,8 @@ exports.deleteAssignment = function (req, res) {
                     categoryFound.assignments.name.forEach((item, index) => {
                         if (item == req.body.assignName) {
                             categoryFound.assignments.name.splice(index, 1)
+                            categoryFound.assignments.sumActualScore -= Number(req.body.assignGrade)
+                            categoryFound.assignments.totalPoints -= Number(req.body.assignTotal)
                             categoryFound.save()
                         }
                     })
