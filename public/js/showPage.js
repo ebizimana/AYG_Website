@@ -285,11 +285,9 @@ function runClass(data) {
               totalPointsNotScored = item.assignments.totalPoints;
               totalNumberAssignmentNotScored = item.assignments.numberAssignmentNotGraded
               totalPointsScored = item.assignments.sumActualScore
-              console.log("sumActualScore: ", item.assignments.sumActualScore);
-              console.log("numberAssignmentNotGraded: ", item.assignments.numberAssignmentNotGraded);
-              console.log("totalPoints: ", item.assignments.totalPoints);
             }
           });
+
           part1 = leastPercentage * totalPointsNotScored
           part2 = part1 / assignment.category.weight
           part3 = part2 - totalPointsScored

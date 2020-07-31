@@ -1,5 +1,5 @@
-Class      = require("../models/class")
-Category   = require("../models/category")
+Class = require("../models/class")
+Category = require("../models/category")
 
 // Show all the categories
 exports.showAllCategories = (req, res) => {
@@ -14,12 +14,16 @@ exports.showAllCategories = (req, res) => {
 
 // Add Category Form 
 exports.addCategoryForm = (req, res) => {
-    res.render("category/new", {class_id: req.params.class_id})
+    res.render("category/new", {
+        class_id: req.params.class_id
+    })
 }
 
 // Edit Category Form 
 exports.editCategoryForm = (req, res) => {
-    Category.findOne({_id: req.params.category_id}, (err, categoryFound) => {
+    Category.findOne({
+        _id: req.params.category_id
+    }, (err, categoryFound) => {
         if (err) console.log(err)
         res.render("category/edit", {
             categoryFound: categoryFound,
@@ -30,9 +34,13 @@ exports.editCategoryForm = (req, res) => {
 
 // Delete Category Form
 exports.deleteCategoryForm = (req, res) => {
-    Class.findOne({_id: req.params.class_id}, (err, classFound) => {
+    Class.findOne({
+        _id: req.params.class_id
+    }, (err, classFound) => {
         if (err) console.log(err)
-        Category.findOne({_id: req.params.category_id}, (err, categoryFound) => {
+        Category.findOne({
+            _id: req.params.category_id
+        }, (err, categoryFound) => {
             if (err) console.log(err)
             res.render('category/delete', {
                 categoryFound: categoryFound,
@@ -52,6 +60,7 @@ exports.createCategory = (req, res) => {
                 if (err) throw err
                 classFound.categories.push(categoryCreated)
                 classFound.save();
+                req.flash("success", 'Category ' + '"' + req.body.category.name + '"' + ' Sucessfully created')
                 res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
             })
         })
@@ -59,27 +68,37 @@ exports.createCategory = (req, res) => {
 }
 
 // Edit Category
-exports.editCategory = (req,res) =>{
-    Class.findOne({_id: req.params.class_id},(err, classFound) => {
-        if(err) console.log(err)
-        Category.findOneAndUpdate({_id:req.params.category_id}, req.body.categoryUpdate, (err,categoryFound) =>{
-            if(err) console.log(err)
+exports.editCategory = (req, res) => {
+    Class.findOne({
+        _id: req.params.class_id
+    }, (err, classFound) => {
+        if (err) console.log(err)
+        Category.findOneAndUpdate({
+            _id: req.params.category_id
+        }, req.body.categoryUpdate, (err, categoryFound) => {
+            if (err) console.log(err)
+            req.flash("success", 'Category Sucessfully Edited')
             res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
         })
     })
 }
 
 // Delete Category
-exports.deleteCategory = (req,res) => {
-    Class.findOne({_id:req.params.class_id}, (err,classFound) =>{
-        if(err) console.log(err)
-        classFound.categories.forEach((item,index) => {
-            if(item._id == req.params.category_id){
-                classFound.categories.splice(index,1)
+exports.deleteCategory = (req, res) => {
+    Class.findOne({
+        _id: req.params.class_id
+    }, (err, classFound) => {
+        if (err) console.log(err)
+        classFound.categories.forEach((item, index) => {
+            if (item._id == req.params.category_id) {
+                classFound.categories.splice(index, 1)
                 classFound.save()
             }
         })
-        Category.findOneAndDelete({_id:req.params.category_id}, (err,categoryFound) => {
+        Category.findOneAndDelete({
+            _id: req.params.category_id
+        }, (err, categoryFound) => {
+            req.flash("success", 'Category Sucessfully Deleted')
             res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
         })
     })
