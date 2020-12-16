@@ -1,8 +1,8 @@
 // TODO: Delete User
 
 express          = require("express")
-router           = express.Router()
 IndexController  = require('../controllers/index')
+router           = express.Router()
 
 
 // The home router

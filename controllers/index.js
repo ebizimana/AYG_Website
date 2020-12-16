@@ -1,9 +1,20 @@
 passport  = require("passport")
 User      = require("../models/user")
+Class     = require("../models/class")
 
 // The home router
 exports.home = (req, res) => {
-    res.render("home")
+    // Send the Class data on home page
+    Class.find({},(err, classFound)=>{
+        console.log("classFound: ", classFound);
+        res.render("home", {classFound: classFound})
+    })
+
+    // Class.findById(req.params.class_id).populate("assignments categories").exec(function (err,classFound){
+    //     if(err) throw err
+    //     console.log("classFound: ", req.params);
+    //     res.render("home", {classFound: classFound})
+    // })
 }
 
 // Show Profile Modal

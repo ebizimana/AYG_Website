@@ -1,10 +1,10 @@
-// TODO: Add a method to calculate the current grade
-// TODO: Add method to distrubute the points based on category
-// TODO: Add a method to calculate overall percentage
+// TODO: 1. Add a method to calculate overall percentage
+// TODO: 2. Add a method to calculate the current grade
+// TODO: 3. Add method to distrubute the points based on category
 
 // variables
-var gradeSum = 0, // Toatl sum of graded assignment
-  totalPoints = 0, //  Maximum points of all available assignment
+var gradeSum = 0,   // Toatl sum of graded assignment
+  totalPoints = 0,  //  Maximum points of all available assignment
   assignNumber = 0,
   pointsLeftNumber = 0,
   newOrder = [{}],
@@ -104,24 +104,9 @@ function deleteForm() {
 // Editing and deleting assignments
 function editRow(userId, classId, assignId, num) {
   // initialize variables
-  editUrl =
-    "/users/" +
-    userId +
-    "/classes/" +
-    classId +
-    "/assignments/" +
-    assignId +
-    "/edit";
-  deleteUrl =
-    "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId;
-  deleteAction =
-    "/users/" +
-    userId +
-    "/classes/" +
-    classId +
-    "/assignments/" +
-    assignId +
-    "?_method=DELETE";
+  editUrl = "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId + "/edit";
+  deleteUrl = "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId;
+  deleteAction = "/users/" + userId + "/classes/" + classId + "/assignments/" + assignId +"?_method=DELETE";
   setAssignNumber(num);
   setClassId(classId);
 
@@ -171,18 +156,6 @@ $("#saveOrder").on("click", function () {
   dateName.val(JSON.stringify(newOrder, null, "  "));
 });
 
-// Calculate Estimate Points for Assignment Per Category
-function ePAC(subtotalGrade, assignId, categories) {
-  result = 0;
-  categories.forEach((item, index) => {
-    if (item._id == assignId) {
-      result =
-        (subtotalGrade * item.assignments.totalPoints) /
-        (100 * item.assignments.totalNumber);
-    }
-  });
-  return result;
-}
 
 // Fills up the Estimate column in assignmnet table
 function runClass(data) {
@@ -363,6 +336,7 @@ function print() {
   pointsLeftResult = $("#pointsLeft");
   gradeProgressBar = $("#gradeProgressBar");
   pointsLeftProgressBar = $("#pointsLeftProgressBar");
+  percentageResult = $('#percentage');
   totalPercentage = (gradeSum / totalPoints) * 100;
 
   $("#assignmentStats").css("display", "block");
@@ -371,6 +345,7 @@ function print() {
   gradeResult.html(gradeSum);
   totalResult.html(totalPoints);
   pointsLeftResult.html(pointsLeftNumber);
+  percentageResult.html(totalPercentage + "%")
 }
 
 // To set the assignment Numbers

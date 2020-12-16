@@ -111,7 +111,7 @@
 
             <!-- Settings for categories  -->
             <div class="ml-auto mb-4">
-              <a href="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/categories" type="button"
+              <a href="/users/<%= currentUser._id %>/classes/<%= classFound._id %>/categories"
                 id="sidebarCollapse" data-toggle="popover" data-placement="bottom"
                 data-content="Configure Your Class Category" data-trigger="hover">
                 <i class="fas fa-cog fa-3x text-muted"></i>
@@ -156,7 +156,10 @@
           <div id="box2">
             <!-- TODO: If you have a popover of your total percentage -->
             <!-- TODO: Change color as you go down.  -->
-            <h1 class="ui header mb-1 text-center">You have</h1>
+            <h1 class="ui header mb-1 text-center">
+              You have
+              <small class="mr-auto" id="percentage"></small>
+            </h1>
             <div class="progress" style="height: 30px;">
               <div class="progress-bar d-inline progress-bar-striped progress-bar-animated bg-info text-dark my-auto"
                 role="progressbar" id="gradeProgressBar">
