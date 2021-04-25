@@ -4,6 +4,8 @@ var classShema = new mongoose.Schema({
   className: String,
   courseName: String,
   professor: String,
+  overallGrade: Number,
+  pointLeft: Number,
   assignments:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Assignment"

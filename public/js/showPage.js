@@ -46,6 +46,7 @@ $("#editClass").on("click", function (e) {
     .load($(this).attr("href"));
 });
 
+
 // To show the modal for the add Assignment form
 $("#addAssignment").on("click", function (e) {
   e.preventDefault();
@@ -178,6 +179,9 @@ function runClass(data) {
   pointsLeftNumber = pointsLeft(gradeLetter, classFound);
   count = 0;
   distr = 0;
+
+  // Send Points Left to HomePage
+  
 
   // Points Prediction Method 2.0
   if (classFound.categories.length == 0) {

@@ -3,11 +3,10 @@
 <!-- TODO: Display the current GPA -->
 
 <% include partials/header %>
+<body onload="allClassesData('<%= JSON.stringify(classFound) %>')">
+    <canvas id="classesDataChart"></canvas>
+    <script src="/js/home.js"></script>  
+</body>
 
-<h1>Home Page</h1>
-<h3>I am here <%= classFound %></h3>
-<canvas id="myChart"></canvas>
-<canvas id="another"></canvas>
-<script src="/js/home.js"></script>
 
 <% include partials/footer %>
