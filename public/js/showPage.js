@@ -162,6 +162,7 @@ $("#saveOrder").on("click", function () {
 function runClass(data) {
   // TODO: output message if there is no assignment
   // TODO: determine which method to use (point or weight prediction)
+
   classFound = JSON.parse(data);
 
   // Class Breakdown
@@ -178,10 +179,7 @@ function runClass(data) {
   gradeLetter = $("#grade-selector").find(":selected").text();
   pointsLeftNumber = pointsLeft(gradeLetter, classFound);
   count = 0;
-  distr = 0;
-
-  // Send Points Left to HomePage
-  
+  distr = 0;  
 
   // Points Prediction Method 2.0
   if (classFound.categories.length == 0) {
@@ -270,6 +268,12 @@ function runClass(data) {
           part3 = part2 - totalPointsScored
           estimatePerCategory = part3 / totalNumberAssignmentNotScored;
           cellResult(false, assignmentId, estimatePerCategory);
+
+          // Update Class Info
+          updateClassInfo = {pointLeft: pointsLeftNumber,overallGrade:100}
+          console.log("updateClassInfo: ",updateClassInfo);
+          updateClassInfo = $('input[name="updateClassInfo"]');
+          updateClassInfo.val(JSON.stringify({pointLeft:pointsLeftNumber,overallGrade:100}));
         }
       });
     }
@@ -330,6 +334,8 @@ function pointsLeft(letter, classFound) {
     default:
       break;
   }
+  classFound.pointLeft = sumLeft
+  console.log("classFound: ", classFound)
   return sumLeft;
 }
 
@@ -379,4 +385,9 @@ function setDeleteAction(action) {
 
 function setClassId(string) {
   classId = string;
+}
+
+// Update the Class DB
+function updateClassDB(){
+
 }

@@ -101,9 +101,7 @@ exports.createAssignment = (req, res) => {
                     }
                     classFound.save();
                 })
-
             }
-
             res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
         })
     })

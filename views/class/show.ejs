@@ -48,12 +48,13 @@
           </div>
 
           <div class="text-center">
-            <!-- TODO: Make a form that send data.  -->
             <!-- TODO: Disable when there is no assignments  -->
-            <button type="submit" class="btn btn-info btn-rounded btn-md"
-              onclick="runClass('<%= JSON.stringify(classFound) %>')">
-              Submit
-            </button>
+            <!-- TODO: Make a form that send data.  -->
+            <form action="/users/<%=currentUser._id %>/classes/<%= classFound._id %>/updateInfo?_method=PUT" method="POST">
+              <input type="hidden" name="updateClassInfo">
+              <button type="submit" class="btn btn-info btn-rounded btn-md" onclick="runClass('<%= JSON.stringify(classFound) %>')"> Submit
+              </button>
+            </form>
           </div>
         </div>
       </div>

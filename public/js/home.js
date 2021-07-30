@@ -7,18 +7,20 @@ Chart.defaults.global.defaultFontColor = '#777'
 function allClassesData(allClassData){
     classesData = JSON.parse(allClassData);
     classesNames = []
+    console.log("classesData: ", classesData)
 
     classesData.forEach((oneClass) =>{
         // TODO: Get class points left, overall grade.
         classesNames.push(oneClass.className) 
     })
+
     var moreChart = new Chart(classesDataChart, {
         type: 'bar',
         data: {
             labels: classesNames,
             datasets: [{
                 // TODO: All this needs to change
-                label: '# of Votes',
+                label: 'Points left',
                 data: [12, 19, 3],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
