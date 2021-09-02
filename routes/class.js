@@ -25,7 +25,7 @@ router.get("/:class_id", middleware.isLoggenIn, ClassController.showOneClass)
 router.put("/:class_id", middleware.isLoggenIn, ClassController.updateClass)
 
 // Update Class few info 
-router.put("/:class_id/updateInfo", middleware.isLoggenIn, ClassController.updateClassInfo)
+// router.put("/:class_id/updateInfo", middleware.isLoggenIn, ClassController.updateClassInfo)
 
 //Delete a class and it's assignments from the DB
 router.delete("/:class_id", middleware.isLoggenIn, ClassController.deleteClass)

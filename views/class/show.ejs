@@ -50,11 +50,11 @@
           <div class="text-center">
             <!-- TODO: Disable when there is no assignments  -->
             <!-- TODO: Make a form that send data.  -->
-            <form action="/users/<%=currentUser._id %>/classes/<%= classFound._id %>/updateInfo?_method=PUT" method="POST">
+            <!-- <form action="/users/<%=currentUser._id %>/classes/<%= classFound._id %>/updateInfo?_method=PUT" method="POST"> -->
               <input type="hidden" name="updateClassInfo">
               <button type="submit" class="btn btn-info btn-rounded btn-md" onclick="runClass('<%= JSON.stringify(classFound) %>')"> Submit
               </button>
-            </form>
+            <!-- </form> -->
           </div>
         </div>
       </div>

@@ -61,17 +61,17 @@ exports.updateClass = (req, res) => {
 }
 
 // Update Class info in the DB
-exports.updateClassInfo = (req,res) => {
-  obj = JSON.parse(req.body.updateClassInfo)
-  // console.log("obj: ", obj);
-  Class.findByIdAndUpdate(req.params.class_id, obj, (err, update) => {
-    if (err) throw err
-      console.log("Update classes: ",update);
-      res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
-  })
+// exports.updateClassInfo = (req,res) => {
+//   obj = JSON.parse(req.body.updateClassInfo)
+//   // console.log("obj: ", obj);
+//   Class.findByIdAndUpdate(req.params.class_id, obj, (err, update) => {
+//     if (err) throw err
+//       console.log("Update classes: ",update);
+//       res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
+//   })
 
 
-}
+// }
 
 //Delete a class from the DB
 exports.deleteClass = (req, res) => {
