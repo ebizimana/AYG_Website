@@ -38,7 +38,7 @@ exports.saveClass = (req, res) => {
         userFound.classes.push(classCreated)
         userFound.save()
         req.flash("success", "Class successfully created")
-        res.redirect("/users/" + req.params.user_id + "/classes/")
+        res.render("class/show", {classFound: classCreated})
     })
   })
 }
