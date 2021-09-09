@@ -41,9 +41,17 @@
       <% selectedName = category.name %>
       <% } %>
       <% }) %>
+      <!-- if there is a category: Make it required  -->
+      <% if(classFound.categories.length != 0){ %>
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         <%= selectedName %>
       </button>
+      <!-- if there is no category: make it d-none -->
+      <%} else{ %>
+        <button type="button" class="btn btn-default dropdown-toggle d-none" data-toggle="dropdown">
+          <%= selectedName %>
+        </button>
+        <%} %>
       <div class="dropdown-menu">
         <% classFound.categories.forEach(function(category){ %>
         <a class="dropdown-item" data-value="<%= category._id %>"><%= category.name %></a>
