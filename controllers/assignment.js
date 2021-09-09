@@ -62,11 +62,13 @@ exports.createAssignment = (req, res) => {
                     flag = false
                     break
                 }
-                if (!req.body.assignment.category) {
-                    req.flash("error", "Make sure you select a category")
-                    flag = false
-                    break
-                }
+                // I have to remove this clause so I can allow point average calculation
+
+                // if (!req.body.assignment.category) {
+                //     req.flash("error", "Make sure you select a category")
+                //     flag = false
+                //     break
+                // }
             }
             if (flag) {
                 Assignment.create(req.body.assignment, (err, assig) => {
