@@ -184,6 +184,7 @@ function runClass(data) {
   // Points Prediction Method 2.0
   if (classFound.categories.length == 0) {
     if (pointsLeftNumber < 0) {
+      window.scrollTo(0,0)
       $("#message")
         .hide()
         .addClass("alert alert-danger")
@@ -213,6 +214,7 @@ function runClass(data) {
     }
   } else {
     if (pointsLeftNumber < 0) {
+      window.scrollTo(0,0)
       $("#message")
         .hide()
         .addClass("alert alert-danger")
@@ -335,7 +337,6 @@ function pointsLeft(letter, classFound) {
       break;
   }
   classFound.pointLeft = sumLeft
-  console.log("classFound: ", classFound)
   return sumLeft;
 }
 
