@@ -1,12 +1,14 @@
 // TODO: Delete User
-
 express          = require("express")
+middleware       = require("../middleware")
 IndexController  = require('../controllers/index')
 router           = express.Router()
 
+// TODO: The home router when not logged in
+router.get("/", IndexController.homeNotLoggedIn)
 
-// The home router
-router.get("/", IndexController.home)
+// The home router when logged in
+router.get("/homePage", middleware.isLoggenIn, IndexController.home)
 
 // Profile Modal
 router.get("/login", IndexController.profileForm)
@@ -16,7 +18,7 @@ router.post('/login', passport.authenticate('local', {
     failureRedirect: "/",
     failureFlash: "User Not found"}), (req, res) => {
     req.flash("success", "Welcome Back " + req.user.username)
-    res.redirect("/")
+    res.redirect("/homePage")
 })
 
 // Edit User Profile Form

@@ -2,7 +2,12 @@ passport  = require("passport")
 User      = require("../models/user")
 Class     = require("../models/class")
 
-// The home router
+//  The home router when not logged in
+exports.homeNotLoggedIn = (req, res) => {
+    res.render("homeNotLoggedIn")
+}
+
+// The home router when logged in
 exports.home = (req, res) => {
     // Send the Class data on home page
     Class.find({},(err, classFound)=>{
