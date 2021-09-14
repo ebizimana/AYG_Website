@@ -5,6 +5,8 @@ Chart.defaults.global.defaultFontColor = '#777'
 
 // Get all classes data 
 function allClassesData(allClassData){
+    alert("I am here")
+
     classesData = JSON.parse(allClassData);
     classesNames = []
     console.log("classesData: ", classesData)

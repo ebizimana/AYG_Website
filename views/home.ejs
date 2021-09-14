@@ -1,12 +1,16 @@
-<!-- TODO: Display a chart of all classes based on high grade to the lowest  -->
-<!-- TODO: Display a chart of all classes based on points left to loose -->
-<!-- TODO: Display the current GPA -->
+<!--  
+    TODO: Display a chart of all classes based on high grade to the lowest 
+    TODO: Display a chart of all classes based on points left to loose 
+    TODO: Display the current GPA 
+-->
 
 <% include partials/header %>
+
 <body onload="allClassesData('<%= JSON.stringify(classFound) %>')">
     <canvas id="classesDataChart"></canvas>
     <script src="/js/home.js"></script>  
 </body>
 
+<!-- onload="allClassesData('<%= JSON.stringify(classFound)%>')" -->
 
 <% include partials/footer %>
