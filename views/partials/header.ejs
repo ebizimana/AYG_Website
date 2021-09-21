@@ -33,9 +33,11 @@
       AYG
     </a>
     <% if (!currentUser) { %>
-    <a class="item" id="notLoggedIn">
+      <a href="/login"
+      class="item openProfilemodal">
       Classes
     </a>
+
     <% } else { %>
     <a class="item" href="/users/<%= currentUser._id %>/classes">
       Classes
@@ -47,8 +49,8 @@
   <div>
     <% if(!currentUser){ %>
     <div class="mt-5 mb-0 mr-3">
-      <a href="/login" id="openProfilemodal"
-        class="btn-floating btn-lg btn-default rounded-circle profilePicture d-flex justify-content-center ">
+      <a href="/login"
+        class="openProfilemodal btn-floating btn-lg btn-default rounded-circle profilePicture d-flex justify-content-center ">
         <i class="fas fa-user text-light fa-3x mt-3"></i>
       </a>
     </div>
@@ -145,7 +147,7 @@
     $(".messageTime").delay(3000).slideUp(300)
 
     // Open The Login | SingUp Modal
-    $("#openProfilemodal").on('click', function (e) {
+    $(".openProfilemodal").on('click', function (e) {
       e.preventDefault()
       $("#modalProfile").modal('show').find('.modal-content').load($(this).attr('href'))
     })
