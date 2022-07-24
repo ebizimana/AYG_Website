@@ -29,16 +29,27 @@
 <body class="bodyBackground">
   <!-- NavBar -->
   <div class="ui secondary pointing menu">
-    <a class="item huge header" href="/">
-      AYG
-    </a>
     <% if (!currentUser) { %>
+<<<<<<< HEAD
       <a href="/login"
       class="item openProfilemodal">
       Classes
     </a>
 
+=======
+      <a href="/login" class="openProfilemodal item">
+        AYG
+      </a>
+
+      <a href="/login"
+      class="openProfilemodal item">
+      Classes
+      </a>
+>>>>>>> a92cf07ef769254efef4a15ea34c7a3ddef3584f
     <% } else { %>
+      <a class="item huge header" href="/homePage" class="openProfilemodal item">
+        AYG
+      </a>
     <a class="item" href="/users/<%= currentUser._id %>/classes">
       Classes
     </a>
