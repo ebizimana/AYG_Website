@@ -14,6 +14,7 @@ exports.home = (req, res) => {
         console.log("classFound: ", classFound)
         res.render("home", {classFound: classFound})
     })
+    
     // Send all info
     // User.findById(req.params.user_id).populate("classes").exec((err, userFound) => {
     //     if (err) throw err
