@@ -4,7 +4,7 @@ middleware       = require("../middleware")
 IndexController  = require('../controllers/index')
 router           = express.Router()
 
-// TODO: The home router when not logged in
+//The home router when not logged in
 router.get("/", IndexController.homeNotLoggedIn)
 
 // The home router when logged in

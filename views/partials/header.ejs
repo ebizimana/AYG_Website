@@ -3,162 +3,194 @@
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Achieve Your Grade</title>
 
-<head>
-  <meta charset="utf-8">
-  <title>Achieve Your Grade</title>
+    <!-- My own stylesheet -->
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+    <link rel="stylesheet" href="/stylesheets/sidenav.css" />
 
-  <!-- My own stylesheet -->
-  <link rel="stylesheet" href="/stylesheets/main.css">
-  <link rel="stylesheet" href="/stylesheets/sidenav.css">
+    <!-- Font Awesome for Awesome icons  -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+    />
 
-  <!-- Font Awesome for Awesome icons  -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Semantic -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
 
-  <!-- Semantic -->
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <!-- Material Design Bootstrap -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.6.0/css/mdb.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
-  <!-- Material Design Bootstrap -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.6.0/css/mdb.min.css" rel="stylesheet">
-</head>
+  <body class="bodyBackground">
+    <!-- NavBar -->
+    <div class="ui secondary pointing menu">
+      <% if (!currentUser) { %>
+      <a href="/login" class="openProfilemodal item"> AYG </a>
 
-<body class="bodyBackground">
-  <!-- NavBar -->
-  <div class="ui secondary pointing menu">
-    <% if (!currentUser) { %>
-      <a href="/login" class="openProfilemodal item">
+      <a href="/login" class="openProfilemodal item"> Classes </a>
+      <% } else { %>
+      <a
+        class="item huge header"
+        href="/homePage"
+        class="openProfilemodal item"
+      >
         AYG
       </a>
-
-      <a href="/login"
-      class="openProfilemodal item">
-      Classes
-      </a>
-    <% } else { %>
-      <a class="item huge header" href="/homePage" class="openProfilemodal item">
-        AYG
-      </a>
-    <a class="item" href="/users/<%= currentUser._id %>/classes">
-      Classes
-    </a>
-    <% } %>
-
-  </div>
-
-  <div>
-    <% if(!currentUser){ %>
-    <div class="mt-5 mb-0 mr-3">
-      <a href="/login"
-        class="openProfilemodal btn-floating btn-lg btn-default rounded-circle profilePicture d-flex justify-content-center ">
-        <i class="fas fa-user text-light fa-3x mt-3"></i>
-      </a>
-    </div>
-    <div class="modal fade" id="modalProfile">
-      <div class="modal-dialog cascading-modal" role="document">
-        <div class="modal-content"></div>
-      </div>
+      <a class="item" href="/users/<%= currentUser._id %>/classes"> Classes </a>
+      <% } %>
     </div>
 
-    <% } else{ %>
-
-    <div class="dropleft" style="height: 0">
-      <a href="/" data-toggle="dropdown">
-        <img src="<%= currentUser.profilePicture %>"
-          onerror="this.src='https://source.unsplash.com/100x100/?nature,water'" alt="avatar"
-          class="profilePicture rounded-circle img-responsive">
-      </a>
-
-      <div class="dropdown-menu">
-        <span class="dropdown-item text-muted">
-          Name: <%= currentUser.username %>
-        </span>
-
-        <a href="/editProfile" id="editProfile" class="dropdown-item">
-          <i class="fas fa-user-edit"></i>
-          Edit Profile
-        </a>
-
-        <a class="dropdown-item" href="/logout">
-          <i class="fas fa-sign-out-alt"></i> Logout
+    <div>
+      <% if(!currentUser){ %>
+      <div class="mt-5 mb-0 mr-3">
+        <a
+          href="/login"
+          class="openProfilemodal btn-floating btn-lg btn-default rounded-circle profilePicture d-flex justify-content-center"
+        >
+          <i class="fas fa-user text-light fa-3x mt-3"></i>
         </a>
       </div>
-    </div>
+      <div class="modal fade" id="modalProfile">
+        <div class="modal-dialog cascading-modal" role="document">
+          <div class="modal-content"></div>
+        </div>
+      </div>
 
-    <% } %>
+      <% } else{ %>
 
-    <div class="modal fade" id="editProfileModal">
-      <div class="modal-dialog">
-        <div class="modal-content"></div>
+      <div class="dropleft" style="height: 0">
+        <a href="/" data-toggle="dropdown">
+          <img
+            src="<%= currentUser.profilePicture %>"
+            onerror="this.src='https://source.unsplash.com/100x100/?nature,water'"
+            alt="avatar"
+            class="profilePicture rounded-circle img-responsive"
+          />
+        </a>
+
+        <div class="dropdown-menu">
+          <span class="dropdown-item text-muted">
+            Name: <%= currentUser.username %>
+          </span>
+
+          <a href="/editProfile" id="editProfile" class="dropdown-item">
+            <i class="fas fa-user-edit"></i>
+            Edit Profile
+          </a>
+
+          <a class="dropdown-item" href="/logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </div>
+      </div>
+
+      <% } %>
+
+      <div class="modal fade" id="editProfileModal">
+        <div class="modal-dialog">
+          <div class="modal-content"></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Flash messages in all pages -->
-  <div class="container messageTime">
-    <% if(error && error.length > 0) { %>
-    <div class="alert alert-danger text-center" role="alert">
-      <%= error %>
+    <!-- Flash messages in all pages -->
+    <div class="container messageTime">
+      <% if(error && error.length > 0) { %>
+      <div class="alert alert-danger text-center" role="alert">
+        <%= error %>
+      </div>
+      <% } %> <% if(success && success.length > 0) { %>
+      <div class="alert alert-success text-center" role="alert">
+        <%= success %>
+      </div>
+      <% } %>
     </div>
-    <% } %>
-    <% if(success && success.length > 0) { %>
-    <div class="alert alert-success text-center" role="alert">
-      <%= success %>
-    </div>
-    <% } %>
-  </div>
 
-  <div class="alert alert-danger d-none messageTime" role="alert" id="showErrMsg"></div>
+    <div
+      class="alert alert-danger d-none messageTime"
+      role="alert"
+      id="showErrMsg"
+    ></div>
+  </body>
 
-</body>
+  <footer>
+    <!-- JQuery -->
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
-<footer>
-  <!-- JQuery -->
-  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js">
-  </script>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+      crossorigin="anonymous"
+    ></script>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
-  </script>
+    <!-- Semantic JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 
-  <!-- Semantic JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-  
-  <!-- Charts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+    <!-- Charts -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+      integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
+      crossorigin="anonymous"
+    ></script>
 
-  <!-- Header Functionality -->
-  <script>
-    // Change the active class on nav
-    $(document).ready(function () {
-      $('a.huge').removeClass('huge header');
-      $('a[href="' + location.pathname + '"]').closest('a').addClass('huge header');
-    });
+    <!-- Header Functionality -->
+    <script>
+      // Change the active class on nav
+      $(document).ready(function () {
+        $("a.huge").removeClass("huge header");
+        $('a[href="' + location.pathname + '"]')
+          .closest("a")
+          .addClass("huge header");
+      });
 
-    // Display message when not loggIn
-    $('#notLoggedIn').click(() => {
-      $("#showErrMsg").removeClass("d-none")
-      $("#showErrMsg").addClass('container w-50 text-center').html("You need to be logged in")
-    })
+      // Display message when not loggIn
+      $("#notLoggedIn").click(() => {
+        $("#showErrMsg").removeClass("d-none");
+        $("#showErrMsg")
+          .addClass("container w-50 text-center")
+          .html("You need to be logged in");
+      });
 
-    // Show the flash message for 3 sec
-    $(".messageTime").delay(3000).slideUp(300)
+      // Show the flash message for 3 sec
+      $(".messageTime").delay(3000).slideUp(300);
 
-    // Open The Login | SingUp Modal
-    $(".openProfilemodal").on('click', function (e) {
-      e.preventDefault()
-      $("#modalProfile").modal('show').find('.modal-content').load($(this).attr('href'))
-    })
+      // Open The Login | SingUp Modal
+      $(".openProfilemodal").on("click", function (e) {
+        e.preventDefault();
+        $("#modalProfile")
+          .modal("show")
+          .find(".modal-content")
+          .load($(this).attr("href"));
+      });
 
-    // Open Edit Profile Modal
-    $("#editProfile").on('click', function (e) {
-      e.preventDefault()
-      $("#editProfileModal").modal('show').find('.modal-content').load($(this).attr('href'))
-    })
-  </script>
-</footer>
+      // Open Edit Profile Modal
+      $("#editProfile").on("click", function (e) {
+        e.preventDefault();
+        $("#editProfileModal")
+          .modal("show")
+          .find(".modal-content")
+          .load($(this).attr("href"));
+      });
+    </script>
+  </footer>
+</html>
