@@ -11,7 +11,6 @@ exports.homeNotLoggedIn = (req, res) => {
 exports.home = (req, res) => {
     // Send the Class data on home page
     Class.find({},(err, classFound)=>{
-        console.log("classFound: ", classFound)
         res.render("home", {classFound: classFound})
     })
     

@@ -72,6 +72,11 @@
 /* The Whole website styles */
 .bodyBackground {
   background-color: #F4F6F7;
+  background-attachment: fixed, fixed;
+  background-image: url("images/overlay.png"), url("../../images/bg.jpg");
+  background-position: top left, center center;
+  background-repeat: repeat, no-repeat;
+  background-size: auto, cover;
 }
 
 .classNameInShow {
