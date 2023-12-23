@@ -16,7 +16,7 @@ router.get("/:class_id/edit", middleware.isLoggenIn, ClassController.editClassFo
 router.get("/:class_id/delete", middleware.isLoggenIn, ClassController.deleteClassForm)
 
 //Save the class in the DB
-router.post("/", middleware.isLoggenIn, ClassController.saveClass)
+router.post("/", middleware.isLoggenIn, ClassController.createClass)
 
 // Show an individual class
 router.get("/:class_id", middleware.isLoggenIn, ClassController.showOneClass)

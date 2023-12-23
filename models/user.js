@@ -5,7 +5,7 @@ var userSchema = new mongoose.Schema({
   username: String,
   password: String,
   profilePicture: String,
-  classes:[{
+  enrolledClasses:[{
     type:mongoose.Schema.Types.ObjectId,
     ref:"Class"
   }]

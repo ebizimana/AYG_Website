@@ -1,29 +1,52 @@
-<form id="addClassForm" action="/users/<%= currentUser._id %>/classes/<%= class_id %>/categories" method="post">
+<form
+  id="addClassForm"
+  action="/users/<%= currentUser._id %>/classes/<%= class_id %>/categories"
+  method="post"
+>
+  <div class="modal-header text-center">
+    <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">
+      Add New Category
+    </h4>
+    <button
+      type="button"
+      class="close text-primary"
+      data-dismiss="modal"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
-    <div class="modal-header text-center">
-      <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add New Category</h4>
-      <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="modal-body mx-3">
+    <div class="md-form mb-5">
+      <input
+        class="form-control validate"
+        id="categoryName"
+        type="text"
+        name="category[name]"
+      />
+      <label for="className">Category Name</label>
     </div>
 
-    <div class="modal-body mx-3">
-      <div class="md-form mb-5">
-        <input class="form-control validate" id="categoryName" type="text" name="category[name]">
-        <label for="className">Category Name</label>
-      </div>
-  
-      <div class="md-form mb-5">
-        <input class="form-control validate" id="categoryWeight" name="category[weight]" type="number">
-        <label for="categoryWeight">Category Weight</label>
-      </div>
+    <div class="md-form mb-5">
+      <input
+        class="form-control validate"
+        id="categoryWeight"
+        name="category[weight]"
+        type="number"
+      />
+      <label for="categoryWeight">Category Weight</label>
+    </div>
+  </div>
 
-    </div>
-  
-    <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-      <button type="submit" id="submit" class="btn btn-outline-primary btn-block buttonAdd">Add Category
-        <i class="fas fa-paper-plane-o ml-1"></i>
-      </button>
-    </div>
-    
-  </form>
+  <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+    <button
+      type="submit"
+      id="submit"
+      class="btn btn-outline-primary btn-block buttonAdd"
+    >
+      Add Category
+      <i class="fas fa-paper-plane-o ml-1"></i>
+    </button>
+  </div>
+</form>

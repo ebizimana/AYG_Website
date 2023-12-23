@@ -44,72 +44,48 @@ exports.deleteAssignmentForm = (req, res) => {
     })
 }
 
-// Create an Assignment 
-exports.createAssignment = (req, res) => {
-    User.findById(req.params.user_id, (err, userFound) => {
-        if (err) throw err
-        Class.findById(req.params.class_id).populate("assignments").exec((err, classFound) => {
-            if (err) throw err
-            flag = true
-            for (item of classFound.assignments) {
-                if (item.name == req.body.assignment.name) {
-                    req.flash("error", "Assignment Name Alredy Exist")
-                    flag = false
-                    break
-                }
-                if (!Number(req.body.assignment.grade) || !Number(req.body.assignment.total) || Number(req.body.assignment.grade) < -1 || Number(req.body.assignment.total) < 0) {
-                    req.flash('error', "Please Input a none negative number")
-                    flag = false
-                    break
-                }
-                // I have to remove this clause so I can allow point average calculation
+// Add an Assignment 
+exports.createAssignment = async (req, res) => {
+    try {
+      const userId = req.params.user_id;
+      const classId = req.params.class_id;
+      const categoryId = req.body.assignment.categoryId;
+  
+      // Find the user
+      const user = await User.findById(userId);
+  
+      // Find the class
+      const classFound = await Class.findById(classId);
+  
+      // Create the assignment
+      const assignment = new Assignment({
+        name: req.body.assignment.name,
+        grade: req.body.assignment.grade,
+        maxPoints: req.body.assignment.maxPoints,
+        category: categoryId // Assign the category ID
+      });
+  
+      // Save the assignment to the user
+      user.assignments.push(assignment);
+      await user.save();
+  
+      // Save the assignment to the class
+      classFound.assignments.push(assignment);
+      await classFound.save();
+  
+      // Find the category and save the assignment to it
+      const category = await Category.findById(categoryId);
+      category.assignments.push(assignment);
+      await category.save();
+  
+      res.redirect(`/users/${userId}/classes/${classId}`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  };
 
-                // if (!req.body.assignment.category) {
-                //     req.flash("error", "Make sure you select a category")
-                //     flag = false
-                //     break
-                // }
-            }
-            if (flag) {
-                Assignment.create(req.body.assignment, (err, assig) => {
-                    if (err) console.log(err)
-                    classFound.assignments.push(assig);
-                    if (classFound.categories.length != 0) {
-                        Category.findOneAndUpdate({
-                            _id: req.body.assignment.category
-                        }, {
-                            $push: {
-                                'assignments.name': req.body.assignment.name
-                            }
-                        }, (err, categoryFound) => {
-                            assig.category.id = req.body.assignment.category
-                            assig.category.weight = categoryFound.weight
-                            assig.save()
-                            if (!categoryFound.assignments.totalPoints) {
-                                categoryFound.assignments.totalPoints = Number(req.body.assignment.total)
-                                categoryFound.assignments.numberAssignmentNotGraded = 1
-                                categoryFound.assignments.sumActualScore = 0
-                            } else {
-                                categoryFound.assignments.totalPoints += Number(req.body.assignment.total)
-                                categoryFound.assignments.totalNumber = categoryFound.assignments.name.length + 1
-                                if (req.body.assignment.grade == -1) {
-                                    categoryFound.assignments.numberAssignmentNotGraded += 1
-                                } else {
-                                    categoryFound.assignments.sumActualScore += Number(req.body.assignment.grade)
-                                }
-                            }
-                            categoryFound.save()
-                        })
-                    }
-                    classFound.save();
-                })
-            }
-            res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
-        })
-    })
-}
-
-// Update One Assignment
+// Edit an Assignment
 exports.updateOneAssignment = (req, res) => {
     Class.findById(req.params.class_id).populate("categories assignments").exec((err, classFound) => {
         if (err) console.log(err)
@@ -200,29 +176,6 @@ exports.updateOneAssignment = (req, res) => {
     })
 }
 
-// Update Many Assignments
-exports.updateManyAssignment = (req, res) => {
-    obj = JSON.parse(req.body.newOrderInput)
-
-    Class.findById(req.params.class_id, (err, classFound) => {
-        if (err) res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
-        Assignment.deleteMany({
-            _id: {
-                $in: classFound.assignments
-            }
-        }, function (err, allRemoved) {
-            if (err) throw err;
-            Assignment.insertMany(obj, function (err, response) {
-                if (err) throw err
-                for (key of response) {
-                    classFound.assignments.push(key);
-                }
-                classFound.save();
-                res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
-            })
-        })
-    })
-}
 
 // Delete Assignment
 exports.deleteAssignment = function (req, res) {
@@ -252,3 +205,99 @@ exports.deleteAssignment = function (req, res) {
         })
     })
 }
+
+// Update Many Assignments
+exports.updateManyAssignment = (req, res) => {
+    obj = JSON.parse(req.body.newOrderInput)
+
+    Class.findById(req.params.class_id, (err, classFound) => {
+        if (err) res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
+        Assignment.deleteMany({
+            _id: {
+                $in: classFound.assignments
+            }
+        }, function (err, allRemoved) {
+            if (err) throw err;
+            Assignment.insertMany(obj, function (err, response) {
+                if (err) throw err
+                for (key of response) {
+                    classFound.assignments.push(key);
+                }
+                classFound.save();
+                res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
+            })
+        })
+    })
+}
+
+
+
+
+// Code to Reference on
+/*
+Add an Assignment 
+
+exports.createAssignment = (req, res) => {
+    User.findById(req.params.user_id, (err, userFound) => {
+        if (err) throw err
+        Class.findById(req.params.class_id).populate("assignments").exec((err, classFound) => {
+            if (err) throw err
+            flag = true
+            for (item of classFound.assignments) {
+                if (item.name == req.body.assignment.name) {
+                    req.flash("error", "Assignment Name Alredy Exist")
+                    flag = false
+                    break
+                }
+                if (!Number(req.body.assignment.grade) || !Number(req.body.assignment.total) || Number(req.body.assignment.grade) < -1 || Number(req.body.assignment.total) < 0) {
+                    req.flash('error', "Please Input a none negative number")
+                    flag = false
+                    break
+                }
+                // I have to remove this clause so I can allow point average calculation
+
+                // if (!req.body.assignment.category) {
+                //     req.flash("error", "Make sure you select a category")
+                //     flag = false
+                //     break
+                // }
+            }
+            if (flag) {
+                Assignment.create(req.body.assignment, (err, assig) => {
+                    if (err) console.log(err)
+                    classFound.assignments.push(assig);
+                    if (classFound.categories.length != 0) {
+                        Category.findOneAndUpdate({
+                            _id: req.body.assignment.category
+                        }, {
+                            $push: {
+                                'assignments.name': req.body.assignment.name
+                            }
+                        }, (err, categoryFound) => {
+                            assig.category.id = req.body.assignment.category
+                            assig.category.weight = categoryFound.weight
+                            assig.save()
+                            if (!categoryFound.assignments.totalPoints) {
+                                categoryFound.assignments.totalPoints = Number(req.body.assignment.total)
+                                categoryFound.assignments.numberAssignmentNotGraded = 1
+                                categoryFound.assignments.sumActualScore = 0
+                            } else {
+                                categoryFound.assignments.totalPoints += Number(req.body.assignment.total)
+                                categoryFound.assignments.totalNumber = categoryFound.assignments.name.length + 1
+                                if (req.body.assignment.grade == -1) {
+                                    categoryFound.assignments.numberAssignmentNotGraded += 1
+                                } else {
+                                    categoryFound.assignments.sumActualScore += Number(req.body.assignment.grade)
+                                }
+                            }
+                            categoryFound.save()
+                        })
+                    }
+                    classFound.save();
+                })
+            }
+            res.redirect("/users/" + req.params.user_id + "/classes/" + req.params.class_id)
+        })
+    })
+}
+*/

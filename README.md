@@ -1,44 +1,163 @@
-# AYG_Website
-The website for The AYG app
+Application Breakdown for Calculation Purposes:
+User Level:
+Profile Information: Name, email, user ID, etc.
+Overall Progress: GPA, Cumulative Grade, Completion Rate, Points Left for Desired Grade, Current/Desired GPA.
 
-quiz 1  -  100
-quiz 2  -  100 
-quiz 3  -  100
-quiz 4  -  100
-quiz 5  -  100 
+Class Level:
+Class Information: Class name, Course details, Professor's name, Class ID.
+Progress Metrics: Total Categories, Total Assignments, Current Grade Letter, Projected Grade Letter, Current Percentage Grade, Points Left for Desired Grade, Current Cumulative GPA, Class-Specific Progress.
 
-Quiz Average = (450/5) = 90
-Quiz Overall = 90 * (40/100) = 36
+Category Level:
+Category Details: Category name, Category weight, Category ID within the class.
+Category Progress Metrics: Total Graded Assignments, Total Ungraded Assignments, Total Points for Graded Assignments, Total Max Points for Graded Assignments, Total Max Points for Ungraded Assignments.
 
-Test 1  -  100
-Test 2  -  100
-Test 3  -  100 
+Assignment Level:
+Assignment Details: Assignment name, Grade, Max Points, Assignment ID within the category.
+Assignment Progress Metrics: Graded/Ungraded status, Contribution to Category Grade, Individual Assignment's Impact on Overall Progress, Completion Date, Assignment ID.
 
-Test Average = (270/3) = 90
-Test Overall = 90 * (30/100)= 27
 
-Exam 1  -  100
-Exam 2  -  100 
+Application Breakdown for future Purposes:
+User
+Profile Info: Name, Email, Password, Profile Picture, Contact Info
+Preferences: Notification settings, Theme, Default View
 
-Exam Average = (180/2) = 90
-Exam Overall = 90 * (30/100)= 27
+Class
+Name: Name of the class
+Course: Course Name (e.g., Introduction to Calculus)
+Professor: Professor's Name
+Start/End Date: Class duration
+Schedule: Days and Times
+Room: Classroom details
+Syllabus: Course syllabus or outline
+Performance Metrics:
+    Overall Class GPA
+    Attendance
+    Participation
 
-# Test Scenarios 
-- All assignments have no categories (Purple)
-    - If the first assignment doesn't belong to a category: 
-        - The class status color should indicate that
-        - It should make sure every class from that point doesn't belong to a category 
-            - if one class belong to a category: 
-                - Change class status color to "Red"
-                - disable all the assignments that don't belong to a category
-                - Disable the Submit button, until all assignments belong to a category
-                - Change class status color to "Green"
-            - Or 
-                - Delete the assignment that belong to a category 
-                - Change the class status color from "Red" to back to "Purple"
+Category
+Name: Category Name (e.g., Homework, Quizzes)
+Weight: Percentage or weightage of the category
+Scoring Method: Weighted vs. Points
+Tracking:
+    Graded Assignments
+    Ungraded Assignments
+    Distribution of Grades
 
-- Mixed assignments (some have categories and some don't have categories) (Red)
-    - This is an error state: a class either is calculated by point average or category weight
-    - A class can only enter in this state if you add a categories to a point average class (purple class)
-    - Follow the steps above to correct 
-- All assignments have categories (Green)
+Assignment
+Name: Assignment Name
+Grade: Grade achieved
+Max Points: Maximum points for the assignment
+Due Date: Assignment deadline
+Type: Homework, Quiz, Exam, Project, Presentation
+Visibility: Public/Private (if students can share certain assignments)
+
+Reports and Dashboard
+Dashboard View: Widgets for current classes, upcoming assignments, GPA tracker, and points needed for desired grades.
+Detailed Reports: Performance reports for classes, categories, and individual assignments.
+Reminders & Notifications: Alerts for upcoming assignments, low grades, or changes in class status.
+
+Some Data to test with
+
+Class 1 - Mathematics 101
+Categories:
+
+Homework (Total Weight: 40%)
+Quizzes (Total Weight: 30%)
+Exams (Total Weight: 30%)
+Assignments:
+
+Homework:
+
+Homework 1
+Category: Homework
+Grade: 95
+Max Total Points: 100
+Homework 2
+Category: Homework
+Grade: 88
+Max Total Points: 100
+Homework 3
+Category: Homework
+Grade: 75
+Max Total Points: 100
+Quizzes:
+
+ Quiz 1
+Category: Quizzes
+Grade: 70
+Max Total Points: 90
+Quiz 2
+Category: Quizzes
+Grade: 90
+Max Total Points: 110
+Quiz 3
+Category: Quizzes
+Grade: 85
+Max Total Points: 90
+
+Exams:
+Midterm Exam
+Category: Exams
+Grade: 85
+Max Total Points: 180
+Final Exam
+Category: Exams
+Grade: 78
+Max Total Points: 140
+Bonus
+Category: Exams
+Grade: 90
+Max Total Points: 90
+
+
+Class 2 - Biology 201
+Categories:
+
+Lab Reports (Total Weight: 50%)
+Research Papers (Total Weight: 50%)
+Assignments:
+
+Lab Reports:
+
+Lab Report 1
+Category: Lab Reports
+Grade: 78
+Max Total Points: 100
+Lab Report 2
+Category: Lab Reports
+Grade: 90
+Max Total Points: 100
+Lab Report 3
+Category: Lab Reports
+Grade: 85
+Max Total Points: 100
+Lab Report 4
+Category: Lab Reports
+Grade: 88
+Max Total Points: 90
+
+Research Papers:
+Research Paper 1
+Category: Research Papers
+Grade: 85
+Max Total Points: 100
+Research Paper 2
+Category: Research Papers
+Grade: 92
+Max Total Points: 100
+Research Paper 3
+Category: Research Papers
+Grade: 80
+Max Total Points: 100
+Research Paper 4
+Category: Research Papers
+Grade: 88
+Max Total Points: 120
+Research Paper 5
+Category: Research Papers
+Grade: 75
+Max Total Points: 90
+Research Paper 6
+Category: Research Papers
+Grade: 90
+Max Total Points: 100
